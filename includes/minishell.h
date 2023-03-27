@@ -23,6 +23,16 @@ typedef enum s_command_type
 	WILDCARDS,
 }	t_command_type;
 
+typedef enum s_error_type
+{
+	NO_ERROR = 0
+}	t_error_type;
+
+typedef struct s_error
+{
+	t_error_type	command_error;
+}	t_error;
+
 typedef struct s_exe
 {
 	
@@ -33,19 +43,54 @@ typedef struct s_optiongit
 	
 }	t_option;
 
+typedef struct s_my_exe
+{
+	
+}	t_my_exe;
+
+typedef struct s_my_option
+{
+	
+}	t_my_option;
+
+typedef struct s_redirections
+{
+	
+}	t_redirections;
+
+typedef struct s_pipe
+{
+	
+}	t_pipe;
+
+typedef struct s_variables	
+{
+	
+}	t_variables	;
+
+typedef struct s_priorities
+{
+	
+}	t_priorities;
+
+typedef struct s_wildcards	
+{
+	
+}	t_wildcards	;
+
 typedef struct s_control
 {
 	t_command_type	command_type;
 	t_exe			*to_exe;
 	t_option		*to_option;
-	// t_my_exe		*to_my_exe;
-	// t_my_option		*to_my_option;
-	// t_redirections	*to_redirections;
-	// t_pipe			*to_pipe;
-	// t_variables		*to_variable;
-	// t_priorities	*to_prioritet;
-	// t_wildcards		*to_wildcards;
-	// t_error			*to_error;
+	t_my_exe		*to_my_exe;
+	t_my_option		*to_my_option;
+	t_redirections	*to_redirections;
+	t_pipe			*to_pipe;
+	t_variables		*to_variable;
+	t_priorities	*to_prioritet;
+	t_wildcards		*to_wildcards;
+	t_error			*to_error;
 }	t_control;
 
 #endif
