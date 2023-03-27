@@ -9,6 +9,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 
+
 typedef enum s_command_type
 {
 	EXE,
@@ -27,11 +28,16 @@ typedef struct s_exe
 	
 }	t_exe;
 
+typedef struct s_optiongit
+{
+	
+}	t_option;
+
 typedef struct s_control
 {
 	t_command_type	command_type;
 	t_exe			*to_exe;
-	// t_option		*to_option;
+	t_option		*to_option;
 	// t_my_exe		*to_my_exe;
 	// t_my_option		*to_my_option;
 	// t_redirections	*to_redirections;
