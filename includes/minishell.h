@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aafrikya <aafrikya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sogabrie <sogabrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 14:34:39 by sogabrie          #+#    #+#             */
-/*   Updated: 2023/03/27 17:28:04 by aafrikya         ###   ########.fr       */
+/*   Updated: 2023/03/27 17:51:03 by sogabrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "libft.h"
 # include <stdlib.h>
 # include <unistd.h>
+
 
 typedef enum s_command_type
 {
@@ -38,11 +39,16 @@ typedef struct s_exe
 	
 }	t_exe;
 
+typedef struct s_optiongit
+{
+	
+}	t_option;
+
 typedef struct s_control
 {
 	t_command_type	command_type;
 	t_exe			*to_exe;
-	// t_option		*to_option;
+	t_option		*to_option;
 	// t_my_exe		*to_my_exe;
 	// t_my_option		*to_my_option;
 	// t_redirections	*to_redirections;
