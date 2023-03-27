@@ -6,7 +6,11 @@
 /*   By: sogabrie <sogabrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 14:34:39 by sogabrie          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/03/27 17:51:03 by sogabrie         ###   ########.fr       */
+=======
+/*   Updated: 2023/03/27 17:47:15 by aafrikya         ###   ########.fr       */
+>>>>>>> 4cc5c1873161ccebd76a7cdaa57255c4c45106fa
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +23,7 @@
 # include "libft.h"
 # include <stdlib.h>
 # include <unistd.h>
+# include <fcntl.h>
 
 
 typedef enum s_command_type
