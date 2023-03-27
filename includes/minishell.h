@@ -6,7 +6,7 @@
 /*   By: aafrikya <aafrikya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 14:34:39 by sogabrie          #+#    #+#             */
-/*   Updated: 2023/03/27 17:28:04 by aafrikya         ###   ########.fr       */
+/*   Updated: 2023/03/27 17:47:15 by aafrikya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "libft.h"
 # include <stdlib.h>
 # include <unistd.h>
+# include <fcntl.h>
 
 typedef enum s_command_type
 {
