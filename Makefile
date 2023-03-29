@@ -64,6 +64,7 @@ fclean : clean
 	@${RM} ${READLINE_CHECK}
 	@${MAKE} DELETE_PROGRAM_MSG
 	@${MAKE} -C ${LIBFT_DIR} fclean
+	@${DEL_READLINE_LIB}
 	@${RM} ${NAME}
 
 re : fclean 
