@@ -1,5 +1,7 @@
-File	Name		|		User
+Filename    		|		User
 
-minishell.h			|		sogabrie
+struct.h			|		sogabrie
 Makefile			|		aafrikya
 replace_envp.c		|		aafrikya
+minishell.h         |       aafrikya
+minishell.c         |       aafrikya
