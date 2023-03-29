@@ -1,6 +1,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "struct.h"
 # include <stdio.h>
 # include "libft.h"
 # include <stdlib.h>
