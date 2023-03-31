@@ -10,4 +10,15 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+//Utils
+char			*update_shlvl(char *envp);
+char			**replace_envp(char **envp);
+
+//Main
+void			main_parsing(char *line, char **envp);
+t_error_type	pars_quote(char ***double_list);
+
+//Errors
+void			malloc_error(void);
+
 #endif
