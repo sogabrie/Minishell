@@ -7,3 +7,4 @@ minishell.h         |       aafrikya
 minishell.c         |       sogabrie
 parsing.c           |       sogabrie
 pars_quote.c        |       sogabrie
+here_doc.c          |       aafrikya
