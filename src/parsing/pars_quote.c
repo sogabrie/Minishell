@@ -8,6 +8,7 @@ void	pars_quote(char ***double_list)
 	int i = 0;
 	while ((*double_list)[i])
 		printf("%s\n",(*double_list)[i++]);
+		
 	// return (NO_ERROR);
 }
 
