@@ -5,7 +5,10 @@ int main(int argc, char **argv, char **envp)
 	char	*line;
 	char	**my_envp;
 
-	// my_envp = replace_envp(envp);
+	my_envp = replace_envp(envp);
+	int i = 0;
+	while (my_envp[i])
+		printf("%s",my_envp[i++]);
 	if (argc >  1)
 		return (2);
     while(1)
