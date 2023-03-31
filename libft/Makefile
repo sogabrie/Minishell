@@ -32,7 +32,7 @@ re : fclean ${NAME}
 
 # Helper messages
 LIBFT_FINISH :
-	@echo "${BLUE}Compiling LIBFT..${GREEN}"
+	@echo "${BLUE}Compiling LIBFT..${RESET}"
 
 # ANSI Colors
 RESET  = \033[0m
