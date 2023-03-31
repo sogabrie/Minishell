@@ -4,14 +4,11 @@
 typedef enum s_command_type
 {
 	EXE,
-	OPTION,
 	MY_EXE,
-	MY_OPTION,
-	REDIRECTIONS,
 	PIPE,
-	VARIABLE,
 	PRIORITET,
-	WILDCARDS,
+	LOGIC_AND,
+	LOGIC_OR
 }	t_command_type;
 
 typedef enum s_error_type
@@ -21,53 +18,42 @@ typedef enum s_error_type
 
 typedef struct s_exe
 {
-	char	*full_name;
-	char	**options;
-	char	**ptr_envp;
+	char			*full_name;
+	char			**options;
+	char			**ptr_envp;
+	int				fd_output;
+	int				fd_input;
 }	t_exe;
 
 typedef struct s_my_exe
 {
-	char	*name;
-	char	*options;
+	char			*name;
+	char			*options;
+	int				fd_output;
+	int				fd_input;
 }	t_my_exe;
-
-typedef struct s_redir_output
-{
-	
-}	t_redir_output;
 
 typedef struct s_pipe
 {
-	
+	int				fd_pip[2];
 }	t_pipe;
-
-typedef struct s_variables	
-{
-	
-}	t_variables	;
 
 typedef struct s_priorities
 {
-	
+	int				start;
+	int				end;
 }	t_priorities;
-
-typedef struct s_wildcards	
-{
-	
-}	t_wildcards	;
 
 typedef struct s_control
 {
 	t_exe			*exe;
 	t_my_exe		*my_exe;
-	t_redir_output	*redir_output;
 	t_pipe			*pipe;
-	t_variables		*variable;
 	t_priorities	*prioritet;
-	t_wildcards		*wildcards;
+	int				logic_and;
+	int				logic_or;
 	t_command_type	command_type;
 	t_error_type	error;
-}	t_control;
+}					t_control;
 
 #endif
