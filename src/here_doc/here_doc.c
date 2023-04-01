@@ -4,8 +4,8 @@ char	*creat_tmp_file(int last_number, char *tmp_file)
 {
 	char	*name_file;
 	char	*number_file;
-	int		i;
-	int		j;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
 	j = 0;
