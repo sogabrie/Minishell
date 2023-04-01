@@ -18,6 +18,7 @@ typedef enum s_error_type
 
 typedef struct s_exe
 {
+	int				status;
 	char			*full_name;
 	char			**options;
 	char			**ptr_envp;
@@ -27,6 +28,7 @@ typedef struct s_exe
 
 typedef struct s_my_exe
 {
+	int				staatus;
 	char			*name;
 	char			*options;
 	int				fd_output;
@@ -40,6 +42,7 @@ typedef struct s_pipe
 
 typedef struct s_priorities
 {
+	int				status;
 	int				start;
 	int				end;
 }	t_priorities;
@@ -55,5 +58,13 @@ typedef struct s_control
 	t_command_type	command_type;
 	t_error_type	error;
 }					t_control;
+
+typedef struct s_shell
+{
+	char			*line;
+	char			**my_envp;
+	t_control		*control;
+	size_t			count;
+}					t_shell;
 
 #endif

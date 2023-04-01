@@ -2,24 +2,25 @@
 
 int main(int argc, char **argv, char **envp)
 {
-	char	*line;
-	char	**my_envp;
+	t_shell	*my_shell;
 
-	my_envp = replace_envp(envp);
-	int i = 0;
-	while (envp[i])
-		printf("%s\n",envp[i++]);
+	creat_shell(my_shell);
+	my_shell.my_envp = replace_envp(envp);
+	// int i = 0;
+	// while (envp[i])
+	// 	printf("%s\n",envp[i++]);
 	if (argc >  1)
 		return (2);
     while(1)
 	{
-    	line = readline("minishell-1.0$ ");
+    	my_shell.line = readline("minishell-1.0$ ");
 		if (line)
 		{
-			add_history(line);
-			// main_parsing(line, my_envp);
+			add_history(my_shell.line);
+			// main_parsing(&my_shell);
 		}
-		free(line);
+		free(my_shell.line);
+		my_shell.line = 0;
 	}
     return 0;
 }

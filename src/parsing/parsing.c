@@ -1,18 +1,15 @@
 #include "minishell.h"
 
-// void	control_pars(char **double_list, char **envp)
+// void	control_exec(t_shell	*my_shell)
 // {
-// 	t_control		*control;
 // }
 
-void	main_parsing(char *line, char **envp)
+void	main_parsing(t_shell	*my_shell)
 {
-	char			**double_list;
 	t_error_type	error;
 
-	double_list = ft_split(line);
-	// error = pars_quote(&double_list);
+	// error = control_pars(my_shell);
 	// if (error != NO_ERROR)
 	// 	quote_error(erroe);
-	//control_pars(double_list, envp);
+	//control_exec(my_shell);
 }

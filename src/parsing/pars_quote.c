@@ -3,12 +3,40 @@
 #include <stdlib.h>
 
 // t_error_type	
-void	pars_quote(char ***double_list)
+void	control_pars(char ** double_list, char *list)
 {
-	int i = 0;
-	while ((*double_list)[i])
-		printf("%s\n",(*double_list)[i++]);
-		
+	char	**cp_list;
+	int		i;
+	int		j;
+	int		n;
+
+	i = 0;
+	j = 0;
+	n = 0;
+	while (list[i])
+	{
+		if (list[i] == "'")
+		{
+			cp_list = malloc(size_list(double_list) + 2);
+			cp_free(&double_list, cp_list);
+			double_list[n] = my_cat(list, j, i);
+			j = i;
+			while ()
+		}
+		if ((list[i] == '|' && list[i + 1] == '|') || (list[i] == '&' && list[i + 1] == '&') || \
+		(list[i] == '<' && list[i + 1] == '<') || (list[i] == '>' && list[i + 1] == '>'))
+		{
+			cp_list = malloc(size_list(double_list) + 2);
+			cp_free(&double_list, cp_list);
+			double_list[n] = my_cat(list, j, i);
+			cp_list = malloc(size_list(double_list) + 2);
+			cp_free(&double_list, cp_list);
+			double_list[n] = my_cat(list, i, i + 2);
+			i += 2;
+			j = i;
+		}
+
+	}
 	// return (NO_ERROR);
 }
 
@@ -28,20 +56,8 @@ void	ft_strcpy(char *dest, const char *src)
 
 int main()
 {
-	char **a = malloc (10 * sizeof(char *));
-	int i = 0;
-	while (i < 9)
-		a[i++] = malloc(50);
-	a[i] = 0;
-	ft_strcpy(a[0], "asdasdasdasdasd");
-	ft_strcpy(a[1], "asdasdasdasdasd");
-	ft_strcpy(a[2], "asdasdasdasdasd");
-	ft_strcpy(a[3], "asdasdasdasdasd");
-	ft_strcpy(a[4], "asdasdasdasdasd");
-	ft_strcpy(a[5], "asdasdasdasdasd");
-	ft_strcpy(a[6], "asdasdasdasdasd");
-	ft_strcpy(a[7], "asdasdasdasdasd");
-	ft_strcpy(a[8], "asdasdasdasdasd");
+	char *a = malloc (10 * sizeof(char *));
+	ft_strcpy(a, "asdasdasdasdasd");
 	pars_quote(&a);
 	return (0);
 }
