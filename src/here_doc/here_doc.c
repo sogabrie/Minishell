@@ -35,7 +35,7 @@ int	here_doc(char *end, int flag_check)
 
 	if (flag_check == 1)
 		return (last_number);
-	file_name = creat_tmp_file(last_number, "src/here_doc/.tmp_files/tmp_file");
+	file_name = creat_tmp_file(last_number, "src/here_doc/tmp_file");
 	fd_write = open(file_name, O_CREAT | O_WRONLY | O_TRUNC, 0755);
 	while (1)
 	{
