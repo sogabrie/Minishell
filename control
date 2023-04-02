@@ -8,3 +8,5 @@ minishell.c         |       sogabrie
 parsing.c           |       sogabrie
 pars_quote.c        |       sogabrie
 here_doc.c          |       aafrikya
+wildcards.c         |       aafrikya
+parsing.h           |       sogabrie
