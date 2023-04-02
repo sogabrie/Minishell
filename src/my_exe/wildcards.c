@@ -62,9 +62,9 @@ char	**wildcards(char *wild_string)
 	return NULL;
 }
 
-int main()
-{
-	char **ptr = wildcards("***file*");
-	// for(int i = 0; ptr[i]; i++)
-	// 	printf("%s\n", ptr[i]);
-}
+// int main()
+// {
+// 	char **ptr = wildcards("***file*");
+// 	// for(int i = 0; ptr[i]; i++)
+// 	// 	printf("%s\n", ptr[i]);
+// }

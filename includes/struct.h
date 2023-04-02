@@ -1,6 +1,8 @@
 #ifndef STRUCT_H
 # define STRUCT_H
 
+# include "libft.h"
+
 typedef enum s_command_type
 {
 	EXE,
@@ -65,7 +67,7 @@ typedef struct s_shell
 	char			**double_list;
 	char			**my_envp;
 	t_control		*control;
-	size_t			count;
+	unsigned int	count;
 }					t_shell;
 
 #endif
