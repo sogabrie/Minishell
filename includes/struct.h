@@ -62,6 +62,7 @@ typedef struct s_control
 typedef struct s_shell
 {
 	char			*line;
+	char			**double_list;
 	char			**my_envp;
 	t_control		*control;
 	size_t			count;
