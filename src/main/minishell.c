@@ -14,7 +14,7 @@ int main(int argc, char **argv, char **envp)
     while(1)
 	{
     	my_shell.line = readline("minishell-1.0$ ");
-		if (my_shell.line)
+		if (my_shell.line && ft_strlen(my_shell.line))
 		{
 			add_history(my_shell.line);
 			main_parsing(&my_shell);
