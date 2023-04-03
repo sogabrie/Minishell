@@ -10,3 +10,5 @@ pars_quote.c        |       sogabrie
 here_doc.c          |       aafrikya
 wildcards.c         |       aafrikya
 parsing.h           |       sogabrie
+pars_quote_cont.c   |       sogabrie
+ft_echo             |       sogabrie
