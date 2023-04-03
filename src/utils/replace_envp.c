@@ -22,7 +22,6 @@ char	*update_shlvl(char *envp)
 	while (shlvl[i] != '\0')
 		new_envp[j++] = shlvl[i++];
 	new_envp[j] = '\0';
-	free(shlvl);
 	return (new_envp);
 }
 
