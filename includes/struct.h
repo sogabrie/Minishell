@@ -68,6 +68,7 @@ typedef struct s_shell
 	char			**my_envp;
 	t_control		*control;
 	unsigned int	count;
+	t_error_type	my_error;
 }					t_shell;
 
 #endif
