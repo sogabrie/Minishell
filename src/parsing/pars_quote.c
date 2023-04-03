@@ -83,34 +83,30 @@ t_error_type	control_pars_2(t_shell *my_shell, int *i, int *j, int *n)
 	return (control_pars_2_2(my_shell, i, j, n));
 }
 
-
-
 t_error_type	control_pars(t_shell *my_shell, int i, int j, int n)
 {
-	t_error_type	my_error;
-
-	my_error = NO_ERROR;
+	my_shell->my_error = NO_ERROR;
 	while (my_shell->line[i])
 	{
 		if (my_shell->line[i] == '\'')
-			my_error = control_pars_1(my_shell, &i, &j, &n);
+			my_shell->my_error = control_pars_1(my_shell, &i, &j, &n);
 		else if (my_shell->line[i] == '"')
-			my_error = control_pars_2(my_shell, &i, &j, &n);
+			my_shell->my_error = control_pars_2(my_shell, &i, &j, &n);
 		else if ((my_shell->line[i] == '|' && my_shell->line[i + 1] == '|') || \
 		(my_shell->line[i] == '&' && my_shell->line[i + 1] == '&') || \
 		(my_shell->line[i] == '<' && my_shell->line[i + 1] == '<') || \
 		(my_shell->line[i] == '>' && my_shell->line[i + 1] == '>'))
-			my_error = control_pars_3(my_shell, &i, &j, &n);
+			my_shell->my_error = control_pars_3(my_shell, &i, &j, &n);
 		else if (my_shell->line[i] == '|' || my_shell->line[i] == '<' || \
 		my_shell->line[i] == '>' || my_shell->line[i] == ')' || \
 		my_shell->line[i] == '(' || my_shell->line[i] == ' ')
-			my_error = control_pars_4(my_shell, &i, &j, &n);
+			my_shell->my_error = control_pars_4(my_shell, &i, &j, &n);
 		else if (my_shell->line[i + 1] == 0)
-			my_error = control_pars_5(my_shell, &i, &j, &n);
+			my_shell->my_error = control_pars_5(my_shell, &i, &j, &n);
 		else
 			++i;
-		if (my_error != NO_ERROR)
-			return (my_error);
+		if (my_shell->my_error != NO_ERROR)
+			return (my_shell->my_error);
 	}
-	return (my_error);
+	return (my_shell->my_error);
 }
