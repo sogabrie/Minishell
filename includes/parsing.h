@@ -16,4 +16,9 @@ void			cp_free(char ***list, char ***cp);
 char			*my_cat(char *list, int start, int end);
 int				size_list(char **list);
 
+//echo.c
+
+int				ft_echo(char *line, int fd);
+char			*echo_line(char *line);
+
 #endif
