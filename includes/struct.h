@@ -60,6 +60,8 @@ typedef struct s_control
 	t_priorities	*prioritet;
 	int				logic_and;
 	int				logic_or;
+	int				fd_output;
+	int				fd_input;
 	t_command_type	command_type;
 	t_error_type	error;
 }					t_control;

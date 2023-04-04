@@ -1,9 +1,25 @@
 #include "minishell.h"
 #include "struct.h"
 
-// void	control_exec(t_shell	*my_shell)
-// {
-// }
+void	control_exec(t_shell	*my_shell)
+{
+	int	i;
+	int	exe_num;
+
+	i = 0;
+	exe_num = -1;
+	while (my_shell->double_list[i])
+	{
+		if (check_my_exe(my_shell->double_list[i]))
+		{
+			exe_num = i;
+		}
+		else if (check_redirect(my_shell->double_list[i]))
+		{
+
+		}
+	}
+}
 
 void	main_parsing(t_shell	*my_shell)
 {
