@@ -5,6 +5,7 @@
 
 typedef enum s_command_type
 {
+	MY_NULL = 0,
 	EXE,
 	MY_EXE,
 	PIPE,

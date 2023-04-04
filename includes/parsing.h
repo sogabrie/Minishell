@@ -4,6 +4,7 @@
 # include "minishell.h"
 # include "struct.h"
 # include "libft.h"
+# include <string.h>
 
 t_error_type	control_pars(t_shell *my_shell, int i, int j, int n);
 void			main_parsing(t_shell *my_shell);
