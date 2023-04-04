@@ -47,6 +47,8 @@ typedef struct s_priorities
 	int				status;
 	int				start;
 	int				end;
+	int				fd_output;
+	int				fd_input;
 }	t_priorities;
 
 typedef struct s_control

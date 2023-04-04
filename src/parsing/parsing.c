@@ -14,7 +14,8 @@ void	main_parsing(t_shell	*my_shell)
 	int i = 0;
 	while (my_shell->double_list[i])
 	{
-		printf("%s|\n", my_shell->double_list[i]);
+		ft_echo(my_shell->double_list[i], 1);
+		printf("|\n");
 		++i;
 	}
 	i = 0;
@@ -24,7 +25,7 @@ void	main_parsing(t_shell	*my_shell)
 		++i;
 	}
 	free(my_shell->double_list);
-	system("leaks minishell");
+	//system("leaks minishell");
 	// if (error != NO_ERROR)
 	// 	quote_error(erroe);
 	//control_exec(my_shell);
