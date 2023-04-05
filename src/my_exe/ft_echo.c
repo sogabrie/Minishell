@@ -56,8 +56,11 @@ int	ft_echo(char *line, int fd)
 	while (line[i])
 	{
 		error = write(fd, &(line[i++]), 1);
-		if (error < 0)
+		if (error != 1)
 		{
+			char *a = strerror(error);
+			//printf("%s\n", a);
+			perror("a");
 			return (error);
 		}
 	}

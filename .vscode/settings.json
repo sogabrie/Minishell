@@ -1,5 +1,14 @@
 {
 	"files.associations": {
-		"minishell.h": "c"
+		"minishell.h": "c",
+		"unistd.h": "c",
+		"_dev_t.h": "c",
+		"_types.h": "c",
+		"_mode_t.h": "c",
+		"_uuid_t.h": "c",
+		"cdefs.h": "c",
+		"struct.h": "c",
+		"chrono": "c",
+		"unordered_map": "c"
 	}
 }
