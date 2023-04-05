@@ -20,7 +20,23 @@ char			**replace_envp(char **envp);
 int				here_doc(char *end, int flag_check);
 char			*creat_tmp_file(int last_number, char *tmp_file);
 
+//Wildcards
+char			**wildcards(char *wild_string);
+int				check_mid(char **stars, size_t i_object, char *object_name);
+int				check_suitable(char *object_name, char *wild_string, \
+						char **stars, char *tmp_object_name);
+char	        *creat_object_name(size_t end, size_t start, char *object_name);
+char	        *replace_wild_string(size_t start, size_t end, char *wild_string);
+char	        **split_tmp_wild_string(char *wild_string, \
+				            size_t i_wild_start, size_t i_wild_end);
+char	        **creat_found_objects(char **found_objects, char *name);
+
 //Errors
 void			malloc_error(void);
+int				error_here_doc(int fd_write);
+
+//Free
+void	        two_dimensional_mas(char ***str);
+int	            free_tmp_stars(char **stars, char **tmp_object_name, int exit);
 
 #endif

@@ -37,6 +37,8 @@ int	here_doc(char *end, int flag_check)
 		return (last_number);
 	file_name = creat_tmp_file(last_number, "src/here_doc/tmp_file");
 	fd_write = open(file_name, O_CREAT | O_WRONLY | O_TRUNC, 0755);
+	if (fd_write < 0)
+		return (error_here_doc(fd_write));
 	while (1)
 	{
 		write(0, "> ", 2);
@@ -48,8 +50,6 @@ int	here_doc(char *end, int flag_check)
 	}
 	free(buffer);
 	free(file_name);
-	file_name = NULL;
-	buffer = NULL;
 	last_number++;
 	return (fd_write);
 }

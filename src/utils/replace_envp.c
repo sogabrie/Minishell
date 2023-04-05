@@ -54,3 +54,14 @@ char	**replace_envp(char **envp)
 	new_envp[i] = NULL;
 	return (new_envp);
 }
+
+// int main(int argc, char *argv[], char *envp[])
+// {
+// 	char **new_envp;
+// 	for(int i = 0; envp[i]; i++)
+// 		printf("%s\n", envp[i]);
+// 	new_envp = replace_envp(envp);
+// 	printf("\n\n");
+// 	for(int i = 0; new_envp[i]; i++)
+// 		printf("%s\n", new_envp[i]);
+// }
