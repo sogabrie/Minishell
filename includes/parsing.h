@@ -6,6 +6,8 @@
 # include "libft.h"
 # include <string.h>
 
+void			init_shell(t_shell *my_shell);
+
 //parsing.c
 t_error_type	control_pars(t_shell *my_shell, int i, int j, int n);
 void			main_parsing(t_shell *my_shell);

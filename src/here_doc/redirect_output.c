@@ -4,11 +4,11 @@ int	red_out(char *filename)
 {
 	int	file;
 
-	if (!access(av[ac - 1], F_OK))
+	if (!access(filename, F_OK))
 	{
-		if (access(av[ac - 1], W_OK))
+		if (access(filename, W_OK))
 		{
-			char *a = strerror(error);
+			//char *a = strerror(error);
 			//printf("%s\n", a);
 			perror("a");
 			return (-1);
@@ -17,7 +17,7 @@ int	red_out(char *filename)
 	file = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 00755);
 	if (file < 0)
 	{
-		char *a = strerror(error);
+		//char *a = strerror(error);
 		//printf("%s\n", a);
 		perror("a");
 	}
