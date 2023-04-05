@@ -28,7 +28,7 @@ CONFIGURE_READLINE = cd readline-lib && exec ./configure --prefix=${PATH_READLIN
 # Compiled Directories
 SRC = src
 OBJ = obj
-SUBDIRS =  errors here_doc my_exe parsing utils
+SUBDIRS = main errors here_doc my_exe parsing utils
 
 # Folder Directions
 SRC_DIR = ${foreach dir, ${SUBDIRS}, ${addprefix ${SRC}/, ${dir}}}

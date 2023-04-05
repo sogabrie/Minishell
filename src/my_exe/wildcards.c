@@ -171,15 +171,15 @@ char	**wildcards(char *wild_string)
 	return (found_objects);
 }
 
-int main()
-{
-	char *str = ft_strdup(".*gi****");
-	char **ptr = NULL;
-	ptr = wildcards(str);
-	system("leaks minishell");
-	if(ptr != NULL)
-		for(int i = 0; ptr[i]; i++)
-			printf("%s\n", ptr[i]);
-	else
-		printf("clear null\n");	
-}
+// int main()
+// {
+// 	char *str = ft_strdup(".*gi****");
+// 	char **ptr = NULL;
+// 	ptr = wildcards(str);
+// 	system("leaks minishell");
+// 	if(ptr != NULL)
+// 		for(int i = 0; ptr[i]; i++)
+// 			printf("%s\n", ptr[i]);
+// 	else
+// 		printf("clear null\n");	
+// }
