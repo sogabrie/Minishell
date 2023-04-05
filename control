@@ -1,14 +1,46 @@
-Filename    		|		User
+Filename OR Directory       |       User
 
-struct.h			|		sogabrie
-Makefile			|		aafrikya
-replace_envp.c		|		aafrikya
-minishell.h         |       aafrikya
-minishell.c         |       sogabrie
-parsing.c           |       sogabrie
-pars_quote.c        |       sogabrie
-here_doc.c          |       aafrikya
-wildcards.c         |       aafrikya
-parsing.h           |       sogabrie
-pars_quote_cont.c   |       sogabrie
-ft_echo             |       sogabrie
+control                     |       aafrikya
+Makefile                    |       aafrikya
+
+DIR includes
+libft.h                     |       aafrikya
+minshell.h                  |       aafrikya
+parsing.h                   |       sogabrie
+struct.h                    |       sogabrie
+
+Dir errors
+malloc_error.c              |       aafrikya
+
+DIR here_doc
+here_doc                    |       aafrikya
+redirect_input.c            |       sogabrie
+redirect_output_append.c    |       sogabrie
+redirect_output.c           |       sogabrie
+
+Dir main
+minshell.c                  |       sogabrie
+
+Dir my_exe
+ft_cd.c                     |       aafrikya
+ft_echo.c                   |       sogabrie
+ft_env.c                    |       ???
+ft_exit.c                   |       ???
+ft_export                   |       ???
+ft_pwd                      |       aafrikya
+ft_unset                    |       ???
+logic_and.c                 |       sogabrie
+logic_or.c                  |       sogabrie
+priority.c                  |       sogabrie
+widldcards.c                |       aafrikya
+
+Dir parsing
+initialization.c            |       sogabrie
+pars_env_and_access.c       |       sogabrie
+pars_quote_cont.c           |       sogabrie
+pars_quote.c                |       sogabrie
+parsing.c                   |       sogabrie
+
+Dir utils
+pars_quote_utils.c          |       sogabrie
+replace_envp.c              |       aafrikya
