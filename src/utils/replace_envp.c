@@ -1,6 +1,16 @@
 #include "minishell.h"
 
-char	*update_shlvl(char *envp)
+int	lvl_check(char *envp)
+{
+	int	lvl;
+
+	lvl = ft_atoi(envp + 6) + 1;
+	if (lvl > 999)
+		lvl = 0;
+	return (lvl);
+}
+
+char	*update_shlvl(char *envp, int lvl)
 {
 	char	*shlvl;
 	char	*new_envp;
@@ -9,7 +19,8 @@ char	*update_shlvl(char *envp)
 
 	i = 0;
 	j = 0;
-	shlvl = ft_itoa(ft_atoi(envp + 6) + 1);
+	lvl = lvl_check(envp);
+	shlvl = ft_itoa(lvl);
 	if (shlvl == NULL)
 		malloc_error();
 	new_envp = malloc(sizeof(char) * (ft_strlen(shlvl) + 7));
@@ -19,7 +30,7 @@ char	*update_shlvl(char *envp)
 		new_envp[j++] = envp[i++];
 	i = 0;
 	new_envp[j++] = '=';
-	while (shlvl[i] != '\0')
+	while (shlvl[i] != '\0' && lvl != 0)
 		new_envp[j++] = shlvl[i++];
 	new_envp[j] = '\0';
 	free(shlvl);
@@ -42,7 +53,7 @@ char	**replace_envp(char **envp)
 	while (envp[i])
 	{
 		if (!ft_strncmp("SHLVL", envp[i], 5))
-			new_envp[i] = update_shlvl(envp[i]);
+			new_envp[i] = update_shlvl(envp[i], 0);
 		else
 		{
 			new_envp[i] = ft_strdup(envp[i]);

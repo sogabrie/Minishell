@@ -10,7 +10,7 @@ parsing.h                   |       sogabrie
 struct.h                    |       sogabrie
 
 Dir errors
-malloc_error.c              |       aafrikya
+errors.c                    |       aafrikya
 
 DIR here_doc
 here_doc                    |       aafrikya
@@ -20,6 +20,9 @@ redirect_output.c           |       sogabrie
 
 Dir main
 minshell.c                  |       sogabrie
+
+Dir memory
+free.c                      |       aafrikya
 
 Dir my_exe
 ft_cd.c                     |       aafrikya
