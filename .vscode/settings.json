@@ -1,0 +1,8 @@
+{
+	"files.associations": {
+		"struct.h": "c",
+		"typeinfo": "c",
+		"minishell.h": "c",
+		"ostream": "c"
+	}
+}

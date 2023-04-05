@@ -16,7 +16,8 @@ typedef enum s_command_type
 
 typedef enum s_error_type
 {
-	NO_ERROR = 0
+	NO_ERROR = 0,
+	C_N_F =		404
 }	t_error_type;
 
 typedef struct s_exe
@@ -71,6 +72,7 @@ typedef struct s_shell
 	char			*line;
 	char			**double_list;
 	char			**my_envp;
+	char			**full_path;
 	t_control		*control;
 	unsigned int	count;
 	t_error_type	my_error;
