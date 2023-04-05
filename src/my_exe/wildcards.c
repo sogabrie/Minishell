@@ -1,32 +1,5 @@
 #include "minishell.h"
 
-char	*ft_strnstr_strlen(const char *big, const char *lit, size_t len)
-{
-	size_t	i;
-	size_t	l;
-	size_t	f;
-	char	*bi;
-
-	bi = (char *)big;
-	l = ft_strlen(lit);
-	if (bi == lit || l == 0)
-		return (bi);
-	if (!len)
-		return (0);
-	i = 0;
-	while (bi[i] != 0 && i < len)
-	{
-		f = 0;
-		while (bi[i + f] != 0 && bi[i + f] == lit[f] && \
-				lit[f] != 0 && (i + f) < len)
-			++f;
-		if (f == l)
-			return (bi + i + ft_strlen(lit));
-		++i;
-	}
-	return (0);
-}
-
 void	two_dimensional_mas(char ***str)
 {
 	size_t	i;
@@ -200,7 +173,7 @@ char	**wildcards(char *wild_string)
 
 int main()
 {
-	char *str = ft_strdup(".*fi*l*e***t.*****.txt");
+	char *str = ft_strdup(".*gi****");
 	char **ptr = NULL;
 	ptr = wildcards(str);
 	system("leaks minishell");
