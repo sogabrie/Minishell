@@ -86,6 +86,11 @@ void	main_parsing(t_shell	*my_shell)
 	if (check_paren(my_shell))
 	{
 		printf("ERROR ( OR )\n");
+		while (my_shell->double_list[i])
+		{
+			free(my_shell->double_list[i]);
+			++i;
+		}
 		free(my_shell->double_list);
 		my_shell->double_list = 0;
 		return ;

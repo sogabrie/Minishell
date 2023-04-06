@@ -90,6 +90,8 @@ int	check_paren(t_shell	*my_shell)
 
 	i = 0;
 	c = 0;
+	if (check_metachar(my_shell))
+		return (6);
 	while (my_shell->double_list[i])
 	{
 		if (!ft_strcmp(my_shell->double_list[i], "("))

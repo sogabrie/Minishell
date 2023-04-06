@@ -38,4 +38,7 @@ char			**get_path(char **avp);
 //check_parenthesis.c
 int				check_paren(t_shell	*my_shell);
 
+//check_metacharacters.c
+int				check_metachar(t_shell	*my_shell);
+
 #endif
