@@ -41,4 +41,7 @@ int				check_paren(t_shell	*my_shell);
 //check_metacharacters.c
 int				check_metachar(t_shell	*my_shell);
 
+//delimiter
+int				creat_delimiter(t_shell	*my_shell);
+
 #endif

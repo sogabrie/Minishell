@@ -73,6 +73,8 @@ typedef struct s_shell
 	char			**double_list;
 	char			**my_envp;
 	char			**full_path;
+	int				*delimiter;
+	int				delimiter_count;
 	t_control		*control;
 	unsigned int	count;
 	t_error_type	my_error;
