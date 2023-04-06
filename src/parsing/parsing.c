@@ -105,5 +105,5 @@ void	main_parsing(t_shell	*my_shell)
 	}
 	free(my_shell->double_list);
 	my_shell->double_list = 0;
-	//system("leaks minishell");
+	system("leaks minishell");
 }
