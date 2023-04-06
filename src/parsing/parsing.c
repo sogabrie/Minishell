@@ -93,7 +93,7 @@ void	main_parsing(t_shell	*my_shell)
 	while (my_shell->double_list[i])
 	{
 		ft_echo(my_shell->double_list[i], 1);
-		//printf("|\n");
+		printf("|\n");
 		++i;
 	}
 	printf("\n");
