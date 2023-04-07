@@ -16,6 +16,7 @@
 char			*update_shlvl(char *envp, int lvl);
 char			**replace_envp(char **envp);
 int				lvl_check(char *envp);
+char			**fill_envp(char **envp, char **new_envp);
 
 //Here_Doc
 int				here_doc(char *end, int flag_check);
