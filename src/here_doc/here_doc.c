@@ -26,7 +26,7 @@ char	*creat_tmp_file(int last_number, char *tmp_file)
 	return (name_file);
 }
 
-char	*here_doc(char *end, int flag_check)
+int	here_doc(char *end, int flag_check)
 {
 	static int	last_number;
 	int			fd_write;
@@ -34,7 +34,7 @@ char	*here_doc(char *end, int flag_check)
 	char		*buffer;
 
 	if (flag_check == 1)
-		return (ft_itoa(last_number));
+		return (last_number);
 	file_name = creat_tmp_file(last_number, "src/here_doc/tmp_file");
 	fd_write = open(file_name, O_CREAT | O_WRONLY | O_TRUNC, 0755);
 	if (fd_write < 0)
@@ -49,6 +49,7 @@ char	*here_doc(char *end, int flag_check)
 		free(buffer);
 	}
 	free(buffer);
+	free(file_name);
 	last_number++;
-	return (file_name);
+	return (fd_write);
 }

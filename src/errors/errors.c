@@ -6,8 +6,8 @@ void	malloc_error(void)
 	exit(1);
 }
 
-char	*error_here_doc(int fd_write)
+int	error_here_doc(int fd_write)
 {
-	write(2, "-minishell: syntax error: unexpected end of file\n", 49);
-	return (NULL);
+	write(1, "-minishell: syntax error: unexpected end of file\n", 49);
+	return (fd_write);
 }
