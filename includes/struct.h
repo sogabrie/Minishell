@@ -39,10 +39,10 @@ typedef struct s_my_exe
 	int				fd_input;
 }	t_my_exe;
 
-typedef struct s_pipe
-{
-	int				fd_pip[2];
-}	t_pipe;
+// typedef struct s_pipe
+// {
+// 	int				fd_pip[2];
+// }	t_pipe;
 
 typedef struct s_priorities
 {
@@ -57,7 +57,8 @@ typedef struct s_control
 {
 	t_exe			*exe;
 	t_my_exe		*my_exe;
-	t_pipe			*pipe;
+	int				pip[2];
+	// t_pipe			*pipe;
 	t_priorities	*prioritet;
 	int				logic_and;
 	int				logic_or;
@@ -75,7 +76,7 @@ typedef struct s_shell
 	char			**full_path;
 	int				*delimiter;
 	int				delimiter_count;
-	t_control		*control;
+	t_control		**control;
 	unsigned int	count;
 	t_error_type	my_error;
 }					t_shell;
