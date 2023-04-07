@@ -3,9 +3,40 @@
 // // 0 ameninch normala
 // // -1 ete sxala
 
+// char *search_home(char **envp)
+// {
+//     size_t  i;
+//     char    *home;
+
+//     i = 0;
+//     while(envp[i])
+//     {
+//         if(!ft_strncmp("HOME=", envp[i], 5))
+//         {
+//             home = ft_strdup(envp[i] + 5);
+//             printf("home = %s\n", home);
+//         }
+//         i++;
+//     }
+//     return (NULL);
+// }
+
 // int ft_cd(char *dir, char **envp)
 // {
-    
+//     int     exit;
+//     char    *home;
+
+//     if (ft_strlen(dir) == 0)
+//     {
+//         home = search_home(envp);
+//         exit = chdir(home);
+//         if (exit == -1)
+//         {
+//             write(2, "minishell: cd: adsa: No such file or directory\n", 47);
+//             return (-1);
+//         }
+//         return (0);
+//     }
 // }
 
 // int main(int argc, char *argv[], char *envp[])
@@ -17,8 +48,7 @@
 // 	} else {
 // 		  printf("Ошибка получения текущей рабочей директории\n");
 // 	}
-//     if(chdir(argv[1]) < 0)
-//         printf("error\n");
+//     ft_cd(argv[1], envp);
 //     if(getcwd(buf, sizeof(buf)) != NULL) {
 // 		  printf("Текущая рабочая директория: %s\n", buf);
 // 	} else {
