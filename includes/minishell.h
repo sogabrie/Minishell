@@ -12,6 +12,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+# define SHELL_NAME "\033[31mminishell-1.0$ \033[0m"
+
 //Utils
 char			*update_shlvl(char *envp, int lvl);
 char			**replace_envp(char **envp);

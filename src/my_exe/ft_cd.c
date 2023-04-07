@@ -22,30 +22,66 @@
 // 	return (NULL);
 // }
 
-// char *search_oldpwd(char *)
+// char *search_oldpwd(char **envp)
+// {
+//     size_t  i;
+//     char    *old_pwd;
+
+//     i = 0;
+//     while(envp[i])
+//     {
+//         if(!ft_strncmp("OLDPWD=", envp[i], 7))
+//         {
+//             old_pwd = ft_strdup(envp[i] + 7);
+//             printf("old_pwd = %s\n", old_pwd);
+//             return (old_pwd);
+//         }
+//         i++;
+//     }
+//     return (NULL);
+// }
+
+// void    old_new_pwd(char *old_pwd, char *home, char **envp)
+// {
+//     size_t  i;
+
+//     i = 0;
+//     while(envp[i])
+//     {
+//         if()
+//         i++;
+//     }
+// }
 
 // int ft_cd(char *dir, char ***envp)
 // {
-// 	int     exit;
 // 	char    *home;
-// 	char	*old_pwd;
+// 	char    *old_pwd;
 
+//     old_pwd = search_oldpwd(*envp);
+//     home = search_home(*envp);
 // 	if (ft_strlen(dir) == 0)
 // 	{
-// 		home = search_home(*envp);
-// 		exit = chdir(home);
-// 		if (exit == -1)
+// 		if(chdir(home) < 0);
 // 		{
 // 			write(2, "minishell: cd: adsa: No such file or directory\n", 47);
 // 			free(home);
 // 			return (-1);
 // 		}
+//         envp = old_new_pwd(old_pwd, home, envp);
 // 		free(home);
 // 		return (0);
 // 	}
 // 	if (!ft_strcmp("-", dir))
 // 	{
-// 		old_pwd = search_oldpwd(envp)
+//         if(old_pwd == NULL)
+//         {
+//             write(2, "minishell: cd: OLDPWD not set\n", 30);
+//             return (-1);
+//         }
+//         exit = chdir(old_pwd);
+//         free(old_pwd);
+//         return (0);
 // 	}
 // 	chdir(dir);
 // 	return (0);
