@@ -37,31 +37,43 @@ char	*update_shlvl(char *envp, int lvl)
 	return (new_envp);
 }
 
-char	**replace_envp(char **envp)
+char	**fill_envp(char **envp, char **new_envp)
 {
-	char	**new_envp;
-	int		count;
-	int		i;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
+	j = 0;
+	while (envp[j])
+	{
+		if (!ft_strncmp("SHLVL", envp[j], 5))
+			new_envp[i++] = update_shlvl(envp[j], 0);
+		else
+		{
+			if (ft_strncmp("OLDPWD", envp[j], 6))
+			{
+				new_envp[i] = ft_strdup(envp[j]);
+				if (new_envp[i++] == NULL)
+					malloc_error();
+			}
+		}
+		j++;
+	}
+	new_envp[i] = NULL;
+	return (new_envp);
+}
+
+char	**replace_envp(char **envp)
+{
+	char		**new_envp;
+	size_t		count;
+
 	count = 0;
 	while (envp[count])
 		count++;
 	new_envp = malloc(sizeof(char *) * (count + 1));
 	if (new_envp == NULL)
 		malloc_error();
-	while (envp[i])
-	{
-		if (!ft_strncmp("SHLVL", envp[i], 5))
-			new_envp[i] = update_shlvl(envp[i], 0);
-		else
-		{
-			new_envp[i] = ft_strdup(envp[i]);
-			if (new_envp[i] == NULL)
-				malloc_error();
-		}
-		i++;
-	}
-	new_envp[i] = NULL;
+	new_envp = fill_envp(envp, new_envp);
 	return (new_envp);
 }
