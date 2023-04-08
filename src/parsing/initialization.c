@@ -12,13 +12,17 @@ void	init_shell(t_shell *my_shell)
 	my_shell->control = NULL;
 	my_shell->count = 0;
 	my_shell->my_error = NO_ERROR;
+	my_shell->fd_output = 1;
+	my_shell->fd_input = 0;
+	my_shell->check_exe = -1;
 }
 
 void init_control(t_shell *my_shell)
 {
 	my_shell->control[my_shell->count ]->exe = 0;
 	my_shell->control[my_shell->count ]->my_exe = 0;
-	my_shell->control[my_shell->count ]->prioritet = 0;
+	my_shell->control[my_shell->count ]->prioritet_start = 0;
+	my_shell->control[my_shell->count ]->prioritet_end = 0;
 	my_shell->control[my_shell->count ]->logic_and = 0;
 	my_shell->control[my_shell->count ]->logic_or = 0;
 	my_shell->control[my_shell->count ]->fd_output = 1;

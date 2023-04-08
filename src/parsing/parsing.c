@@ -54,5 +54,6 @@ void	main_parsing(t_shell	*my_shell)
 	my_shell->delimiter_count = 0;
 	my_shell->delimiter = 0;
 	my_shell->double_list = 0;
+	my_shell->check_exe = -1;
 	//system("leaks minishell");
 }

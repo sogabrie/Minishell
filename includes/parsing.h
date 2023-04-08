@@ -47,4 +47,13 @@ int				creat_delimiter(t_shell	*my_shell);
 // inicalization.c
 int				chreat_cont(t_shell *my_shell);
 
+// creat_main_struct.c
+int				creat_struct_pip(t_shell	*my_shell);
+int				creat_struct_and(t_shell	*my_shell);
+int				creat_struct_or(t_shell	*my_shell);
+int				creat_struct_prioritet_start(t_shell *my_shell);
+
+//creat_my_exe.c
+int	creat_my_exe(t_shell *my_shell, char *name);
+
 #endif

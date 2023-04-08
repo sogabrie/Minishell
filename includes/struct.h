@@ -9,7 +9,8 @@ typedef enum s_command_type
 	EXE,
 	MY_EXE,
 	PIPE,
-	PRIORITET,
+	PRIORITET_START,
+	PRIORITET_END,
 	LOGIC_AND,
 	LOGIC_OR
 }	t_command_type;
@@ -17,7 +18,7 @@ typedef enum s_command_type
 typedef enum s_error_type
 {
 	NO_ERROR = 0,
-	C_N_F =		404
+	C_N_F =	404
 }	t_error_type;
 
 typedef struct s_exe
@@ -34,7 +35,7 @@ typedef struct s_my_exe
 {
 	int				staatus;
 	char			*name;
-	char			*options;
+	char			**options;
 	int				fd_output;
 	int				fd_input;
 }	t_my_exe;
@@ -49,8 +50,8 @@ typedef struct s_priorities
 	int				status;
 	int				start;
 	int				end;
-	int				fd_output;
-	int				fd_input;
+	// int				fd_output;
+	// int				fd_input;
 }	t_priorities;
 
 typedef struct s_control
@@ -59,7 +60,8 @@ typedef struct s_control
 	t_my_exe		*my_exe;
 	int				pip[2];
 	// t_pipe			*pipe;
-	t_priorities	*prioritet;
+	t_priorities	*prioritet_start;
+	t_priorities	*prioritet_end;
 	int				logic_and;
 	int				logic_or;
 	int				fd_output;
@@ -76,6 +78,11 @@ typedef struct s_shell
 	char			**full_path;
 	int				*delimiter;
 	int				delimiter_count;
+	int				*close_fd;
+	int				close_fd_count;
+	int				fd_output;
+	int				fd_input;
+	int				check_exe;
 	t_control		**control;
 	unsigned int	count;
 	t_error_type	my_error;
