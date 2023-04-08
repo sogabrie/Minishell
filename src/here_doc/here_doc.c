@@ -26,23 +26,24 @@ char	*creat_tmp_file(int last_number, char *tmp_file)
 	return (name_file);
 }
 
-int	here_doc(char *end, int flag_check)
+int	here_doc(char *end, int fd_write)
 {
 	static int	last_number;
-	int			fd_write;
 	char		*file_name;
 	char		*buffer;
 
-	if (flag_check == 1)
+	if (fd_write == 1)
 		return (last_number);
 	file_name = creat_tmp_file(last_number, "src/here_doc/tmp_file");
 	fd_write = open(file_name, O_CREAT | O_WRONLY | O_TRUNC, 0755);
 	if (fd_write < 0)
-		return (error_here_doc(fd_write));
+		return (error_here_doc());
 	while (1)
 	{
 		write(0, "> ", 2);
 		buffer = get_next_line(0);
+		if (buffer == NULL)
+			malloc_error();
 		if (!ft_strcmp_flag(buffer, end, 1))
 			break ;
 		ft_putstr_fd(buffer, fd_write);

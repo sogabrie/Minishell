@@ -12,8 +12,6 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-# define SHELL_NAME "\033[31mminishell-1.0$ \033[0m"
-
 //Utils
 char			*update_shlvl(char *envp, int lvl);
 char			**replace_envp(char **envp);
@@ -21,7 +19,7 @@ int				lvl_check(char *envp);
 char			**fill_envp(char **envp, char **new_envp);
 
 //Here_Doc
-int				here_doc(char *end, int flag_check);
+int				here_doc(char *end, int fd_write);
 char			*creat_tmp_file(int last_number, char *tmp_file);
 
 //Wildcards
@@ -38,7 +36,7 @@ char			**creat_found_objects(char **found_objects, char *name);
 
 //Errors
 void			malloc_error(void);
-int				error_here_doc(int fd_write);
+int				error_here_doc(void);
 
 //Free
 void			two_dimensional_mas(char ***str);
