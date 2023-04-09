@@ -22,6 +22,9 @@ char			**fill_envp(char **envp, char **new_envp);
 int				here_doc(char *end, int fd_write);
 char			*creat_tmp_file(int last_number, char *tmp_file);
 
+//My_exe
+int				ft_pwd(void);
+
 //Wildcards
 char			**wildcards(char *wild_string);
 int				check_mid(char **stars, size_t i_object, char *object_name);
