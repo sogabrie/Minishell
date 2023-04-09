@@ -36,6 +36,7 @@ typedef struct s_my_exe
 	int				staatus;
 	char			*name;
 	char			**options;
+	char			**ptr_envp;
 	int				fd_output;
 	int				fd_input;
 }	t_my_exe;

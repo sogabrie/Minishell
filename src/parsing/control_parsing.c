@@ -36,7 +36,7 @@ int	control_pars_exe(t_shell *my_shell, int start, int end, int *j)
 		!ft_strcmp(my_shell->double_list[i], ">") || \
 		!ft_strcmp(my_shell->double_list[i], ">>"))
 		{
-			if (creat_redirect(my_shell, i))
+			if (creat_redirect(my_shell, &i))
 				return (8);
 		}
 		else if (i == start || my_shell->check_exe == -1)
@@ -47,7 +47,8 @@ int	control_pars_exe(t_shell *my_shell, int start, int end, int *j)
 		}
 		else if (ft_strcmp(my_shell->double_list[i], " "))
 		{
-			// vercnel vorpes option
+			add_option(my_shell, my_shell->double_list[i]);
+			
 		}
 		++i;
 	}
