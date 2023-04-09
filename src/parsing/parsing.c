@@ -29,6 +29,7 @@ void	main_parsing(t_shell	*my_shell)
 		my_shell->double_list = 0;
 		return ;
 	}
+	control_parsing(my_shell);
 	while (my_shell->double_list[i])
 	{
 		ft_echo(my_shell->double_list[i], 1);
@@ -37,12 +38,45 @@ void	main_parsing(t_shell	*my_shell)
 	}
 	printf("\n");
 	i = 0;
-	printf("delimiter_count = %d delimiter -", my_shell->delimiter_count);
-	while (i < my_shell->delimiter_count)
+	//printf("delimiter_count = %d delimiter -", my_shell->delimiter_count);
+	// while (i < my_shell->delimiter_count)
+	// {
+	// 	printf(" %d |", my_shell->delimiter[i++]);
+	// }
+	// printf("\n");
+	i = 0;
+	while (i < my_shell->count)
 	{
-		printf(" %d |", my_shell->delimiter[i++]);
+		if (my_shell->control[i]->command_type == EXE)
+		{
+			printf("EXE = %s\n",my_shell->control[i]->exe->full_name);
+		}
+		if (my_shell->control[i]->command_type == MY_EXE)
+		{
+			printf("MY_EXE = %s\n",my_shell->control[i]->my_exe->name);
+		}
+		if (my_shell->control[i]->command_type == PRIORITET_START)
+		{
+			printf("PRIORITET_START \n");
+		}
+		if (my_shell->control[i]->command_type == PRIORITET_END)
+		{
+			printf("PRIORITET_END \n");
+		}
+		if (my_shell->control[i]->command_type == LOGIC_AND)
+		{
+			printf("LOGIC_AND \n");
+		}
+		if (my_shell->control[i]->command_type == LOGIC_OR)
+		{
+			printf("LOGIC_OR \n");
+		}
+		if (my_shell->control[i]->command_type == PIPE)
+		{
+			printf("PIPE \n");
+		}
+		++i;
 	}
-	printf("\n");
 	i = 0;
 	while (my_shell->double_list[i])
 	{

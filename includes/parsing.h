@@ -54,6 +54,17 @@ int				creat_struct_or(t_shell	*my_shell);
 int				creat_struct_prioritet_start(t_shell *my_shell);
 
 //creat_my_exe.c
-int	creat_my_exe(t_shell *my_shell, char *name);
+int				creat_my_exe(t_shell *my_shell, char *name);
+int				creat_redirect(t_shell *my_shell, int *i);
+int				add_option(t_shell *my_shell, char *name);
+int				creat_exe(t_shell *my_shell, char *name);
+
+//here_doc
+int				red_input(char *filename);
+int				red_out_append(char *filename);
+int				red_out(char *filename);
+
+//constrol_parsing.c
+int				control_parsing(t_shell	*my_shell);
 
 #endif

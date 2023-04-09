@@ -34,7 +34,7 @@ int	creat_exe(t_shell *my_shell, char *name)
 	my_shell->control[my_shell->count - 1]->exe->fd_output = my_shell->fd_output;
 	my_shell->control[my_shell->count - 1]->exe->fd_input = my_shell->fd_input;
 	my_shell->control[my_shell->count - 1]->exe->ptr_envp = my_shell->my_envp;
-	my_shell->control[my_shell->count - 1]->exe->staatus = 0;
+	my_shell->control[my_shell->count - 1]->exe->status = 0;
 	my_shell->control[my_shell->count - 1]->exe->options = 0;
 	return (0);
 }
@@ -42,22 +42,56 @@ int	creat_exe(t_shell *my_shell, char *name)
 int	creat_redirect(t_shell *my_shell, int *i)
 {
 	char	*a;
+	char	*c;
+	char	*b = my_shell->double_list[*i];
 
-	if (!ft_strcmp(my_shell->double_list[i], "<<"))
+	if (!ft_strcmp(my_shell->double_list[*i], "<<"))
 	{
-
+		a = ft_strdup(echo_line(my_shell->double_list[*i]));
+		(*i)++;
+		while (ft_strcmp(my_shell->double_list[*i], "<<") || \
+		ft_strcmp(my_shell->double_list[*i], "<") || \
+		ft_strcmp(my_shell->double_list[*i], ">>") || \
+		ft_strcmp(my_shell->double_list[*i], ">") || \
+		ft_strcmp(my_shell->double_list[*i], "&&") || \
+		ft_strcmp(my_shell->double_list[*i], "||") || \
+		ft_strcmp(my_shell->double_list[*i], "|") || \
+		ft_strcmp(my_shell->double_list[*i], " ") || \
+		ft_strcmp(my_shell->double_list[*i], ")"))
+		{
+			c = ft_strjoin(a, echo_line(my_shell->double_list[*i]));
+			free(a);
+			a = c;
+			(*i)++;
+		}
 	}
 	else
 	{
-		
+		a = ft_strdup(echo_line(my_shell->double_list[*i]));
+		(*i)++;
+		while (ft_strcmp(my_shell->double_list[*i], "<<") || \
+		ft_strcmp(my_shell->double_list[*i], "<") || \
+		ft_strcmp(my_shell->double_list[*i], ">>") || \
+		ft_strcmp(my_shell->double_list[*i], ">") || \
+		ft_strcmp(my_shell->double_list[*i], "&&") || \
+		ft_strcmp(my_shell->double_list[*i], "||") || \
+		ft_strcmp(my_shell->double_list[*i], "|") || \
+		ft_strcmp(my_shell->double_list[*i], " ") || \
+		ft_strcmp(my_shell->double_list[*i], ")"))
+		{
+			b = ft_strjoin(a, echo_line(my_shell->double_list[*i]));
+			free(a);
+			a = b;
+			(*i)++;
+		}
 	}
-	if (!ft_strcmp(my_shell->double_list[i], "<"))
-		return (redirect_input(a));
-	else if (!ft_strcmp(my_shell->double_list[i], ">"))
+	if (!ft_strcmp(b, "<"))
+		return (red_input(a));
+	else if (!ft_strcmp(b, ">"))
 		return (red_out(a));
-	else if (!ft_strcmp(my_shell->double_list[i], "<<"))
-		return (here_doc(a));
-	else if (!ft_strcmp(my_shell->double_list[i], ">>"))
+	else if (!ft_strcmp(b, "<<"))
+		return (here_doc(a, 0));
+	else if (!ft_strcmp(b, ">>"))
 		return (red_out_append(a));
 	return (0);
 }
