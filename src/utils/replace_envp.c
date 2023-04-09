@@ -46,11 +46,11 @@ char	**fill_envp(char **envp, char **new_envp)
 	j = 0;
 	while (envp[j])
 	{
-		if (!ft_strncmp("SHLVL", envp[j], 5))
+		if (!ft_strncmp("SHLVL=", envp[j], 6))
 			new_envp[i++] = update_shlvl(envp[j], 0);
 		else
 		{
-			if (ft_strncmp("OLDPWD", envp[j], 6))
+			if (ft_strncmp("OLDPWD=", envp[j], 7))
 			{
 				new_envp[i] = ft_strdup(envp[j]);
 				if (new_envp[i++] == NULL)

@@ -1,25 +1,25 @@
 // #include "minishell.h"
 
-// // 0 ameninch normala
-// // -1 ete sxala
+// // // 0 ameninch normala
+// // // -1 ete sxala
 
-char	*search_podh(char **envp, char *name, size_t count)
-{
-	size_t	i;
-	char	*str;
+// char	*search_podh(char **envp, char *name, size_t count)
+// {
+// 	size_t	i;
+// 	char	*str;
 
-	i = 0;
-	while (envp[i])
-	{
-		if (!ft_strncmp(name, envp[i], count))
-		{
-			str = ft_strdup(envp[i] + count);
-			return (str);
-		}
-		i++;
-	}
-	return (NULL);
-}
+// 	i = 0;
+// 	while (envp[i])
+// 	{
+// 		if (!ft_strncmp(name, envp[i], count))
+// 		{
+// 			str = ft_strdup(envp[i] + count);
+// 			return (str);
+// 		}
+// 		i++;
+// 	}
+// 	return (NULL);
+// }
 
 // char	**old_new_pwd(char *old_pwd, char *pwd, char **envp, char *dir)
 // {
