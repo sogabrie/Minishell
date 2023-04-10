@@ -50,9 +50,8 @@ void			cd_error(char *dir, int number);
 
 //Free
 void			two_dimensional_mas(char ***str);
-void			free_dir(char **envp, char *dir, char *old_pwd);
 int				free_tmp_stars(char **stars, char **tmp_object_name, int exit);
-void			free_object_cd(char *new_dir, char *home, \
+int				free_object_cd(char *new_dir, char *home, \
 								char *old_pwd, char *pwd);
 
 #endif
