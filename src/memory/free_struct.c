@@ -7,7 +7,7 @@ void	free_struct(t_shell *my_shell)
 	int	j;
 
 	i = 0;
-	write (1, "free_1\n", 8);
+	// write (1, "free_1\n", 8);
 	while (i < my_shell->count)
 	{
 		if (my_shell->control[i]->command_type == EXE)
@@ -40,20 +40,22 @@ void	free_struct(t_shell *my_shell)
 		}
 		++i;
 	}
-	write (1, "free_2\n", 8);
+	// write (1, "free_2\n", 8);
 	i = 0;
+	// printf("my_shell->count = %d\n", my_shell->count);
 	while (i < my_shell->count)
 	{
+		// printf("i = %d\n", i);
 		free(my_shell->control[i++]);
 	}
-	write  (1, "free_3\n", 8);
+	// write  (1, "free_3\n", 8);
 	i = 0;
 	while (my_shell->double_list && my_shell->double_list[i])
 	{
 		free(my_shell->double_list[i]);
 		++i;
 	}
-	write  (1, "free_4\n", 8);
+	// write  (1, "free_4\n", 8);
 	i = 0;
 	while (my_shell->full_path && my_shell->full_path[i])
 	{

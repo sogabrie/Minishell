@@ -38,7 +38,7 @@ void	main_parsing(t_shell	*my_shell)
 	// }
 	// printf("\n");
 	i = 0;
-	printf("my_shell->count = %d\n", my_shell->count);
+	// printf("my_shell->count = %d\n", my_shell->count);
 	while (i < my_shell->count)
 	{
 		if (my_shell->control[i]->command_type == EXE)
