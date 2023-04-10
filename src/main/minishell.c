@@ -6,9 +6,9 @@ int main(int argc, char **argv, char **envp)
 
 	init_shell(&my_shell);
 	my_shell.my_envp = replace_envp(envp);
-	int i = 0;
-	while (envp[i])
-		printf("%s\n", envp[i++]);
+	// int i = 0;
+	// while (envp[i])
+	// 	printf("%s\n", envp[i++]);
 	if (argc >  1)
 		return (2);
     while(1)

@@ -40,3 +40,16 @@ int	creat_struct_prioritet_start(t_shell	*my_shell)
 	my_shell->control[my_shell->count - 1]->prioritet_start->status = 0;
 	return (0);
 }
+
+int	creat_struct_prioritet_end(t_shell *my_shell)
+{
+	chreat_cont(my_shell);
+	my_shell->control[my_shell->count - 1]->command_type = PRIORITET_END;
+	my_shell->control[my_shell->count - 1]->prioritet_start = malloc(sizeof(t_priorities));
+	if (!my_shell->control[my_shell->count - 1]->prioritet_start)
+		return (8);
+	my_shell->control[my_shell->count - 1]->prioritet_start->start = my_shell->count - 1;
+	my_shell->control[my_shell->count - 1]->prioritet_start->end = -1;
+	my_shell->control[my_shell->count - 1]->prioritet_start->status = 0;
+	return (0);
+}

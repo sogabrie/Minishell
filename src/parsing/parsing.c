@@ -29,6 +29,7 @@ void	main_parsing(t_shell	*my_shell)
 		my_shell->double_list = 0;
 		return ;
 	}
+	write(1, "aa_1\n",5);
 	control_parsing(my_shell);
 	while (my_shell->double_list[i])
 	{
@@ -45,15 +46,22 @@ void	main_parsing(t_shell	*my_shell)
 	// }
 	// printf("\n");
 	i = 0;
+	printf("my_shell->count = %d\n", my_shell->count);
 	while (i < my_shell->count)
 	{
 		if (my_shell->control[i]->command_type == EXE)
 		{
 			printf("EXE = %s\n",my_shell->control[i]->exe->full_name);
+			int j = 0;
+			while (my_shell->control[i]->exe->options[j])
+				printf("	Options = %s\n", my_shell->control[i]->exe->options[j++]);
 		}
 		if (my_shell->control[i]->command_type == MY_EXE)
 		{
 			printf("MY_EXE = %s\n",my_shell->control[i]->my_exe->name);
+			int j = 0;
+			while (my_shell->control[i]->my_exe->options[j])
+				printf("	Options = %s\n", my_shell->control[i]->my_exe->options[j++]);
 		}
 		if (my_shell->control[i]->command_type == PRIORITET_START)
 		{
