@@ -17,17 +17,9 @@ void	main_parsing(t_shell	*my_shell)
 	if (check_paren(my_shell))
 	{
 		printf("ERROR ( OR )\n");
-		while (my_shell->double_list[i])
-		{
-			free(my_shell->double_list[i]);
-			++i;
-		}
-		free(my_shell->double_list);
-		free(my_shell->delimiter);
-		my_shell->delimiter_count = 0;
-		my_shell->delimiter = 0;
-		my_shell->double_list = 0;
+		free_struct(my_shell);
 		return ;
+
 	}
 	write(1, "aa_1\n",5);
 	control_parsing(my_shell);
@@ -53,14 +45,14 @@ void	main_parsing(t_shell	*my_shell)
 		{
 			printf("EXE = %s\n",my_shell->control[i]->exe->full_name);
 			int j = 0;
-			while (my_shell->control[i]->exe->options[j])
+			while (my_shell->control[i]->exe->options && my_shell->control[i]->exe->options[j])
 				printf("	Options = %s\n", my_shell->control[i]->exe->options[j++]);
 		}
 		if (my_shell->control[i]->command_type == MY_EXE)
 		{
 			printf("MY_EXE = %s\n",my_shell->control[i]->my_exe->name);
 			int j = 0;
-			while (my_shell->control[i]->my_exe->options[j])
+			while (my_shell->control[i]->my_exe->options && my_shell->control[i]->my_exe->options[j])
 				printf("	Options = %s\n", my_shell->control[i]->my_exe->options[j++]);
 		}
 		if (my_shell->control[i]->command_type == PRIORITET_START)
@@ -85,17 +77,6 @@ void	main_parsing(t_shell	*my_shell)
 		}
 		++i;
 	}
-	i = 0;
-	while (my_shell->double_list[i])
-	{
-		free(my_shell->double_list[i]);
-		++i;
-	}
-	free(my_shell->double_list);
-	free(my_shell->delimiter);
-	my_shell->delimiter_count = 0;
-	my_shell->delimiter = 0;
-	my_shell->double_list = 0;
-	my_shell->check_exe = -1;
-	//system("leaks minishell");
+	free_struct(my_shell);
+	system("leaks minishell");
 }

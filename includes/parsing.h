@@ -68,4 +68,7 @@ int				red_out(char *filename);
 //constrol_parsing.c
 int				control_parsing(t_shell	*my_shell);
 
+//free_struct.c
+void			free_struct(t_shell *my_shell);
+
 #endif

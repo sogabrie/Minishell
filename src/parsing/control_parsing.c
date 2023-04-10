@@ -21,7 +21,7 @@ int	control_pars_exe(t_shell *my_shell, int start, int end)
 	}
 	write(1, "aa_15\n",6);
 	i = start;
-	while (i < end  && ft_strcmp(my_shell->double_list[i], ")"))
+	while (i < end && my_shell->double_list[i]  && ft_strcmp(my_shell->double_list[i], ")"))
 	{
 		write(1, "aa_16\n",6);
 		if ((!ft_strcmp(my_shell->double_list[i], "echo") || \
