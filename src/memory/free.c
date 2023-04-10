@@ -27,3 +27,12 @@ int	free_tmp_stars(char **stars, char **tmp_object_name, int exit)
 	two_dimensional_mas(&stars);
 	return (exit);
 }
+
+void	free_object_cd(char *new_dir, char *home, char *old_pwd, char *pwd)
+{
+	if (new_dir != NULL)
+		free(new_dir);
+	free(home);
+	free(old_pwd);
+	free(pwd);
+}

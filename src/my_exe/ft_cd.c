@@ -1,26 +1,5 @@
 #include "minishell.h"
 
-// // 0 ameninch normala
-// // -1 ete sxala
-
-char	*search_podh(char **envp, char *name, size_t count)
-{
-	size_t	i;
-	char	*str;
-
-	i = 0;
-	while (envp[i])
-	{
-		if (!ft_strncmp(name, envp[i], count))
-		{
-			str = ft_strdup(envp[i] + count);
-			return (str);
-		}
-		i++;
-	}
-	return (NULL);
-}
-
 char	**old_new_pwd(char *old_pwd, char *pwd, char **envp, char *dir)
 {
 	size_t	i;
@@ -31,11 +10,11 @@ char	**old_new_pwd(char *old_pwd, char *pwd, char **envp, char *dir)
 		i++;
 	if (old_pwd == NULL)
 		i++;
-	new_envp = malloc(sizeof(char *) * (i + 1));
+	new_envp = ft_calloc((i + 1), sizeof(char *));
 	if (new_envp == NULL)
 		malloc_error();
-	i = 0;
-	while (envp[i])
+	i = -1;
+	while (envp[++i])
 	{
 		if (!ft_strncmp("PWD=", envp[i], 4))
 			new_envp[i] = ft_strjoin("PWD=", dir);
@@ -43,94 +22,100 @@ char	**old_new_pwd(char *old_pwd, char *pwd, char **envp, char *dir)
 			new_envp[i] = ft_strjoin("OLDPWD=", pwd);
 		else
 			new_envp[i] = ft_strdup(envp[i]);
-		i++;
 	}
 	if (old_pwd == NULL)
 		new_envp[i++] = ft_strjoin("OLDPWD=", pwd);
-	new_envp[i] = NULL;
 	two_dimensional_mas(&envp);
 	return (new_envp);
 }
 
-void	cd_error(char *dir)
+int	check_home(char *home, char *new_dir, char *old_pwd, char *pwd)
 {
-	char	*error;
-
-	ft_putstr_fd("minishell: cd: ", 2);
-	ft_putstr_fd(dir, 2);
-	error = strerror(2);
-	write(2, ": ", 2);
-	ft_putendl_fd(error, 2);
-}
-
-char    *valid_dir(char *dir, char *home)
-{
-	char    *new_dir;
-
-	printf("%s\n", dir);
-	if(dir[0] == '~')
+	if (check_access(home, 1) == -1)
 	{
-		new_dir = ft_strjoin(home, dir + 1);
-		printf("new_dir = %s\n", new_dir);
-		return (new_dir);
+		cd_error(home, 13);
+		free_object_cd(new_dir, home, old_pwd, pwd);
+		return (-1);
 	}
-	return dir;
+	if (chdir(home) < 0)
+	{
+		cd_error(home, 2);
+		free_object_cd(new_dir, home, old_pwd, pwd);
+		return (-1);
+	}
+	return (0);
 }
 
-int	ft_cd(char *dir, char ***envp)
+int	check_past_dir(char *old_pwd, char *home, char *pwd, char *new_dir)
+{
+	if (check_access(old_pwd, 1) == -1)
+	{
+		cd_error(old_pwd, 13);
+		free_object_cd(new_dir, home, old_pwd, pwd);
+		return (-1);
+	}
+	if (old_pwd == NULL)
+	{
+		write(2, "minishell: cd: OLDPWD not set\n", 30);
+		free_object_cd(new_dir, home, old_pwd, pwd);
+		return (-1);
+	}
+	if (chdir(old_pwd) < 0)
+	{
+		cd_error(old_pwd, 2);
+		free_object_cd(new_dir, home, old_pwd, pwd);
+		return (-1);
+	}
+	return (0);
+}
+
+int	check_new_dir(char *home, char *dir, char *old_pwd, char *pwd)
+{
+	char	*new_dir;
+
+	new_dir = valid_dir(dir, home);
+	if (check_access(new_dir, 1) == -1)
+	{
+		cd_error(new_dir, 13);
+		free_object_cd(new_dir, home, old_pwd, pwd);
+		return (-1);
+	}
+	if (chdir(new_dir) < 0)
+	{
+		cd_error(dir, 2);
+		free_object_cd(new_dir, home, old_pwd, pwd);
+		return (-1);
+	}
+	free(new_dir);
+	return (0);
+}
+
+int	ft_cd(char *dir, char ***envp, char *new_dir, char *pwd)
 {
 	char	*home;
 	char	*old_pwd;
-	char	*pwd;
-	char	buf[256];
 
-
-	old_pwd = search_podh(*envp, "OLDPWD=", 7);
-	home = search_podh(*envp, "HOME=", 5);
-	pwd = search_podh(*envp, "PWD=", 4);
+	adding_dir(&old_pwd, &home, &pwd, envp);
 	if (ft_strlen(dir) == 0)
 	{
-		if (chdir(home) < 0)
-		{
-			// write(2, "minishell: cd: adsa: No such file or directory\n", 47);
-			cd_error(home);
-			free(home);
-			free(old_pwd);
-			free(pwd);
+		if (check_home(home, new_dir, old_pwd, pwd) == -1)
 			return (-1);
-		}
 		*envp = old_new_pwd(old_pwd, pwd, *envp, home);
 	}
 	else if (!ft_strcmp("-", dir))
 	{
-		if(old_pwd == NULL)
-		{
-			write(2, "minishell: cd: OLDPWD not set\n", 30);
-			free(home);
-			free(old_pwd);
-			free(pwd);
+		if (check_past_dir(old_pwd, home, pwd, new_dir) == -1)
 			return (-1);
-		}
-		chdir(old_pwd);
 		ft_putendl_fd(old_pwd, 1);
 		*envp = old_new_pwd(old_pwd, pwd, *envp, old_pwd);
 	}
 	else
 	{
-		dir = valid_dir(dir, home);
-		if(chdir(dir) < 0)
-		{
-			cd_error(dir);
-			free(home);
-			free(old_pwd);
-			free(pwd);
+		if (check_new_dir(home, dir, old_pwd, pwd) == -1)
 			return (-1);
-		}
-		*envp = old_new_pwd(old_pwd, pwd, *envp, getcwd(buf, sizeof(buf)));
+		*envp = old_new_pwd(old_pwd, pwd, *envp, getcwd(home, sizeof(home)));
 	}
-	free(home);
-	free(old_pwd);
-	free(pwd);
+	free_object_cd(new_dir, home, old_pwd, pwd);
 	return (0);
 }
 
@@ -138,24 +123,30 @@ int	ft_cd(char *dir, char ***envp)
 // {
 // 	char buf[256];
 // 	char **my_envp = replace_envp(envp);
-// 	for(int i = 0; my_envp[i]; i++)
-// 		if(!ft_strncmp("HOME=", my_envp[i], 5))
-// 			my_envp[i] = ft_strdup("HOME=/Users/zoktrfall");
-// 	ft_cd("../~/Desktop", &my_envp);
+// 	// for(int i = 0; my_envp[i]; i++)
+// 	// 	if(!ft_strncmp("HOME=", my_envp[i], 5))
+// 	// 		my_envp[i] = ft_strdup("HOME=/Users/aafrikya/Desktop/Mikroshell");
 // 	// system("leaks minishell");
-// 	printf("%s\n", getcwd(buf, sizeof(buf)));
-// 	// // system("leaks minishell");
-// 	// for(int i = 0; my_envp[i]; i++)
-// 	// 	printf("%s\n", my_envp[i]);
-// 	// ft_cd(NULL, &my_envp);
-// 	// for(int i = 0; my_envp[i]; i++)
-// 	// 	printf("%s\n", my_envp[i]);
-// 	// ft_cd("../..", &my_envp);
-// 	// for(int i = 0; my_envp[i]; i++)
-// 	// 	printf("%s\n", my_envp[i]);
-// 	// for(int i = 0; my_envp[i]; i++)
-// 	// 	printf("%s\n", my_envp[i]);
 // 	// printf("%s\n", getcwd(buf, sizeof(buf)));
+// 	// for(int i = 0; my_envp[i]; i++)
+// 	// 	printf("%s\n", my_envp[i]);
+// 	// printf("oper = 0\n\n");
+// 	ft_cd("/", &my_envp, NULL, NULL);
+// 	printf("%s\n", getcwd(buf, sizeof(buf)));
 // 	// system("leaks minishell");
+// 	// for(int i = 0; my_envp[i]; i++)
+// 	// 	printf("%s\n", my_envp[i]);
+// 	// printf("oper = cd\n\n");
+// 	ft_cd("-", &my_envp, NULL, NULL);
+// 	printf("%s\n", getcwd(buf, sizeof(buf)));
+// 	// for(int i = 0; my_envp[i]; i++)
+// 	// 	printf("%s\n", my_envp[i]);
+// 	// printf("oper = -\n\n");
+// 	ft_cd("src/main", &my_envp, NULL, NULL);
+// 	// for(int i = 0; my_envp[i]; i++)
+// 	// 	printf("%s\n", my_envp[i]);
+// 	// printf("oper = ../..\n\n");
+// 	printf("%s\n", getcwd(buf, sizeof(buf)));
+// 	system("leaks minishell");
 // 	return 0;
 // }

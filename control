@@ -47,3 +47,5 @@ parsing.c                   |       sogabrie
 Dir utils
 pars_quote_utils.c          |       sogabrie
 replace_envp.c              |       aafrikya
+cd_utils.c                  |       aafrikya
+ft_utils.c                  |       aafrikya
