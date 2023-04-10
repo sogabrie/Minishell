@@ -25,7 +25,7 @@ char	**old_new_pwd(char *old_pwd, char *pwd, char **envp, char *dir)
 	}
 	if (old_pwd == NULL)
 		new_envp[i++] = ft_strjoin("OLDPWD=", pwd);
-	two_dimensional_mas(&envp);
+	free_dir(envp, dir, old_pwd);
 	return (new_envp);
 }
 
@@ -113,40 +113,8 @@ int	ft_cd(char *dir, char ***envp, char *new_dir, char *pwd)
 	{
 		if (check_new_dir(home, dir, old_pwd, pwd) == -1)
 			return (-1);
-		*envp = old_new_pwd(old_pwd, pwd, *envp, getcwd(home, sizeof(home)));
+		*envp = old_new_pwd(old_pwd, pwd, *envp, getcwd(NULL, sizeof(42)));
 	}
 	free_object_cd(new_dir, home, old_pwd, pwd);
 	return (0);
 }
-
-// int main(int argc, char *argv[], char *envp[])
-// {
-// 	char buf[256];
-// 	char **my_envp = replace_envp(envp);
-// 	// for(int i = 0; my_envp[i]; i++)
-// 	// 	if(!ft_strncmp("HOME=", my_envp[i], 5))
-// 	// 		my_envp[i] = ft_strdup("HOME=/Users/aafrikya/Desktop/Mikroshell");
-// 	// system("leaks minishell");
-// 	// printf("%s\n", getcwd(buf, sizeof(buf)));
-// 	// for(int i = 0; my_envp[i]; i++)
-// 	// 	printf("%s\n", my_envp[i]);
-// 	// printf("oper = 0\n\n");
-// 	ft_cd("/", &my_envp, NULL, NULL);
-// 	printf("%s\n", getcwd(buf, sizeof(buf)));
-// 	// system("leaks minishell");
-// 	// for(int i = 0; my_envp[i]; i++)
-// 	// 	printf("%s\n", my_envp[i]);
-// 	// printf("oper = cd\n\n");
-// 	ft_cd("-", &my_envp, NULL, NULL);
-// 	printf("%s\n", getcwd(buf, sizeof(buf)));
-// 	// for(int i = 0; my_envp[i]; i++)
-// 	// 	printf("%s\n", my_envp[i]);
-// 	// printf("oper = -\n\n");
-// 	ft_cd("src/main", &my_envp, NULL, NULL);
-// 	// for(int i = 0; my_envp[i]; i++)
-// 	// 	printf("%s\n", my_envp[i]);
-// 	// printf("oper = ../..\n\n");
-// 	printf("%s\n", getcwd(buf, sizeof(buf)));
-// 	system("leaks minishell");
-// 	return 0;
-// }

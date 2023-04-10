@@ -20,7 +20,8 @@ int				lvl_check(char *envp);
 char			**fill_envp(char **envp, char **new_envp);
 //cd_utils
 char			*search_podh(char **envp, char *name, size_t count);
-void			adding_dir(char **old_pwd, char **home, char **pwd, char ***envp);
+void			adding_dir(char **old_pwd, char **home, \
+								char **pwd, char ***envp);
 char			*valid_dir(char *dir, char *home);
 
 //Here_Doc
@@ -49,7 +50,9 @@ void			cd_error(char *dir, int number);
 
 //Free
 void			two_dimensional_mas(char ***str);
+void			free_dir(char **envp, char *dir, char *old_pwd);
 int				free_tmp_stars(char **stars, char **tmp_object_name, int exit);
-void			free_object_cd(char *new_dir, char *home, char *old_pwd, char *pwd);
+void			free_object_cd(char *new_dir, char *home, \
+								char *old_pwd, char *pwd);
 
 #endif
