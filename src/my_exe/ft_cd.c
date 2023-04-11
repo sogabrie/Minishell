@@ -31,6 +31,11 @@ char	**old_new_pwd(char *old_pwd, char *pwd, char **envp, char *dir)
 
 int	check_home(char *home, char *new_dir, char *old_pwd, char *pwd)
 {
+	if (check_dir(home))
+	{
+		free_object_cd(new_dir, home, old_pwd, pwd);
+		return (-1);
+	}
 	if (check_access(home, 1) == -1)
 	{
 		cd_error(home, 13);
@@ -48,6 +53,11 @@ int	check_home(char *home, char *new_dir, char *old_pwd, char *pwd)
 
 int	check_past_dir(char *old_pwd, char *home, char *pwd, char *new_dir)
 {
+	if (check_dir(old_pwd))
+	{
+		free_object_cd(new_dir, home, old_pwd, pwd);
+		return (-1);
+	}
 	if (check_access(old_pwd, 1) == -1)
 	{
 		cd_error(old_pwd, 13);
@@ -74,6 +84,11 @@ int	check_new_dir(char *home, char *dir, char *old_pwd, char *pwd)
 	char	*new_dir;
 
 	new_dir = valid_dir(dir, home);
+	if (check_dir(new_dir))
+	{
+		free_object_cd(new_dir, home, old_pwd, pwd);
+		return (-1);
+	}
 	if (check_access(new_dir, 1) == -1)
 	{
 		cd_error(new_dir, 13);
@@ -117,46 +132,4 @@ int	ft_cd(char *dir, char ***envp, char *new_dir, char *pwd)
 		*envp = old_new_pwd(old_pwd, pwd, *envp, getcwd(buf, sizeof(buf)));
 	}
 	return (free_object_cd(new_dir, home, old_pwd, pwd));
-}
-
- int main(int argc, char *argv[], char *envp[])
-{
- 	char buf[256];
- 	char **my_envp = replace_envp(envp);
- 	// for(int i = 0; my_envp[i]; i++)
- 	// 	if(!ft_strncmp("HOME=", my_envp[i], 5))
- 	// 		my_envp[i] = ft_strdup("HOME=/Users/zoktrfall");
- 	// ft_cd("../~/Desktop", &my_envp);
- 	// for(int i = 0; my_envp[i]; i++)
- 		// if(!ft_strncmp("HOME=", my_envp[i], 5))
- 			// my_envp[i] = ft_strdup("HOME=/Users/aafrikya/Desktop/Mikroshell");
- 	// system("leaks minishell");
- 	// printf("%s\n", getcwd(buf, sizeof(buf)));
- 	// // system("leaks minishell");
- 	// printf("%s\n", getcwd(buf, sizeof(buf)));
- 	// for(int i = 0; my_envp[i]; i++)
- 	// 	printf("%s\n", my_envp[i]);
- 	// ft_cd(NULL, &my_envp);
- 	// printf("oper = 0\n\n");
- 	ft_cd("~Desktop", &my_envp, NULL, NULL);
- 	// printf("%s\n", getcwd(buf, sizeof(buf)));
- 	// system("leaks minishell");
- 	// for(int i = 0; my_envp[i]; i++)
- 	// 	printf("%s\n", my_envp[i]);
- 	// ft_cd("/Users/aafrikya/Desktop/Minishell/src/here_doc/here_doc.c", &my_envp, NULL, NULL);
- 	// printf("oper = cd\n\n");
- 	// ft_cd("-", &my_envp, NULL, NULL);
- 	// printf("%s\n", getcwd(buf, sizeof(buf)));
- 	// for(int i = 0; my_envp[i]; i++)
- 	// 	printf("%s\n", my_envp[i]);
- 	// printf("oper = -\n\n");
- 	// ft_cd("", &my_envp, NULL, NULL);
- 	for(int i = 0; my_envp[i]; i++)
- 		printf("%s\n", my_envp[i]);
- 	// printf("%s\n", getcwd(buf, sizeof(buf)));
- 	// system("leaks minishell");
- 	// printf("oper = ../..\n\n");
- 	printf("%s\n", getcwd(buf, sizeof(buf)));
- 	system("leaks minishell");
- 	return 0;
 }

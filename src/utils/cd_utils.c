@@ -38,3 +38,20 @@ char	*valid_dir(char *dir, char *home)
 	return (new_dir);
 }
 
+int	check_dir(char *dir)
+{
+	DIR		*file;
+
+	if (access(dir, F_OK) == 0)
+	{
+		file = opendir(dir);
+		if (file == NULL)
+		{
+			cd_error(dir, 20);
+			return (1);
+		}
+		closedir(file);
+		return (0);
+	}
+	return (0);
+}

@@ -18,7 +18,9 @@ char			*update_shlvl(char *envp, int lvl);
 char			**replace_envp(char **envp);
 int				lvl_check(char *envp);
 char			**fill_envp(char **envp, char **new_envp);
+
 //cd_utils
+int				check_dir(char *dir);
 char			*search_podh(char **envp, char *name, size_t count);
 void			adding_dir(char **old_pwd, char **home, \
 								char **pwd, char ***envp);
@@ -30,6 +32,7 @@ char			*creat_tmp_file(int last_number, char *tmp_file);
 
 //My_exe
 int				ft_pwd(void);
+int				ft_cd(char *dir, char ***envp, char *new_dir, char *pwd);
 
 //Wildcards
 char			**wildcards(char *wild_string);
