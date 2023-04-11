@@ -14,9 +14,10 @@
 
 //Utils
 int				check_access(char *directory, int check_number);
-char			*update_shlvl(char *envp, int lvl);
+char			*update_shlvl(char *envp, int lvl, int flag_z);
 char			**replace_envp(char **envp);
-int				lvl_check(char *envp);
+int				lvl_check(char *envp, int *flag_z);
+char			*search_envp_in(char **envp, char *obj, int count);
 char			**fill_envp(char **envp, char **new_envp);
 
 //cd_utils
@@ -27,8 +28,9 @@ void			adding_dir(char **old_pwd, char **home, \
 char			*valid_dir(char *dir, char *home);
 
 //Here_Doc
-int				here_doc(char *end, int fd_write);
-char			*creat_tmp_file(int last_number, char *tmp_file);
+int				here_doc(char *end, int fd_write, char **envp, char *buffer);
+char			*creat_tmp_file(int last_number, char *tmp_file, \
+									char *shlvl, char *number_file);
 
 //My_exe
 int				ft_pwd(void);

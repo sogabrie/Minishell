@@ -1,9 +1,9 @@
 #include "minishell.h"
 
-char	*creat_tmp_file(int last_number, char *tmp_file)
+char	*creat_tmp_file(int last_number, char *tmp_file, \
+							char *shlvl, char *number_file)
 {
 	char	*name_file;
-	char	*number_file;
 	size_t	i;
 	size_t	j;
 
@@ -12,11 +12,15 @@ char	*creat_tmp_file(int last_number, char *tmp_file)
 	number_file = ft_itoa(last_number);
 	if (number_file == NULL)
 		malloc_error();
-	name_file = malloc(sizeof(char) * (ft_strlen(number_file) + 33));
+	name_file = malloc(sizeof(char) * \
+			(ft_strlen(number_file) + ft_strlen(shlvl) + 33));
 	if (number_file == NULL)
 		malloc_error();
 	while (tmp_file[i] != '\0')
 		name_file[j++] = tmp_file[i++];
+	i = 0;
+	while (shlvl[i] != '\0')
+		name_file[j++] = shlvl[i++];
 	i = 0;
 	while (number_file[i] != '\0')
 		name_file[j++] = number_file[i++];
@@ -26,15 +30,15 @@ char	*creat_tmp_file(int last_number, char *tmp_file)
 	return (name_file);
 }
 
-int	here_doc(char *end, int fd_write)
+int	here_doc(char *end, int fd_write, char **envp, char *buffer)
 {
 	static int	last_number;
 	char		*file_name;
-	char		*buffer;
 
 	if (fd_write == 1)
 		return (last_number);
-	file_name = creat_tmp_file(last_number, "src/here_doc/tmp_file");
+	file_name = creat_tmp_file(last_number, "src/here_doc/tmp_file", \
+						search_envp_in(envp, "SHLVL=", 6), NULL);
 	fd_write = open(file_name, O_CREAT | O_WRONLY | O_TRUNC, 0755);
 	if (fd_write < 0)
 		return (error_here_doc());

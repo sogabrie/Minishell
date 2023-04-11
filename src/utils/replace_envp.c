@@ -1,16 +1,29 @@
 #include "minishell.h"
 
-int	lvl_check(char *envp)
+int	lvl_check(char *envp, int *flag_z)
 {
 	int	lvl;
+	int	i_atoi;
 
-	lvl = ft_atoi(envp + 6) + 1;
-	if (lvl > 999)
+	i_atoi = ft_atoi(envp + 6);
+	if (i_atoi < 0)
+		return (0);
+	lvl = i_atoi + 1;
+	if (lvl == 1000)
+	{
 		lvl = 0;
+		*flag_z = 1;
+	}
+	if (lvl > 1000)
+	{
+		printf("minishell: warning: shell level");
+		printf("(%d) too high, resetting to 1\n", lvl);
+		lvl = 1;
+	}
 	return (lvl);
 }
 
-char	*update_shlvl(char *envp, int lvl)
+char	*update_shlvl(char *envp, int lvl, int flag_z)
 {
 	char	*shlvl;
 	char	*new_envp;
@@ -19,7 +32,7 @@ char	*update_shlvl(char *envp, int lvl)
 
 	i = 0;
 	j = 0;
-	lvl = lvl_check(envp);
+	lvl = lvl_check(envp, &flag_z);
 	shlvl = ft_itoa(lvl);
 	if (shlvl == NULL)
 		malloc_error();
@@ -30,7 +43,7 @@ char	*update_shlvl(char *envp, int lvl)
 		new_envp[j++] = envp[i++];
 	i = 0;
 	new_envp[j++] = '=';
-	while (shlvl[i] != '\0' && lvl != 0)
+	while (shlvl[i] != '\0' && flag_z != 1)
 		new_envp[j++] = shlvl[i++];
 	new_envp[j] = '\0';
 	free(shlvl);
@@ -47,7 +60,7 @@ char	**fill_envp(char **envp, char **new_envp)
 	while (envp[j])
 	{
 		if (!ft_strncmp("SHLVL=", envp[j], 6))
-			new_envp[i++] = update_shlvl(envp[j], 0);
+			new_envp[i++] = update_shlvl(envp[j], 0, 0);
 		else
 		{
 			if (ft_strncmp("OLDPWD=", envp[j], 7))

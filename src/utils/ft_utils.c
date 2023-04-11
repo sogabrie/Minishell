@@ -32,3 +32,17 @@ int	check_access(char *directory, int check_number)
 	}
 	return (0);
 }
+
+char	*search_envp_in(char **envp, char *obj, int count)
+{
+	size_t	i;
+
+	i = 0;
+	while (envp[i])
+	{
+		if (!ft_strncmp(obj, envp[i], count))
+			return (envp[i] + count);
+		i++;
+	}
+	return (NULL);
+}
