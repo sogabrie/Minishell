@@ -132,11 +132,13 @@ int	creat_redirect(t_shell *my_shell, int *i)
 	// printf("a________a my_shell->double_list[*i] = %s\n",my_shell->double_list[*i]);
 	// write(1, "redir_10\n", 9);
 	if (!ft_strcmp(b, "<"))
+	{
 		return (red_input(a));
+	}
 	else if (!ft_strcmp(b, ">"))
 		return (red_out(a));
 	else if (!ft_strcmp(b, "<<"))
-		return (here_doc(a, 0));
+		return (here_doc(a, 0, my_shell->my_envp, NULL));
 	else if (!ft_strcmp(b, ">>"))
 		return (red_out_append(a));
 	// write(1, "redir_11\n", 9);

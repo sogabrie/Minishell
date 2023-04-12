@@ -7,18 +7,21 @@ void	free_struct(t_shell *my_shell)
 	int	j;
 
 	i = 0;
-	// write (1, "free_1\n", 8);
+	write (1, "free_1\n", 8);
 	while (i < my_shell->count)
 	{
 		if (my_shell->control[i]->command_type == EXE)
 		{
 			free(my_shell->control[i]->exe->full_name);
+			my_shell->control[i]->exe->full_name = 0;
 			j = 0;
+			my_shell->control[i]->exe->status = 0;
 			while (my_shell->control[i]->exe->options && my_shell->control[i]->exe->options[j])
 			{
 				free(my_shell->control[i]->exe->options[j++]);
 			}
 			free(my_shell->control[i]->exe->options);
+			free(my_shell->control[i]->exe);
 		}
 		if (my_shell->control[i]->command_type == MY_EXE)
 		{
@@ -29,26 +32,22 @@ void	free_struct(t_shell *my_shell)
 				free(my_shell->control[i]->my_exe->options[j++]);
 			}
 			free(my_shell->control[i]->my_exe->options);
+			free(my_shell->control[i]->my_exe);
+			my_shell->control[i]->my_exe->ptr_envp = 0;
 		}
 		if (my_shell->control[i]->command_type == PRIORITET_START)
 		{
+			printf("prioritet_start = %p\n", my_shell->control[i]->prioritet_start);
 			free(my_shell->control[i]->prioritet_start);
 		}
 		if (my_shell->control[i]->command_type == PRIORITET_END)
 		{
+			printf("prioritet_end = %p\n", my_shell->control[i]->prioritet_end);
 			free(my_shell->control[i]->prioritet_end);
 		}
-		++i;
-	}
-	// write (1, "free_2\n", 8);
-	i = 0;
-	// printf("my_shell->count = %d\n", my_shell->count);
-	while (i < my_shell->count)
-	{
-		// printf("i = %d\n", i);
 		free(my_shell->control[i++]);
 	}
-	// write  (1, "free_3\n", 8);
+	//write (1, "free_2\n", 8);
 	i = 0;
 	while (my_shell->double_list && my_shell->double_list[i])
 	{

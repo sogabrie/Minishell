@@ -23,22 +23,22 @@ typedef enum s_error_type
 
 typedef struct s_exe
 {
-	int				status;
 	char			*full_name;
 	char			**options;
 	char			**ptr_envp;
 	int				fd_output;
 	int				fd_input;
+	int				status;
 }	t_exe;
 
 typedef struct s_my_exe
 {
-	int				staatus;
 	char			*name;
 	char			**options;
 	char			**ptr_envp;
 	int				fd_output;
 	int				fd_input;
+	int				staatus;
 }	t_my_exe;
 
 // typedef struct s_pipe

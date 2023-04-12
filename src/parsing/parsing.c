@@ -57,11 +57,11 @@ void	main_parsing(t_shell	*my_shell)
 		}
 		if (my_shell->control[i]->command_type == PRIORITET_START)
 		{
-			printf("PRIORITET_START \n");
+			printf("PRIORITET_START  start = %d end = %d \n",my_shell->control[i]->prioritet_start->start , my_shell->control[i]->prioritet_start->end);
 		}
 		if (my_shell->control[i]->command_type == PRIORITET_END)
 		{
-			printf("PRIORITET_END \n");
+			printf("PRIORITET_END  start = %d end = %d \n",my_shell->control[i]->prioritet_end->start , my_shell->control[i]->prioritet_end->end);
 		}
 		if (my_shell->control[i]->command_type == LOGIC_AND)
 		{
@@ -77,6 +77,7 @@ void	main_parsing(t_shell	*my_shell)
 		}
 		++i;
 	}
+
 	free_struct(my_shell);
 	system("leaks minishell");
 }
