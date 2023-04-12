@@ -40,17 +40,15 @@ char	*valid_dir(char *dir, char *home)
 
 int	check_dir(char *dir)
 {
-	DIR		*file;
+	struct stat	filestat;
 
-	if (access(dir, F_OK) == 0)
+	if (stat(dir, &filestat) == 0)
 	{
-		file = opendir(dir);
-		if (file == NULL)
+		if (!S_ISDIR(filestat.st_mode))
 		{
 			cd_error(dir, 20);
 			return (1);
 		}
-		closedir(file);
 		return (0);
 	}
 	return (0);
