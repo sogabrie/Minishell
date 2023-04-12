@@ -13,7 +13,6 @@ void	main_parsing(t_shell	*my_shell)
 	my_shell->double_list = 0;
 	error = control_pars(my_shell, 0, 0, 0);
 	creat_delimiter(my_shell);
-	int i = 0;
 	if (check_paren(my_shell))
 	{
 		printf("ERROR ( OR )\n");
@@ -21,36 +20,29 @@ void	main_parsing(t_shell	*my_shell)
 		return ;
 
 	}
-	write(1, "aa_1\n",5);
 	control_parsing(my_shell);
-	while (my_shell->double_list[i])
-	{
-		ft_echo(my_shell->double_list[i], 1);
-		printf("|\n");
-		++i;
-	}
-	printf("\n");
-	i = 0;
-	//printf("delimiter_count = %d delimiter -", my_shell->delimiter_count);
-	// while (i < my_shell->delimiter_count)
+	int i = 0;
+	// while (my_shell->double_list[i])
 	// {
-	// 	printf(" %d |", my_shell->delimiter[i++]);
+	// 	ft_echo(my_shell->double_list[i], 1);
+	// 	printf("|\n");
+	// 	++i;
 	// }
-	// printf("\n");
 	i = 0;
-	// printf("my_shell->count = %d\n", my_shell->count);
 	while (i < my_shell->count)
 	{
 		if (my_shell->control[i]->command_type == EXE)
 		{
-			printf("EXE = %s\n",my_shell->control[i]->exe->full_name);
+			printf("EXE = %s intpt = %d output = %d\n",my_shell->control[i]->exe->full_name, \
+			my_shell->control[i]->exe->fd_input, my_shell->control[i]->exe->fd_output);
 			int j = 0;
 			while (my_shell->control[i]->exe->options && my_shell->control[i]->exe->options[j])
 				printf("	Options = %s\n", my_shell->control[i]->exe->options[j++]);
 		}
 		if (my_shell->control[i]->command_type == MY_EXE)
 		{
-			printf("MY_EXE = %s\n",my_shell->control[i]->my_exe->name);
+			printf("MY_EXE = %s intpt = %d output = %d\n",my_shell->control[i]->my_exe->name, \
+			my_shell->control[i]->my_exe->fd_input, my_shell->control[i]->my_exe->fd_output);
 			int j = 0;
 			while (my_shell->control[i]->my_exe->options && my_shell->control[i]->my_exe->options[j])
 				printf("	Options = %s\n", my_shell->control[i]->my_exe->options[j++]);
@@ -79,5 +71,5 @@ void	main_parsing(t_shell	*my_shell)
 	}
 
 	free_struct(my_shell);
-	system("leaks minishell");
+	// system("leaks minishell");
 }
