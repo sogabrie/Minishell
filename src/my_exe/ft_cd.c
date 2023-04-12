@@ -18,13 +18,11 @@ char	**old_new_pwd(char *old_pwd, char *pwd, char **envp, char *dir)
 	{
 		if (!ft_strncmp("PWD=", envp[i], 4))
 			new_envp[i] = ft_strjoin("PWD=", dir);
-		else if (!ft_strncmp("OLDPWD=", envp[i], 7))
+		else if (!ft_strncmp("OLDPWD", envp[i], 6))
 			new_envp[i] = ft_strjoin("OLDPWD=", pwd);
 		else
 			new_envp[i] = ft_strdup(envp[i]);
 	}
-	if (old_pwd == NULL)
-		new_envp[i++] = ft_strjoin("OLDPWD=", pwd);
 	two_dimensional_mas(&envp);
 	return (new_envp);
 }
