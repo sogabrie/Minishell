@@ -45,31 +45,46 @@ char	**split_tmp_wild_string(char *wild_string, \
 	return (stars);
 }
 
-char	**creat_found_objects(char **found_objects, char *name)
+char	**creat_more_objects(char **found_objects, char *name)
 {
 	char	**replace_found_objects;
 	size_t	count;
 
 	count = 0;
 	replace_found_objects = NULL;
-	if (found_objects == NULL)
-	{
-		found_objects = malloc(sizeof(char *) * 2);
-		found_objects[0] = ft_strdup(name);
-		found_objects[1] = NULL;
-		return (found_objects);
-	}
 	while (found_objects[count])
 		count++;
 	replace_found_objects = malloc(sizeof(char *) * (count + 2));
+	if (replace_found_objects == NULL)
+		malloc_error();
 	count = 0;
 	while (found_objects[count])
 	{
 		replace_found_objects[count] = ft_strdup(found_objects[count]);
+		if (replace_found_objects[count] == NULL)
+			malloc_error();
 		count++;
 	}
 	two_dimensional_mas(&found_objects);
-	replace_found_objects[count++] = ft_strdup(name);
+	replace_found_objects[count] = ft_strdup(name);
+	if (replace_found_objects[count++] == NULL)
+		malloc_error();
 	replace_found_objects[count] = NULL;
 	return (replace_found_objects);
+}
+
+char	**creat_found_objects(char **found_objects, char *name)
+{
+	if (found_objects == NULL)
+	{
+		found_objects = malloc(sizeof(char *) * 2);
+		if (found_objects == NULL)
+			malloc_error();
+		found_objects[0] = ft_strdup(name);
+		if (found_objects[0] == NULL)
+			malloc_error();
+		found_objects[1] = NULL;
+		return (found_objects);
+	}
+	return (creat_more_objects(found_objects, name));
 }

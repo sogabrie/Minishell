@@ -10,8 +10,12 @@ int ft_export(char **str, char ***envp)
 
 // int main(int argc, char *argv[], char *envp[])
 // {
-//     char **my_envp = replace_envp(envp);
-//     char **str = ft_split("", ' ');
-//     // ft_env(my_envp, 0);
-//     ft_export(NULL, &my_envp);
+//     // char **my_envp = replace_envp(envp);
+//     // char **str = ft_split("", ' ');
+//     // // ft_env(my_envp, 0);
+//     // ft_export(NULL, &my_envp);
+//     char **wild = wildcards(ft_strdup("*"));
+//     for(int i = 0; wild[i]; i++)
+//         printf("%s\n", wild[i]);
+//     system("leaks minishell");
 // }

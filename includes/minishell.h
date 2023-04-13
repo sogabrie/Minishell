@@ -50,6 +50,7 @@ char			*replace_wild_string(size_t start, \
 char			**split_tmp_wild_string(char *wild_string, \
 						size_t i_wild_start, size_t i_wild_end);
 char			**creat_found_objects(char **found_objects, char *name);
+char			**creat_more_objects(char **found_objects, char *name);
 
 //Errors
 void			malloc_error(void);
