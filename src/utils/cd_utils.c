@@ -52,7 +52,7 @@ int	check_dir(char *dir)
 	{
 		if (!S_ISDIR(filestat.st_mode))
 		{
-			cd_error(dir, 20);
+			exe_error(dir, 20, " cd: ");
 			return (1);
 		}
 		return (0);

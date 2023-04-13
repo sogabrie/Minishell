@@ -38,13 +38,13 @@ int	check_home(char *home, char *new_dir, char *old_pwd, char *pwd)
 	}
 	if (check_access(home, 1) == -1)
 	{
-		cd_error(home, 13);
+		exe_error(home, 13, " cd: ");
 		free_object_cd(new_dir, home, old_pwd, pwd);
 		return (-1);
 	}
 	if (chdir(home) < 0)
 	{
-		cd_error(home, 2);
+		exe_error(home, 2, " cd: ");
 		free_object_cd(new_dir, home, old_pwd, pwd);
 		return (-1);
 	}
@@ -60,7 +60,7 @@ int	check_past_dir(char *old_pwd, char *home, char *pwd, char *new_dir)
 	}
 	if (check_access(old_pwd, 1) == -1)
 	{
-		cd_error(old_pwd, 13);
+		exe_error(old_pwd, 13, " cd: ");
 		free_object_cd(new_dir, home, old_pwd, pwd);
 		return (-1);
 	}
@@ -72,7 +72,7 @@ int	check_past_dir(char *old_pwd, char *home, char *pwd, char *new_dir)
 	}
 	if (chdir(old_pwd) < 0)
 	{
-		cd_error(old_pwd, 2);
+		exe_error(old_pwd, 2, " cd: ");
 		free_object_cd(new_dir, home, old_pwd, pwd);
 		return (-1);
 	}
@@ -91,13 +91,13 @@ int	check_new_dir(char *home, char *dir, char *old_pwd, char *pwd)
 	}
 	if (check_access(new_dir, 1) == -1)
 	{
-		cd_error(new_dir, 13);
+		exe_error(new_dir, 13, " cd: ");
 		free_object_cd(new_dir, home, old_pwd, pwd);
 		return (-1);
 	}
 	if (chdir(new_dir) < 0)
 	{
-		cd_error(dir, 2);
+		exe_error(dir, 2, " cd: ");
 		free_object_cd(new_dir, home, old_pwd, pwd);
 		return (-1);
 	}

@@ -55,7 +55,7 @@ char			**creat_more_objects(char **found_objects, char *name);
 //Errors
 void			malloc_error(void);
 int				error_here_doc(void);
-void			cd_error(char *dir, int number);
+void			exe_error(char *dir, int number, char *my_exe);
 
 //Free
 void			two_dimensional_mas(char ***str);

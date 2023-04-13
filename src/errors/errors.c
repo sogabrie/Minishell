@@ -12,12 +12,18 @@ int	error_here_doc(void)
 	return (-1);
 }
 
-void	cd_error(char *dir, int number)
+void	exe_error(char *dir, int number, char *my_exe)
 {
 	char	*error;
 
-	ft_putstr_fd("minishell: cd: ", 2);
+	ft_putstr_fd("minishell:", 2);
+	ft_putstr_fd(my_exe, 2);
 	ft_putstr_fd(dir, 2);
+	if (number == 98 && !ft_strcmp(" export: ", my_exe))
+	{
+		ft_putendl_fd(": not a valid identifier", 2);
+		return ;
+	}
 	error = strerror(number);
 	write(2, ": ", 2);
 	ft_putendl_fd(error, 2);
