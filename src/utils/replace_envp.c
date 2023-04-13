@@ -72,7 +72,9 @@ char	**fill_envp(char **envp, char **new_envp)
 		}
 		j++;
 	}
-	new_envp[i++] = ft_strdup("OLDPWD");
+	new_envp[i] = ft_strdup("OLDPWD");
+	if (new_envp[i++] == NULL)
+		malloc_error();
 	new_envp[i] = NULL;
 	return (new_envp);
 }

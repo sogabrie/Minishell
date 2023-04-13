@@ -37,7 +37,7 @@ char			*creat_tmp_file(int last_number, char *tmp_file, \
 int				ft_pwd(void);
 int				ft_cd(char *dir, char ***envp, char *new_dir, char *pwd);
 int				ft_env(char **envp, int f_export);
-int 			ft_export(char *str, char ***envp);
+int 			ft_export(char **str, char ***envp);
 
 //Wildcards
 char			**wildcards(char *wild_string);

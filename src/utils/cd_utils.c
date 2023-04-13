@@ -11,6 +11,8 @@ char	*search_podh(char **envp, char *name, size_t count)
 		if (!ft_strncmp(name, envp[i], count))
 		{
 			str = ft_strdup(envp[i] + count);
+			if (str == NULL)
+				malloc_error();
 			return (str);
 		}
 		i++;
@@ -32,9 +34,13 @@ char	*valid_dir(char *dir, char *home)
 	if (dir[0] == '~')
 	{
 		new_dir = ft_strjoin(home, dir + 1);
+		if (new_dir == NULL)
+			malloc_error();
 		return (new_dir);
 	}
 	new_dir = ft_strdup(dir);
+	if (new_dir == NULL)
+		malloc_error();
 	return (new_dir);
 }
 
