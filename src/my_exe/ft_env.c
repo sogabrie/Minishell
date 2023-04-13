@@ -1,15 +1,49 @@
 #include "minishell.h"
 
-int	ft_env(char **envp)
+void	print_export(char **envp)
+{
+	int		i;
+	int		j;
+	int		f_h;
+
+	i = -1;
+	j = -1;
+	f_h = 0;
+	while (envp[++i])
+	{
+		printf("declare -x ");
+		while (envp[i][++j] != '\0')
+		{
+			if (envp[i][j - 1] == '=')
+			{
+				f_h = 1;
+				printf("%c", '"');
+			}
+			printf("%c", envp[i][j]);
+		}
+		if (f_h == 1)
+			printf("%c", '"');
+		f_h = 0;
+		j = -1;
+		printf("\n");
+	}
+}
+
+int	ft_env(char **envp, int f_export)
 {
 	size_t	i;
 
 	i = 0;
-	while (envp[i])
+	if (f_export == 0)
 	{
-		if (ft_strchr(envp[i], '='))
-			printf("%s\n", envp[i]);
-		i++;
+		while (envp[i])
+		{
+			if (ft_strchr(envp[i], '='))
+				printf("%s\n", envp[i]);
+			i++;
+		}
+		return (0);
 	}
+	print_export(envp);
 	return (0);
 }
