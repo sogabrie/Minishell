@@ -22,6 +22,8 @@ char	**old_new_pwd(char *old_pwd, char *pwd, char **envp, char *dir)
 			new_envp[i] = ft_strjoin("OLDPWD=", pwd);
 		else
 			new_envp[i] = ft_strdup(envp[i]);
+		if (new_envp[i] == NULL)
+			malloc_error();
 	}
 	two_dimensional_mas(&envp);
 	return (new_envp);
