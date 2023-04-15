@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int	first_char(char *str, char **envp)
+int	first_char(char *str)
 {
 	if (ft_strchr("0123456789!@%^&*()-+={}[]|?/><~`;:.,\\", str[0]))
 	{
@@ -24,12 +24,12 @@ int	check_inside(char *str, size_t start)
 	return (0);
 }
 
-int	valid_variable(char *str, char **envp)
+int	valid_variable(char *str)
 {
 	size_t	start;
 
 	start = 1;
-	if (first_char(str, envp))
+	if (first_char(str))
 		return (1);
 	while (str[start] != '\0' && str[start] != '=')
 	{

@@ -29,8 +29,8 @@ void			adding_dir(char **old_pwd, char **home, \
 char			*valid_dir(char *dir, char *home);
 
 //export_utils
-int				valid_variable(char *str, char **envp);
-int				first_char(char *str, char **envp);
+int				valid_variable(char *str);
+int				first_char(char *str);
 int				check_inside(char *str, size_t start);
 
 //Here_Doc

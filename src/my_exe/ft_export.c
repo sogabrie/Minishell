@@ -48,7 +48,7 @@ int	ft_export(char **str, char ***envp)
 		return (ft_env(*envp, 1));
 	while (str[++i])
 	{
-		if (valid_variable(str[i], *envp))
+		if (valid_variable(str[i]))
 			continue ;
 		printf("%s\n", str[i]);
 		name = variable_name(str[i]);
@@ -60,6 +60,6 @@ int	ft_export(char **str, char ***envp)
 // int main(int argc, char *argv[], char *envp[])
 // {
 // 	char **my_envp = replace_envp(envp);
-// 	char **str = ft_split("#OLDPWD=asfasf", ' ');
+// 	char **str = ft_split("", ' ');
 // 	ft_export(str, &my_envp);
 // }
