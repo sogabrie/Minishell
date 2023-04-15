@@ -28,6 +28,13 @@ void			adding_dir(char **old_pwd, char **home, \
 								char **pwd, char ***envp);
 char			*valid_dir(char *dir, char *home);
 
+//export_utils
+int				valid_variable(char *str, char **envp, int *flag_mas);
+int				first_char(char *str, char **envp);
+int				determine(char *str, size_t start);
+int				check_mas(char *str, size_t start);
+int				check_inside(char *str, size_t start, int *flag_mas);
+
 //Here_Doc
 int				here_doc(char *end, int fd_write, char **envp, char *buffer);
 char			*creat_tmp_file(int last_number, char *tmp_file, \
@@ -37,7 +44,7 @@ char			*creat_tmp_file(int last_number, char *tmp_file, \
 int				ft_pwd(void);
 int				ft_cd(char *dir, char ***envp, char *new_dir, char *pwd);
 int				ft_env(char **envp, int f_export);
-int 			ft_export(char **str, char ***envp);
+int				ft_export(char **str, char ***envp);
 
 //Wildcards
 char			**wildcards(char *wild_string);
