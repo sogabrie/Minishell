@@ -40,6 +40,7 @@ char			**get_path(char **avp);
 int				check_paren(t_shell	*my_shell);
 
 //check_metacharacters.c
+int				check_metachar_and_redirect(char *c);
 int				check_metachar(t_shell	*my_shell);
 
 //delimiter
@@ -49,15 +50,15 @@ int				creat_delimiter(t_shell	*my_shell);
 int				chreat_cont(t_shell *my_shell);
 
 // creat_main_struct.c
-int				creat_struct_pip(t_shell	*my_shell);
-int				creat_struct_and(t_shell	*my_shell);
+int				creat_struct_pip(t_shell *my_shell);
+int				creat_struct_and(t_shell *my_shell);
 int				creat_struct_or(t_shell	*my_shell);
 int				creat_struct_prioritet_start(t_shell *my_shell);
 int				creat_struct_prioritet_end(t_shell *my_shell);
 
 //creat_my_exe.c
 int				creat_my_exe(t_shell *my_shell, char *name);
-int				creat_redirect(t_shell *my_shell, int *i);
+t_error_type	creat_redirect(t_shell *my_shell, int *i);
 int				add_option(t_shell *my_shell, char *name);
 int				creat_exe(t_shell *my_shell, char *name);
 

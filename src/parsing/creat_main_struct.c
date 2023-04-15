@@ -7,6 +7,8 @@ int	creat_struct_pip(t_shell	*my_shell)
 		return (7);
 	my_shell->control[my_shell->count - 1]->command_type = PIPE;
 	pipe(my_shell->control[my_shell->count - 1]->pip);
+	creat_close_fd(my_shell, my_shell->control[my_shell->count - 1]->pip[0]);
+	creat_close_fd(my_shell, my_shell->control[my_shell->count - 1]->pip[1]);
 	return (0);
 }
 

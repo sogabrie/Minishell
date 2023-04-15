@@ -41,7 +41,7 @@ int	creat_exe(t_shell *my_shell, char *name)
 	return (0);
 }
 
-int	creat_redirect(t_shell *my_shell, int *i)
+t_error_type	creat_redirect(t_shell *my_shell, int *i)
 {
 	int		fd;
 	char	*a;
@@ -66,9 +66,9 @@ int	creat_redirect(t_shell *my_shell, int *i)
 		ft_strcmp(my_shell->double_list[*i], " ") && \
 		ft_strcmp(my_shell->double_list[*i], ")"))
 		{
-			b = ft_strjoin(a, echo_line(my_shell->double_list[*i]));
+			c = ft_strjoin(a, echo_line(my_shell->double_list[*i]));
 			free(a);
-			a = b;
+			a = c;
 			(*i)++;
 		}
 	}
@@ -90,40 +90,41 @@ int	creat_redirect(t_shell *my_shell, int *i)
 		ft_strcmp(my_shell->double_list[*i], " ") && \
 		ft_strcmp(my_shell->double_list[*i], ")"))
 		{
-			b = ft_strjoin(a, echo_line(my_shell->double_list[*i]));
+			c = ft_strjoin(a, echo_line(my_shell->double_list[*i]));
 			free(a);
-			a = b;
+			a = c;
 			(*i)++;
 		}
 	}
-	if (!ft_strcmp(b, "<"))
+	printf("a = %s\n", a);
+	if (!ft_strcmp(b, "<") && my_shell->my_error  == NO_ERROR)
 	{
 		fd = red_input(a);
 		if (fd >= 0)
 			my_shell->fd_input = fd;
-		free(a);
 	}
-	else if (!ft_strcmp(b, ">"))
+	else if (!ft_strcmp(b, ">") && my_shell->my_error  == NO_ERROR)
 	{
 		fd = red_out(a);
 		if (fd >= 0)
 			my_shell->fd_output = fd;
-		free(a);
 	}
 	else if (!ft_strcmp(b, "<<"))
 	{
 		fd = here_doc(a, 0, my_shell->my_envp, NULL);
 		if (fd >= 0)
 			my_shell->fd_input = fd;
-		free(a);
 	}
-	else if (!ft_strcmp(b, ">>"))
+	else if (!ft_strcmp(b, ">>") && my_shell->my_error  == NO_ERROR)
 	{
 		fd = red_out_append(a);
 		if (fd >= 0)
 			my_shell->fd_output = fd;
-		free(a);
 	}
+	free(a);
+	creat_close_fd(my_shell, fd);
+	if (fd < 0)
+		return (ENOENT);
 	return (0);
 }
 

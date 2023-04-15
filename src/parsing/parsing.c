@@ -71,5 +71,5 @@ void	main_parsing(t_shell	*my_shell)
 	}
 
 	free_struct(my_shell);
-	// system("leaks minishell");
+	//system("leaks minishell");
 }

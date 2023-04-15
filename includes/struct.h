@@ -18,7 +18,8 @@ typedef enum s_command_type
 typedef enum s_error_type
 {
 	NO_ERROR = 0,
-	C_N_F =	404
+	C_N_F =	404,
+	ENOENT = 2
 }	t_error_type;
 
 typedef struct s_exe
