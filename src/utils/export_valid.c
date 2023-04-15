@@ -2,7 +2,7 @@
 
 int	first_char(char *str)
 {
-	if (ft_strchr("0123456789!@%^&*()-+={}[]|?/><~`;:.,\\", str[0]))
+	if (ft_strchr("0123456789!@%^ &*()-+={}[]|?/><~`;:.,\\", str[0]))
 	{
 		exe_error(str, 98, " export: ");
 		return (1);
@@ -33,7 +33,7 @@ int	valid_variable(char *str)
 		return (1);
 	while (str[start] != '\0' && str[start] != '=')
 	{
-		if (ft_strchr("!@#%^&*()-+{[]()|};:.,~`<>?/\\", str[start]))
+		if (ft_strchr("!@#%^&*()-+ {[]()|};:.,~`<>?/\\", str[start]))
 		{
 			exe_error(str, 98, " export: ");
 			return (1);

@@ -38,7 +38,7 @@ int	here_doc(char *end, int fd_write, char **envp, char *buffer)
 	if (fd_write == 1)
 		return (last_number);
 	file_name = creat_tmp_file(last_number, "src/here_doc/tmp_file", \
-						search_envp_in(envp, "SHLVL=", 6), NULL);
+						search_envp_in(envp, "SHLVL", 5), NULL);
 	fd_write = open(file_name, O_CREAT | O_WRONLY | O_TRUNC, 0755);
 	if (fd_write < 0)
 		return (error_here_doc());

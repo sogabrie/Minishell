@@ -1,14 +1,7 @@
 #include "minishell.h"
 
-void	print_export(char **envp)
+void	print_export(char **envp, int i, int j, int f_h)
 {
-	int		i;
-	int		j;
-	int		f_h;
-
-	i = -1;
-	j = -1;
-	f_h = 0;
 	while (envp[++i])
 	{
 		printf("declare -x ");
@@ -21,6 +14,8 @@ void	print_export(char **envp)
 			}
 			printf("%c", envp[i][j]);
 		}
+		if (envp[i][j - 1] == '=')
+			printf("%c%c", '"', '"');
 		if (f_h == 1)
 			printf("%c", '"');
 		f_h = 0;
@@ -44,6 +39,6 @@ int	ft_env(char **envp, int f_export)
 		}
 		return (0);
 	}
-	print_export(envp);
+	print_export(envp, -1, -1, 0);
 	return (0);
 }

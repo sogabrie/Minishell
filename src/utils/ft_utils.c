@@ -40,8 +40,14 @@ char	*search_envp_in(char **envp, char *obj, int count)
 	i = 0;
 	while (envp[i])
 	{
-		if (!ft_strncmp(obj, envp[i], count))
-			return (envp[i] + count);
+		if (!ft_strncmp(obj, envp[i], count)
+			&& (envp[i][count] == '=' || envp[i][count] == '\0'))
+		{
+			if (envp[i][count] == '\0')
+				return (envp[i] + count);
+			else
+				return (envp[i] + count + 1);
+		}
 		i++;
 	}
 	return (NULL);
