@@ -2,7 +2,7 @@
 
 void	malloc_error(void)
 {
-	write(2, "Memory allocation error!!\n", 26);
+	write(2, "minishell: Out of memory\n", 25);
 	exit(1);
 }
 
