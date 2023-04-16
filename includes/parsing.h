@@ -53,8 +53,8 @@ int				chreat_cont(t_shell *my_shell);
 int				creat_struct_pip(t_shell *my_shell);
 int				creat_struct_and(t_shell *my_shell);
 int				creat_struct_or(t_shell	*my_shell);
-int				creat_struct_prioritet_start(t_shell *my_shell);
-int				creat_struct_prioritet_end(t_shell *my_shell);
+void			creat_struct_prioritet_start(t_shell *my_shell);
+void			creat_struct_prioritet_end(t_shell *my_shell);
 
 //creat_my_exe.c
 int				creat_my_exe(t_shell *my_shell, char *name);
@@ -72,5 +72,8 @@ int				control_parsing(t_shell	*my_shell);
 
 //free_struct.c
 void			free_struct(t_shell *my_shell);
+
+//creat_close_fd.c
+void			creat_close_fd(t_shell *my_shell, int fd);
 
 #endif

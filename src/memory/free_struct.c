@@ -53,7 +53,12 @@ void	free_struct(t_shell *my_shell)
 		free(my_shell->full_path[i]);
 		++i;
 	}
+		i = 0;
+	while (i < my_shell->close_fd_count)
+		close(my_shell->close_fd[i++]);
 	i = 0;
+	while (i < my_shell->close_fd_count)
+		printf("i = %d\n", my_shell->close_fd[i++]);
 	free(my_shell->line);
 	free(my_shell->double_list);
 	free(my_shell->delimiter);

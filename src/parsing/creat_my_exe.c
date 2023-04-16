@@ -43,7 +43,7 @@ int	creat_exe(t_shell *my_shell, char *name)
 
 t_error_type	creat_redirect(t_shell *my_shell, int *i)
 {
-	int		fd;
+	int		fd = 0;
 	char	*a;
 	char	*c;
 	char	*b = my_shell->double_list[*i];
@@ -96,7 +96,6 @@ t_error_type	creat_redirect(t_shell *my_shell, int *i)
 			(*i)++;
 		}
 	}
-	printf("a = %s\n", a);
 	if (!ft_strcmp(b, "<") && my_shell->my_error  == NO_ERROR)
 	{
 		fd = red_input(a);
@@ -122,9 +121,9 @@ t_error_type	creat_redirect(t_shell *my_shell, int *i)
 			my_shell->fd_output = fd;
 	}
 	free(a);
-	creat_close_fd(my_shell, fd);
-	if (fd < 0)
+	if (fd <= 0)
 		return (ENOENT);
+	creat_close_fd(my_shell, fd);
 	return (0);
 }
 

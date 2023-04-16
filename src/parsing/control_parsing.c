@@ -44,10 +44,7 @@ int	control_pars_exe_1(t_shell *my_shell, int *start, int *end, int *i)
 	!ft_strcmp(my_shell->double_list[*start], "("))
 	{
 		if (!ft_strcmp(my_shell->double_list[*start], "("))
-		{
-			if (creat_struct_prioritet_start(my_shell))
-				return (9);
-		}
+			creat_struct_prioritet_start(my_shell);
 		++(*start);
 	}
 	(*i) = (*start);
@@ -56,15 +53,12 @@ int	control_pars_exe_1(t_shell *my_shell, int *start, int *end, int *i)
 
 int	control_pars_exe_3(t_shell *my_shell, int *end, int *i)
 {
-	while (i < end && my_shell->double_list[(*i)] && \
+	while ((*i) < (*end) && my_shell->double_list[(*i)] && \
 	(!ft_strcmp(my_shell->double_list[(*i)], " ") || \
 	!ft_strcmp(my_shell->double_list[(*i)], ")")))
 	{
 		if (!ft_strcmp(my_shell->double_list[(*i)], ")"))
-		{
-			if (creat_struct_prioritet_end(my_shell))
-				return (9);
-		}
+			creat_struct_prioritet_end(my_shell);
 		++(*i);
 	}
 	return (0);
@@ -105,7 +99,7 @@ int	control_pars_exe(t_shell *my_shell, int start, int end)
 	if (control_pars_exe_3(my_shell, &end, &i))
 		return (9);
 	if (my_shell->check_exe >= 0)
-		control_pars_exe_4( my_shell);
+		control_pars_exe_4(my_shell);
 	my_shell->check_exe = -1;
 	my_shell->fd_output = 1;
 	my_shell->fd_input = 0;
