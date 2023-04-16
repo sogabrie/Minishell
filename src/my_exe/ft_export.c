@@ -94,23 +94,21 @@ int	ft_export(char **str, char ***envp)
 
 // int main(int argc, char *argv[], char *envp[])
 // {
-// // 	char buf[256];
-// // 	char **my_envp = replace_envp(envp);
-// 	char **str = ft_split("1_asfd LINUXX= OMEGA=123 Liux_123=123 peeep=pppep", ' ');
-// 	char **ptr = ft_split("OMEGA==Linux=123==", ' ');
+// 	char **my_envp = replace_envp(envp);
+// 	// char **str = ft_split("1_asfd LINUXX= OMEGA=123 Liux_123=123 peeep=pppep", ' ');
+// 	// char **ptr = ft_split("OMEGA==Linux=123==", ' ');
 // 	// ptr = ft_split("OLDPWD", ' ');
 // 	// ptr = ft_split("OLDPWD", ' ');
 // 	// ptr = ft_split("OLD_PWD=\"\"", ' ');
 // 	// ptr = ft_split("TEST+=100", ' ');
-// // 	// ft_export(str, &my_envp);
-// // 	// ft_export(ptr, &my_envp);
-// // 	// // system("leaks minishell");
-// // 	// for(int i = 0; my_envp[i]; i++)
-// // 	// 	printf("%s\n", my_envp[i]);
-// // 	// // ft_export(NULL, &my_envp);
-// // 	ft_cd("bark bark", &my_envp, NULL, NULL);
-// // 	for(int i = 0; my_envp[i]; i++)
-// // 		printf("%s\n", my_envp[i]);
-// // 	printf("%s\n", getcwd(buf, sizeof(buf)));
+// 	// ft_export(str, &my_envp);
+// 	// ft_export(ptr, &my_envp);
+// 	// system("leaks minishell");
+// 	// for(int i = 0; my_envp[i]; i++)
+// 	// 	printf("%s\n", my_envp[i]);
+// 	// ft_export(NULL, &my_envp);
+// 	// ft_cd("bark bark", &my_envp, NULL, NULL);
+// 	for(int i = 0; my_envp[i]; i++)
+// 		printf("%s\n", my_envp[i]);
 // 	// system("leaks minishell");
 // }

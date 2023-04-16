@@ -31,6 +31,11 @@ char	**old_new_pwd(char *old_pwd, char *pwd, char **envp, char *dir)
 
 int	check_home(char *home, char *new_dir, char *old_pwd, char *pwd)
 {
+	if (home == NULL)
+	{
+		write(2, "minishell: cd: HOME not set\n", 28);
+		return (-1);
+	}
 	if (check_dir(home))
 	{
 		free_object_cd(new_dir, home, old_pwd, pwd);
