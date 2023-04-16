@@ -15,11 +15,11 @@ void	init_shell(t_shell *my_shell)
 	my_shell->fd_output = 1;
 	my_shell->fd_input = 0;
 	my_shell->check_exe = -1;
-	my_shell->close_fd  = NULL;
+	my_shell->close_fd = NULL;
 	my_shell->close_fd_count = 0;
 }
 
-void init_control(t_control **control, int i)
+void	init_control(t_control **control, int i)
 {
 	control[i]->exe = 0;
 	control[i]->my_exe = 0;
@@ -46,8 +46,8 @@ int	creat_cont_mas(t_shell *my_shell)
 
 int	chreat_cont(t_shell *my_shell)
 {
-	int	i;
-	t_control **a;
+	int			i;
+	t_control	**a;
 
 	if (!my_shell->count)
 		return (creat_cont_mas(my_shell));
