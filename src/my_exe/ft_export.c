@@ -6,9 +6,10 @@ char	*variable_name(char *str)
 	char	*ptr;
 
 	i = 0;
+	ptr = NULL;
 	while (str[i] != '\0' && str[i] != '=')
 		i++;
-	ptr = malloc(sizeof(char) * i + 1);
+	ptr = malloc(sizeof(char) * (i + 1));
 	if (ptr == NULL)
 		malloc_error();
 	i = 0;
@@ -17,6 +18,7 @@ char	*variable_name(char *str)
 		ptr[i] = str[i];
 		i++;
 	}
+	ptr[i] = '\0';
 	return (ptr);
 }
 
@@ -46,6 +48,7 @@ char	**replace_add_variable(char **envp, char *str)
 	size_t	count;
 
 	count = 0;
+	new_envp = NULL;
 	while (envp[count])
 		count++;
 	new_envp = malloc(sizeof(char *) * (count + 2));
@@ -67,10 +70,11 @@ char	**replace_add_variable(char **envp, char *str)
 
 int	ft_export(char **str, char ***envp)
 {
-	int	i;
-	char *name;
+	int		i;
+	char	*name;
 
 	i = -1;
+	name = NULL;
 	if (str == NULL || str[0] == NULL || str[0][0] == '#')
 		return (ft_env(*envp, 1));
 	while (str[++i])
@@ -78,9 +82,7 @@ int	ft_export(char **str, char ***envp)
 		if (valid_variable(str[i]))
 			continue ;
 		name = variable_name(str[i]);
-		printf("%s\n", name);
-		printf("%s\n", search_envp_in(*envp, name, ft_strlen(name)));
-		if (search_envp_in(*envp, name, ft_strlen(name)) != NULL)
+		if (search_envp_in(*envp, name, ft_strlen(name)))
 			*envp = replace_variable(*envp, name, str[i]);
 		else
 			*envp = replace_add_variable(*envp, str[i]);
@@ -92,13 +94,23 @@ int	ft_export(char **str, char ***envp)
 
 // int main(int argc, char *argv[], char *envp[])
 // {
-// 	char **my_envp = replace_envp(envp);
-// 	char **str = ft_split("1_asfd LINUXX= OMEGA=123", ' ');
-// 	char **ptr = ft_split("OMEGA=aRMNE", ' ');
-// 	ptr = ft_split("OMEGA=LINUX=123", ' ');
-// 	ft_export(str, &my_envp);
-// 	ft_export(ptr, &my_envp);
-// 	for(int i = 0; my_envp[i]; i++)
-// 		printf("%s\n", my_envp[i]);
-// 	// ft_export(NULL, &my_envp);
+// // 	char buf[256];
+// // 	char **my_envp = replace_envp(envp);
+// 	char **str = ft_split("1_asfd LINUXX= OMEGA=123 Liux_123=123 peeep=pppep", ' ');
+// 	char **ptr = ft_split("OMEGA==Linux=123==", ' ');
+// 	// ptr = ft_split("OLDPWD", ' ');
+// 	// ptr = ft_split("OLDPWD", ' ');
+// 	// ptr = ft_split("OLD_PWD=\"\"", ' ');
+// 	// ptr = ft_split("TEST+=100", ' ');
+// // 	// ft_export(str, &my_envp);
+// // 	// ft_export(ptr, &my_envp);
+// // 	// // system("leaks minishell");
+// // 	// for(int i = 0; my_envp[i]; i++)
+// // 	// 	printf("%s\n", my_envp[i]);
+// // 	// // ft_export(NULL, &my_envp);
+// // 	ft_cd("bark bark", &my_envp, NULL, NULL);
+// // 	for(int i = 0; my_envp[i]; i++)
+// // 		printf("%s\n", my_envp[i]);
+// // 	printf("%s\n", getcwd(buf, sizeof(buf)));
+// 	// system("leaks minishell");
 // }

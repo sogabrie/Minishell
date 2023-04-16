@@ -4,23 +4,19 @@ void	print_export(char **envp, int i, int j, int f_h)
 {
 	while (envp[++i])
 	{
+		j = 0;
 		printf("declare -x ");
-		while (envp[i][++j] != '\0')
+		while (envp[i][j] && envp[i][j] != '=')
+			printf("%c", envp[i][j++]);
+		if (!envp[i][j])
 		{
-			if (envp[i][j - 1] == '=')
-			{
-				f_h = 1;
-				printf("%c", '"');
-			}
-			printf("%c", envp[i][j]);
+			printf("\n");
+			continue ;
 		}
-		if (envp[i][j - 1] == '=')
-			printf("%c%c", '"', '"');
-		if (f_h == 1)
-			printf("%c", '"');
-		f_h = 0;
-		j = -1;
-		printf("\n");
+		printf("=\"");
+		while (envp[i][++j])
+			printf("%c", envp[i][j]);
+		printf("\"\n");
 	}
 }
 
