@@ -33,7 +33,8 @@ int	valid_variable(char *str)
 		return (1);
 	while (str[start] != '\0' && str[start] != '=')
 	{
-		if (ft_strchr("!@#%^&*()-+ {[]()|};:.,~`<>?/\\", str[start]))
+		if (ft_strchr("!@#%^&*()- {[]()|};:.,~`<>?/\\", str[start])
+			|| (str[start] == '+' && str[start + 1] != '='))
 		{
 			exe_error(str, 98, " export: ");
 			return (1);
