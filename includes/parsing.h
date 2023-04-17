@@ -74,6 +74,9 @@ void			free_struct(t_shell *my_shell);
 void			creat_close_fd(t_shell *my_shell, int fd);
 
 //errors_print_sintexs.c
-t_error_type errors_print_sintexs(t_shell	*my_shell, char *a, t_error_type err);
+t_error_type	errors_print_sintexs(t_shell	*my_shell, char *a, t_error_type err);
+
+//make_exe.c
+int				make_exe(t_shell *my_shell, int i);
 
 #endif
