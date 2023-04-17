@@ -7,7 +7,7 @@ int	check_metachar_and_redirect(char *c)
 	|| !ft_strcmp(c, "|") || !ft_strcmp(c, ">>") \
 	|| !ft_strcmp(c, "<<") || !ft_strcmp(c, ">") \
 	|| !ft_strcmp(c, "<"))
-		return (6);
+		return (1);
 	return (0);
 }
 
@@ -50,7 +50,7 @@ int	check_metachar_cont(t_shell	*my_shell, int i)
 	return (0);
 }
 
-int	check_metachar(t_shell	*my_shell)
+t_error_type	check_metachar(t_shell	*my_shell)
 {
 	int	i;
 	int	c;
@@ -64,17 +64,26 @@ int	check_metachar(t_shell	*my_shell)
 		!ft_strcmp(my_shell->double_list[i], "|"))
 		{
 			if (check_metachar_cont(my_shell, i))
-				return (6);
+			{
+				write (2, "minishell: syntax error near unexpected token `", 48);
+				write (2, my_shell->double_list[i], ft_strlen(my_shell->double_list[i]));
+				write (2, "\'\n", 3);
+				my_shell->my_error = SYNT_ERROR;
+				return (my_shell->my_error);
+			}
 		}
 		else if (!ft_strcmp(my_shell->double_list[i], "<<") || \
 		!ft_strcmp(my_shell->double_list[i], ">>") || \
 		!ft_strcmp(my_shell->double_list[i], "<") || \
 		!ft_strcmp(my_shell->double_list[i], ">"))
 		{
-			if (check_metachar_cont_2(my_shell, i))
-				return (6);
+				write (2, "minishell: syntax error near unexpected token `", 48);
+				write (2, my_shell->double_list[i], ft_strlen(my_shell->double_list[i]));
+				write (2, "\'\n", 3);
+				my_shell->my_error = SYNT_ERROR;
+				return (my_shell->my_error);
 		}
 		++i;
 	}
-	return (0);
+	return (NO_ERROR);
 }

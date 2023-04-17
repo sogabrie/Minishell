@@ -22,6 +22,8 @@ char	*my_cat(char *list, int start, int end)
 
 	i = 0;
 	resul = malloc((end - start + 1) * sizeof(char));
+	if (!resul)
+			malloc_error();
 	while (start < end)
 	{
 		resul[i] = list[start];

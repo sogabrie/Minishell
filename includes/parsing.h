@@ -14,6 +14,7 @@ t_error_type	control_pars(t_shell *my_shell, int i, int j, int n);
 void			main_parsing(t_shell *my_shell);
 
 //pars_quote
+t_error_type	control_pars_2(t_shell *my_shell, int *i, int *j, int *n);
 t_error_type	control_pars_3(t_shell *my_shell, int *i, int *j, int *n);
 t_error_type	control_pars_4(t_shell *my_shell, int *i, int *j, int *n);
 t_error_type	control_pars_5(t_shell *my_shell, int *i, int *j, int *n);
@@ -41,26 +42,26 @@ int				check_paren(t_shell	*my_shell);
 
 //check_metacharacters.c
 int				check_metachar_and_redirect(char *c);
-int				check_metachar(t_shell	*my_shell);
+t_error_type	check_metachar(t_shell	*my_shell);
 
 //delimiter
 int				creat_delimiter(t_shell	*my_shell);
 
 // inicalization.c
-int				chreat_cont(t_shell *my_shell);
+void			chreat_cont(t_shell *my_shell);
 
 // creat_main_struct.c
-int				creat_struct_pip(t_shell *my_shell);
-int				creat_struct_and(t_shell *my_shell);
-int				creat_struct_or(t_shell	*my_shell);
+void			creat_struct_pip(t_shell *my_shell);
+void			creat_struct_and(t_shell *my_shell);
+void			creat_struct_or(t_shell	*my_shell);
 void			creat_struct_prioritet_start(t_shell *my_shell);
 void			creat_struct_prioritet_end(t_shell *my_shell);
 
 //creat_my_exe.c
-int				creat_my_exe(t_shell *my_shell, char *name);
+void			creat_my_exe(t_shell *my_shell, char *name);
 t_error_type	creat_redirect(t_shell *my_shell, int *i);
-int				add_option(t_shell *my_shell, char *name);
-int				creat_exe(t_shell *my_shell, char *name);
+void			add_option(t_shell *my_shell, char *name);
+void			creat_exe(t_shell *my_shell, char *name);
 
 //here_doc
 int				red_input(char *filename);
@@ -68,7 +69,7 @@ int				red_out_append(char *filename);
 int				red_out(char *filename);
 
 //constrol_parsing.c
-int				control_parsing(t_shell	*my_shell);
+void			control_parsing(t_shell	*my_shell);
 
 //free_struct.c
 void			free_struct(t_shell *my_shell);

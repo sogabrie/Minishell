@@ -12,14 +12,16 @@ typedef enum s_command_type
 	PRIORITET_START,
 	PRIORITET_END,
 	LOGIC_AND,
-	LOGIC_OR
+	LOGIC_OR,
+	NO_EXE
 }	t_command_type;
 
 typedef enum s_error_type
 {
 	NO_ERROR = 0,
 	C_N_F =	404,
-	ENOENT = 2
+	ENOENT = 2,
+	SYNT_ERROR = 258
 }	t_error_type;
 
 typedef struct s_exe

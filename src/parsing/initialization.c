@@ -31,38 +31,39 @@ void	init_control(t_control **control, int i)
 	control[i]->error = NO_ERROR;
 }
 
-int	creat_cont_mas(t_shell *my_shell)
+void	creat_cont_mas(t_shell *my_shell)
 {
 	my_shell->control = malloc (sizeof(t_control *));
 	if (!my_shell->control)
-		return (6);
+		malloc_error();
 	my_shell->control[0] = malloc (sizeof(t_control));
 	if (!my_shell->control[0])
-		return (6);
+		malloc_error();
 	init_control(my_shell->control, 0);
 	++my_shell->count;
-	return (0);
 }
 
-int	chreat_cont(t_shell *my_shell)
+void	chreat_cont(t_shell *my_shell)
 {
 	int			i;
 	t_control	**a;
 
 	if (!my_shell->count)
-		return (creat_cont_mas(my_shell));
+	{
+		creat_cont_mas(my_shell);
+		return ;
+	}
 	a = malloc ((my_shell->count + 1) * sizeof(t_control *));
 	if (!a)
-		return (6);
+		malloc_error();
 	i = -1;
 	while (++i < my_shell->count)
 		a[i] = my_shell->control[i];
 	a[i] = malloc (sizeof(t_control));
 	if (!a[i])
-		return (6);
+		malloc_error();
 	init_control(a, i);
 	free(my_shell->control);
 	my_shell->control = a;
 	++my_shell->count;
-	return (0);
 }

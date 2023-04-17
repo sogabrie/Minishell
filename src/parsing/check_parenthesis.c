@@ -68,12 +68,24 @@ int	check_paren_cont(t_shell	*my_shell)
 		if (!ft_strcmp(my_shell->double_list[i], "("))
 		{
 			if (check_paren_cont_1(my_shell, &i, &c))
-				return (6);
+			{
+				write (2, "minishell: syntax error near unexpected token `", 48);
+				write (2, my_shell->double_list[i], ft_strlen(my_shell->double_list[i]));
+				write (2, "\'\n", 3);
+				my_shell->my_error = SYNT_ERROR;
+				return (my_shell->my_error);
+			}
 		}
 		else if (!ft_strcmp(my_shell->double_list[i], ")"))
 		{
 			if (check_paren_cont_2(my_shell, &i, &c))
-				return (6);
+			{
+				write (2, "minishell: syntax error near unexpected token `", 48);
+				write (2, my_shell->double_list[i], ft_strlen(my_shell->double_list[i]));
+				write (2, "\'\n", 3);
+				my_shell->my_error = SYNT_ERROR;
+				return (my_shell->my_error);
+			}
 		}
 		else
 			++i;
@@ -97,10 +109,22 @@ int	check_paren(t_shell	*my_shell)
 		else if (!ft_strcmp(my_shell->double_list[i], ")"))
 			--c;
 		if (c < 0)
-			return (6);
+		{
+			write (2, "minishell: syntax error near unexpected token `", 48);
+			write (2, my_shell->double_list[i], ft_strlen(my_shell->double_list[i]));
+			write (2, "\'\n", 3);
+			my_shell->my_error = SYNT_ERROR;
+			return (my_shell->my_error);
+		}
 		++i;
 	}
 	if (c)
-		return (6);
+	{
+		write (2, "minishell: syntax error near unexpected token `", 48);
+		write (2, "(", 1);
+		write (2, "\'\n", 3);
+		my_shell->my_error = SYNT_ERROR;
+		return (my_shell->my_error);
+	}
 	return (check_paren_cont(my_shell));
 }
