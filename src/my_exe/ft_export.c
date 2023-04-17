@@ -84,8 +84,10 @@ int	ft_export(char **str, char ***envp)
 {
 	int		i;
 	char	*name;
+	int		error_code;
 
 	i = -1;
+	error_code = 1;
 	name = NULL;
 	if (str == NULL || str[0] == NULL || str[0][0] == '#')
 		return (ft_env(*envp, 1));
@@ -100,6 +102,7 @@ int	ft_export(char **str, char ***envp)
 			*envp = replace_add_variable(*envp, str[i]);
 		free(name);
 		name = NULL;
+		error_code = 0;
 	}
-	return (0);
+	return (error_code);
 }

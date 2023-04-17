@@ -10,5 +10,5 @@ int	ft_pwd(void)
 		return (0);
 	}
 	write(2, "minishell: pwd: syntax error: expected ')'\n", 43);
-	return (-1);
+	return (2);
 }
