@@ -1,5 +1,31 @@
 #include "minishell.h"
 
+char	*ft_strdup_plus(char *str, size_t i, size_t j)
+{
+	char	*ptr;
+
+	while (str[i])
+	{
+		if (str[i] == '+')
+		{
+			ptr = malloc(sizeof(char) * (ft_strlen(str)));
+			if (ptr == NULL)
+				malloc_error();
+			i = 0;
+			while (str[i] && str[i] != '+' && str[i] != '=')
+				ptr[j++] = str[i++];
+			if (str[i] == '+')
+				i++;
+			while (str[i])
+				ptr[j++] = str[i++];
+			ptr[j] = '\0';
+			return (ptr);
+		}
+		i++;
+	}
+	return (ft_strdup(str));
+}
+
 char	**replace_variable(char **envp, char *name, char *str, size_t i)
 {
 	char	*tmp;
@@ -26,32 +52,6 @@ char	**replace_variable(char **envp, char *name, char *str, size_t i)
 		i++;
 	}
 	return (envp);
-}
-
-char	*ft_strdup_plus(char *str, size_t i, size_t j)
-{
-	char	*ptr;
-
-	while (str[i])
-	{
-		if (str[i] == '+')
-		{
-			ptr = malloc(sizeof(char) * (ft_strlen(str)));
-			if (ptr == NULL)
-				malloc_error();
-			i = 0;
-			while (str[i] && str[i] != '+' && str[i] != '=')
-				ptr[j++] = str[i++];
-			if (str[i] == '+')
-				i++;
-			while (str[i])
-				ptr[j++] = str[i++];
-			ptr[j] = '\0';
-			return (ptr);
-		}
-		i++;
-	}
-	return (ft_strdup(str));
 }
 
 char	**replace_add_variable(char **envp, char *str)
