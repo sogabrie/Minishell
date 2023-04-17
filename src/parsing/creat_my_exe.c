@@ -53,7 +53,7 @@ t_error_type	creat_redirect(t_shell *my_shell, int *i)
 		(*i)++;
 		if (!ft_strcmp(my_shell->double_list[*i], " "))
 			(*i)++;
-		a = ft_strdup(echo_line(my_shell->double_list[*i]));
+		a = ft_strdup(my_shell->double_list[*i]);
 		(*i)++;
 		while (my_shell->double_list[*i] && \
 		ft_strcmp(my_shell->double_list[*i], "<<") && \
@@ -66,7 +66,7 @@ t_error_type	creat_redirect(t_shell *my_shell, int *i)
 		ft_strcmp(my_shell->double_list[*i], " ") && \
 		ft_strcmp(my_shell->double_list[*i], ")"))
 		{
-			c = ft_strjoin(a, echo_line(my_shell->double_list[*i]));
+			c = ft_strjoin(a, my_shell->double_list[*i]);
 			free(a);
 			a = c;
 			(*i)++;
@@ -77,7 +77,7 @@ t_error_type	creat_redirect(t_shell *my_shell, int *i)
 		(*i)++;
 		if (!ft_strcmp(my_shell->double_list[*i], " "))
 			(*i)++;
-		a = ft_strdup(echo_line(my_shell->double_list[*i]));
+		a = ft_strdup(my_shell->double_list[*i]);
 		(*i)++;
 		while (my_shell->double_list[*i] && \
 		ft_strcmp(my_shell->double_list[*i], "<<") && \
@@ -90,19 +90,19 @@ t_error_type	creat_redirect(t_shell *my_shell, int *i)
 		ft_strcmp(my_shell->double_list[*i], " ") && \
 		ft_strcmp(my_shell->double_list[*i], ")"))
 		{
-			c = ft_strjoin(a, echo_line(my_shell->double_list[*i]));
+			c = ft_strjoin(a, my_shell->double_list[*i]);
 			free(a);
 			a = c;
 			(*i)++;
 		}
 	}
-	if (!ft_strcmp(b, "<") && my_shell->my_error  == NO_ERROR)
+	if (!ft_strcmp(b, "<") && my_shell->my_error == NO_ERROR)
 	{
 		fd = red_input(a);
 		if (fd >= 0)
 			my_shell->fd_input = fd;
 	}
-	else if (!ft_strcmp(b, ">") && my_shell->my_error  == NO_ERROR)
+	else if (!ft_strcmp(b, ">") && my_shell->my_error == NO_ERROR)
 	{
 		fd = red_out(a);
 		if (fd >= 0)
@@ -114,7 +114,7 @@ t_error_type	creat_redirect(t_shell *my_shell, int *i)
 		if (fd >= 0)
 			my_shell->fd_input = fd;
 	}
-	else if (!ft_strcmp(b, ">>") && my_shell->my_error  == NO_ERROR)
+	else if (!ft_strcmp(b, ">>") && my_shell->my_error == NO_ERROR)
 	{
 		fd = red_out_append(a);
 		if (fd >= 0)

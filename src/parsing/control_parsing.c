@@ -16,20 +16,19 @@ int	control_pars_exe_2_2(t_shell *my_shell, int *i)
 
 void	control_pars_exe_2(t_shell *my_shell, int *start, int *end, int *i)
 {
+	//char	cp;
+
+	//cp = echo_line(my_shell->double_list[i])
 	if (control_pars_exe_2_2(my_shell, i) \
 	&& my_shell->check_exe == -1)
-	{
 		creat_my_exe(my_shell, my_shell->double_list[(*i)]);
-	}
 	else if (!ft_strcmp(my_shell->double_list[(*i)], "<") || \
 	!ft_strcmp(my_shell->double_list[(*i)], "<<") || \
 	!ft_strcmp(my_shell->double_list[(*i)], ">") || \
 	!ft_strcmp(my_shell->double_list[(*i)], ">>"))
 		my_shell->my_error = creat_redirect(my_shell, i);
 	else if (i == start || my_shell->check_exe == -1)
-	{
 		creat_exe(my_shell, my_shell->double_list[(*i)]);
-	}
 	else if (ft_strcmp(my_shell->double_list[(*i)], " "))
 		add_option(my_shell, my_shell->double_list[(*i)]);
 	++(*i);
@@ -89,8 +88,8 @@ void	control_pars_exe_5(t_shell *my_shell)
 
 void	control_pars_exe(t_shell *my_shell, int start, int end)
 {
-	int	i;
-
+	int		i;
+ 
 	control_pars_exe_1(my_shell, &start, &end, &i);
 	while (i < end && my_shell->double_list[i] && \
 	ft_strcmp(my_shell->double_list[i], ")"))

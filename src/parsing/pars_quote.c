@@ -49,7 +49,8 @@ void	control_pars_6(t_shell *my_shell, int *i, int *j, int *n)
 		my_shell->my_error = control_pars_1(my_shell, i, j, n);
 	else if (my_shell->line[(*i)] == '"')
 		my_shell->my_error = control_pars_2(my_shell, i, j, n);
-	else if ((my_shell->line[(*i)] == '|' && my_shell->line[(*i) + 1] == '|') || \
+	else if ((my_shell->line[(*i)] == '|' \
+	&& my_shell->line[(*i) + 1] == '|') || \
 	(my_shell->line[(*i)] == '&' && my_shell->line[(*i) + 1] == '&') || \
 	(my_shell->line[(*i)] == '<' && my_shell->line[(*i) + 1] == '<') || \
 	(my_shell->line[(*i)] == '>' && my_shell->line[(*i) + 1] == '>'))
@@ -66,19 +67,15 @@ void	control_pars_6(t_shell *my_shell, int *i, int *j, int *n)
 
 t_error_type	control_pars(t_shell *my_shell, int i, int j, int n)
 {
-	char	a;
+	char	a[2];
 
+	a[1] = 0;
 	while (my_shell->line[i])
 	{
-		a = my_shell->line[i];
+		a[0] = my_shell->line[i];
 		control_pars_6(my_shell, &i, &j, &n);
 		if (my_shell->my_error != NO_ERROR)
-		{
-			write (2, "minishell: syntax error near unexpected token `", 48);
-			write (2, &a, 1);
-			write (2, "\'\n", 3);
-			return (my_shell->my_error);
-		}
+			return (errors_print_sintexs(my_shell, a, SYNT_ERROR));
 	}
 	return (my_shell->my_error);
 }

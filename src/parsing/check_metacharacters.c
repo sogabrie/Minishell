@@ -64,25 +64,15 @@ t_error_type	check_metachar(t_shell	*my_shell)
 		!ft_strcmp(my_shell->double_list[i], "|"))
 		{
 			if (check_metachar_cont(my_shell, i))
-			{
-				write (2, "minishell: syntax error near unexpected token `", 48);
-				write (2, my_shell->double_list[i], ft_strlen(my_shell->double_list[i]));
-				write (2, "\'\n", 3);
-				my_shell->my_error = SYNT_ERROR;
-				return (my_shell->my_error);
-			}
+				return (errors_print_sintexs(my_shell, \
+				my_shell->double_list[i], SYNT_ERROR));
 		}
 		else if (!ft_strcmp(my_shell->double_list[i], "<<") || \
 		!ft_strcmp(my_shell->double_list[i], ">>") || \
 		!ft_strcmp(my_shell->double_list[i], "<") || \
 		!ft_strcmp(my_shell->double_list[i], ">"))
-		{
-				write (2, "minishell: syntax error near unexpected token `", 48);
-				write (2, my_shell->double_list[i], ft_strlen(my_shell->double_list[i]));
-				write (2, "\'\n", 3);
-				my_shell->my_error = SYNT_ERROR;
-				return (my_shell->my_error);
-		}
+			return (errors_print_sintexs(my_shell, \
+			my_shell->double_list[i], SYNT_ERROR));
 		++i;
 	}
 	return (NO_ERROR);
