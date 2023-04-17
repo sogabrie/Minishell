@@ -120,20 +120,20 @@ int	ft_cd(char *dir, char ***envp, char *new_dir, char *pwd)
 	if (ft_strlen(dir) == 0)
 	{
 		if (check_home(home, new_dir, old_pwd, pwd))
-			return (-1);
+			return (1);
 		*envp = old_new_pwd(old_pwd, pwd, *envp, home);
 	}
 	else if (!ft_strcmp("-", dir))
 	{
 		if (check_past_dir(old_pwd, home, pwd, new_dir))
-			return (-1);
+			return (1);
 		ft_putendl_fd(old_pwd, 1);
 		*envp = old_new_pwd(old_pwd, pwd, *envp, old_pwd);
 	}
 	else
 	{
 		if (check_new_dir(home, dir, old_pwd, pwd))
-			return (-1);
+			return (1);
 		*envp = old_new_pwd(old_pwd, pwd, *envp, getcwd(buf, sizeof(buf)));
 	}
 	return (free_object_cd(new_dir, home, old_pwd, pwd));
