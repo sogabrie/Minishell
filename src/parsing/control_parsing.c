@@ -1,95 +1,128 @@
 #include "struct.h"
 #include "minishell.h"
 
-int	control_pars_exe(t_shell *my_shell, int start, int end)
+int	control_pars_exe_2_2(t_shell *my_shell, int *i)
 {
-	int	i;
-
-	// write(1, "aa_11\n",6);
-	while (!ft_strcmp(my_shell->double_list[start], " ") || \
-	!ft_strcmp(my_shell->double_list[start], "("))
-	{
-		// write(1, "aa_12\n",6);
-		if (!ft_strcmp(my_shell->double_list[start], "("))
-		{
-			// write(1, "aa_13\n",6);
-			if (creat_struct_prioritet_start(my_shell))
-				return (9);
-		}
-		// write(1, "aa_14\n",6);
-		++start;
-	}
-	// write(1, "aa_15\n",6);
-	i = start;
-	while (i < end && my_shell->double_list[i]  && ft_strcmp(my_shell->double_list[i], ")"))
-	{
-		// write(1, "aa_16\n",6);
-		if ((!ft_strcmp(my_shell->double_list[i], "echo") || \
-		!ft_strcmp(my_shell->double_list[i], "cd") || \
-		!ft_strcmp(my_shell->double_list[i], "pwd") || \
-		!ft_strcmp(my_shell->double_list[i], "export") || \
-		!ft_strcmp(my_shell->double_list[i], "unset") || \
-		!ft_strcmp(my_shell->double_list[i], "env") || \
-		!ft_strcmp(my_shell->double_list[i], "exit")) \
-		&& my_shell->check_exe == -1)
-		{
-			// write(1, "aa_17\n",6);
-			if (creat_my_exe(my_shell, my_shell->double_list[i++]))
-				return (7);
-			// write(1, "aa_18\n",6);
-		}
-		else if (!ft_strcmp(my_shell->double_list[i], "<") || \
-		!ft_strcmp(my_shell->double_list[i], "<<") || \
-		!ft_strcmp(my_shell->double_list[i], ">") || \
-		!ft_strcmp(my_shell->double_list[i], ">>"))
-		{
-			// write(1, "aa_19\n",6);
-			creat_redirect(my_shell, &i);
-			// if (creat_redirect(my_shell, &i))
-				// return (8);
-			printf("my_shell->double_list[i] = %s\n",my_shell->double_list[i]);
-			// write(1, "aa_20\n",6);
-		}
-		else if (i == start || my_shell->check_exe == -1)
-		{
-			// write(1, "aa_21\n",6);
-			if (creat_exe(my_shell, my_shell->double_list[i++]))
-				return (7);
-			// write(1, "aa_22\n",6);
-		}
-		else if (ft_strcmp(my_shell->double_list[i], " "))
-		{
-			// write(1, "aa_23\n",6);
-			add_option(my_shell, my_shell->double_list[i++]);
-			// write(1, "aa_24\n",6);
-		}
-		else
-			++i;
-		// write(1, "aa_25\n",6);
-		// printf("i = %d end = %d\n", i, end);
-		// printf("my_shell->double_list[i] = %s\n",my_shell->double_list[i]);
-	}
-	// printf("i = %d end = %d\n", i, end);
-	// write(1, "aa_25.5\n",8);
-	while (i < end && my_shell->double_list[i] && (!ft_strcmp(my_shell->double_list[i], " ") || \
-	!ft_strcmp(my_shell->double_list[i], ")")))
-	{
-		// write(1, "aa_26\n",6);
-		if (!ft_strcmp(my_shell->double_list[i], ")"))
-		{
-			// write(1, "aa_27\n",6);
-			if (creat_struct_prioritet_end(my_shell))
-				return (9);
-		}
-		++i;
-		// write(1, "aa_28\n",6);
-	}
-	// write(1, "aa_29\n",6);
-	my_shell->check_exe = -1;
+	if ((!ft_strcmp(my_shell->double_list[(*i)], "echo") || \
+	!ft_strcmp(my_shell->double_list[(*i)], "cd") || \
+	!ft_strcmp(my_shell->double_list[(*i)], "pwd") || \
+	!ft_strcmp(my_shell->double_list[(*i)], "export") || \
+	!ft_strcmp(my_shell->double_list[(*i)], "unset") || \
+	!ft_strcmp(my_shell->double_list[(*i)], "env") || \
+	!ft_strcmp(my_shell->double_list[(*i)], "exit")))
+		return (1);
 	return (0);
 }
 
-int	control_parsing(t_shell	*my_shell)
+void	control_pars_exe_2(t_shell *my_shell, int *start, int *end, int *i)
+{
+	//char	cp;
+
+	//cp = echo_line(my_shell->double_list[i])
+	if (control_pars_exe_2_2(my_shell, i) \
+	&& my_shell->check_exe == -1)
+		creat_my_exe(my_shell, my_shell->double_list[(*i)]);
+	else if (!ft_strcmp(my_shell->double_list[(*i)], "<") || \
+	!ft_strcmp(my_shell->double_list[(*i)], "<<") || \
+	!ft_strcmp(my_shell->double_list[(*i)], ">") || \
+	!ft_strcmp(my_shell->double_list[(*i)], ">>"))
+		my_shell->my_error = creat_redirect(my_shell, i);
+	else if (i == start || my_shell->check_exe == -1)
+		creat_exe(my_shell, my_shell->double_list[(*i)]);
+	else if (ft_strcmp(my_shell->double_list[(*i)], " "))
+		add_option(my_shell, my_shell->double_list[(*i)]);
+	++(*i);
+}
+
+void	control_pars_exe_1(t_shell *my_shell, int *start, int *end, int *i)
+{
+	while (!ft_strcmp(my_shell->double_list[*start], " ") || \
+	!ft_strcmp(my_shell->double_list[*start], "("))
+	{
+		if (!ft_strcmp(my_shell->double_list[*start], "("))
+			creat_struct_prioritet_start(my_shell);
+		++(*start);
+	}
+	(*i) = (*start);
+}
+
+void	control_pars_exe_3(t_shell *my_shell, int *end, int *i)
+{
+	while ((*i) < (*end) && my_shell->double_list[(*i)] && \
+	(!ft_strcmp(my_shell->double_list[(*i)], " ") || \
+	!ft_strcmp(my_shell->double_list[(*i)], ")")))
+	{
+		if (!ft_strcmp(my_shell->double_list[(*i)], ")"))
+			creat_struct_prioritet_end(my_shell);
+		++(*i);
+	}
+}
+
+void	control_pars_exe_4(t_shell *my_shell)
+{
+	if (my_shell->control[my_shell->check_exe]->command_type \
+	== EXE)
+	{
+		my_shell->control[my_shell->check_exe]->exe->fd_input \
+		= my_shell->fd_input;
+		my_shell->control[my_shell->check_exe]->exe->fd_output \
+		= my_shell->fd_output;
+	}
+	if (my_shell->control[my_shell->check_exe]->command_type == MY_EXE)
+	{
+		my_shell->control[my_shell->check_exe]->my_exe->fd_input \
+		= my_shell->fd_input;
+		my_shell->control[my_shell->check_exe]->my_exe->fd_output \
+		= my_shell->fd_output;
+	}
+	my_shell->control[my_shell->check_exe]->error = my_shell->my_error;
+}
+
+void	control_pars_exe_5(t_shell *my_shell)
+{
+	chreat_cont(my_shell);
+	my_shell->control[my_shell->count - 1]->command_type = NO_EXE;
+	my_shell->check_exe = my_shell->count - 1 ;
+	my_shell->control[my_shell->check_exe]->error = my_shell->my_error;
+}
+
+void	control_pars_exe(t_shell *my_shell, int start, int end)
+{
+	int		i;
+ 
+	control_pars_exe_1(my_shell, &start, &end, &i);
+	while (i < end && my_shell->double_list[i] && \
+	ft_strcmp(my_shell->double_list[i], ")"))
+	{
+		control_pars_exe_2(my_shell, &start, &end, &i);
+	}
+	control_pars_exe_3(my_shell, &end, &i);
+	if (my_shell->check_exe >= 0)
+		control_pars_exe_4(my_shell);
+	else
+		control_pars_exe_5(my_shell);
+	my_shell->check_exe = -1;
+	my_shell->fd_output = 1;
+	my_shell->fd_input = 0;
+	my_shell->my_error = NO_ERROR;
+}
+
+void	control_parsing_2(t_shell *my_shell, int start, int end, int i)
+{
+	control_pars_exe(my_shell, start, end);
+	if (i < my_shell->delimiter_count && \
+	(start || my_shell->double_list[end]))
+	{
+		if (!ft_strcmp(my_shell->double_list[end], "|"))
+			creat_struct_pip(my_shell);
+		else if (!ft_strcmp(my_shell->double_list[end], "||"))
+			creat_struct_or(my_shell);
+		else if (!ft_strcmp(my_shell->double_list[end], "&&"))
+			creat_struct_and(my_shell);
+	}
+}
+
+void	control_parsing(t_shell	*my_shell)
 {
 	int	i;
 	int	start;
@@ -100,38 +133,17 @@ int	control_parsing(t_shell	*my_shell)
 	end = 0;
 	while (i <= my_shell->delimiter_count)
 	{
-		// write(1, "aa_2\n",5);
 		start = end;
 		if (i < my_shell->delimiter_count)
-		{
-			// write(1, "aa_3\n",5);
 			end = my_shell->delimiter[i];
-		}
 		else
 		{
-			// write(1, "aa_4\n",5);
-			while(my_shell->double_list[end])
+			while (my_shell->double_list[end])
 				++end;
 			++end;
 		}
-		// write(1, "aa_5\n",5);
-		control_pars_exe(my_shell, start, end);
-		// write(1, "aa_6\n",5);
-		if (i < my_shell->delimiter_count && \
-		(start || my_shell->double_list[end]))
-		{
-			// write(1, "aaaaaaaaaaaaaaaaaa_7\n",20);
-			if (!ft_strcmp(my_shell->double_list[end], "|"))
-				creat_struct_pip(my_shell);
-			else if (!ft_strcmp(my_shell->double_list[end], "||"))
-				creat_struct_or(my_shell);
-			else if (!ft_strcmp(my_shell->double_list[end], "&&"))
-				creat_struct_and(my_shell);
-			// write(1, "aa_7\n",6);
-		}
+		control_parsing_2(my_shell, start, end, i);
 		++i;
 		++end;
-		// write(1, "aa_10\n",6);
 	}
-	return (0);
 }

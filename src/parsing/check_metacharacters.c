@@ -1,23 +1,26 @@
 #include "minishell.h"
 #include "struct.h"
 
+int	check_metachar_and_redirect(char *c)
+{
+	if (!ft_strcmp(c, "&&") || !ft_strcmp(c, "||") \
+	|| !ft_strcmp(c, "|") || !ft_strcmp(c, ">>") \
+	|| !ft_strcmp(c, "<<") || !ft_strcmp(c, ">") \
+	|| !ft_strcmp(c, "<"))
+		return (1);
+	return (0);
+}
+
 int	check_metachar_cont_2(t_shell	*my_shell, int i)
 {
 	int	c;
-
 
 	c = i + 1;
 	while (my_shell->double_list[c] && \
 	!ft_strcmp(my_shell->double_list[c], " "))
 		++c;
 	if (!my_shell->double_list[c] || \
-	!ft_strcmp(my_shell->double_list[c], "&&") \
-	|| !ft_strcmp(my_shell->double_list[c], "||") \
-	|| !ft_strcmp(my_shell->double_list[c], "|") \
-	|| !ft_strcmp(my_shell->double_list[c], ">>") \
-	|| !ft_strcmp(my_shell->double_list[c], "<<") \
-	|| !ft_strcmp(my_shell->double_list[c], ">") \
-	|| !ft_strcmp(my_shell->double_list[c], "<"))
+		check_metachar_and_redirect(my_shell->double_list[c]))
 		return (6);
 	return (0);
 }
@@ -31,13 +34,7 @@ int	check_metachar_cont(t_shell	*my_shell, int i)
 	!ft_strcmp(my_shell->double_list[c], ")") || \
 	!ft_strcmp(my_shell->double_list[c], "(")))
 		--c;
-	if (c < 0 || !ft_strcmp(my_shell->double_list[c], "&&") \
-	|| !ft_strcmp(my_shell->double_list[c], "||") \
-	|| !ft_strcmp(my_shell->double_list[c], "|") \
-	|| !ft_strcmp(my_shell->double_list[c], ">>") \
-	|| !ft_strcmp(my_shell->double_list[c], "<<") \
-	|| !ft_strcmp(my_shell->double_list[c], ">") \
-	|| !ft_strcmp(my_shell->double_list[c], "<"))
+	if (c < 0 || check_metachar_and_redirect(my_shell->double_list[c]))
 		return (5);
 	c = i + 1;
 	while (my_shell->double_list[c] && \
@@ -53,7 +50,7 @@ int	check_metachar_cont(t_shell	*my_shell, int i)
 	return (0);
 }
 
-int	check_metachar(t_shell	*my_shell)
+t_error_type	check_metachar(t_shell	*my_shell)
 {
 	int	i;
 	int	c;
@@ -67,17 +64,16 @@ int	check_metachar(t_shell	*my_shell)
 		!ft_strcmp(my_shell->double_list[i], "|"))
 		{
 			if (check_metachar_cont(my_shell, i))
-				return (6);
+				return (errors_print_sintexs(my_shell, \
+				my_shell->double_list[i], SYNT_ERROR));
 		}
 		else if (!ft_strcmp(my_shell->double_list[i], "<<") || \
 		!ft_strcmp(my_shell->double_list[i], ">>") || \
 		!ft_strcmp(my_shell->double_list[i], "<") || \
 		!ft_strcmp(my_shell->double_list[i], ">"))
-		{
-			if (check_metachar_cont_2(my_shell, i))
-				return (6);
-		}
+			return (errors_print_sintexs(my_shell, \
+			my_shell->double_list[i], SYNT_ERROR));
 		++i;
 	}
-	return (0);
+	return (NO_ERROR);
 }
