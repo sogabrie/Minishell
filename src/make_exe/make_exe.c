@@ -64,7 +64,8 @@ int	make_exe(t_shell *my_shell, int i)
 			pid = fork();
 			if (pid)
 			{
-				waitpid(pid, NULL, 0);
+				waitpid(pid, &error, 0);
+				my_shell->my_error = error;
 				i = my_shell->control[i - 1]->prioritet_start->end;
 			}
 			else
