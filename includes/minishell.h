@@ -32,6 +32,8 @@ char			*valid_dir(char *dir, char *home);
 int				valid_variable(char *str);
 int				first_char(char *str);
 int				check_inside(char *str, size_t start);
+char			*variable_name(char *str);
+char			*variable_add(char *str, char *ptr);
 
 //Here_Doc
 int				here_doc(char *end, int fd_write, char **envp, char *buffer);

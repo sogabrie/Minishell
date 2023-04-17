@@ -54,7 +54,7 @@ parsing.c                   |       sogabrie
 
 Dir utils
 cd_utils.c                  |       aafrikya
-export_valid.c              |       aafrikya
+export_utils.c              |       aafrikya
 ft_utils.c                  |       aafrikya
 pars_quote_utils.c          |       sogabrie
 pars_utils.c                |       sogabrie
