@@ -13,7 +13,7 @@ void	main_parsing(t_shell	*my_shell)
 	{
 		creat_delimiter(my_shell);
 		control_parsing(my_shell);
-		make_exe(my_shell, 0);
+		make_exe(my_shell, 0, my_shell->count);
 		// int i = 0;
 		// while (i < my_shell->count)
 		// {
