@@ -71,7 +71,7 @@ int	do_exe(t_shell *my_shell, int i)
 	}
 	else if (my_shell->control[i]->command_type == MY_EXE)
 	{
-		// printf("MY_EXE = %s intpt = %d output = %d\n",my_shell->control[i]->my_exe->name, \
+		printf("MY_EXE = %s intpt = %d output = %d\n",my_shell->control[i]->my_exe->name, \
 		my_shell->control[i]->my_exe->fd_input, my_shell->control[i]->my_exe->fd_output);
 		int j = 0;
 		while (my_shell->control[i]->my_exe->options && my_shell->control[i]->my_exe->options[j])
@@ -99,33 +99,26 @@ int	make_exe(t_shell *my_shell, int i, int j)
 	error = 0;
 	while (i < j)
 	{
-		// write(2, "make_1\n", 8);
 		if (my_shell->control[i]->command_type == PRIORITET_START)
 		{
 			if (chek_and_or(my_shell, &i, my_shell->control[i]->prioritet_start->end + 1))
 				continue ;
 			if (i > 0 && my_shell->control[i - 1]->command_type == PIPE)
 			{
-				// write(2, "aaa_1\n", 7);
 				my_shell->cpy_fd_input = dup(my_shell->fd_input);
 				dup2(my_shell->control[i - 1]->pip[0], my_shell->fd_input);
 			}
 			if (my_shell->control[i]->prioritet_start->end + 1 < my_shell->count && \
 			my_shell->control[my_shell->control[i]->prioritet_start->end + 1]->command_type == PIPE)
 			{
-				// write(2, "aaa_2\n", 7);
 				my_shell->cpy_fd_output = dup(my_shell->fd_output);
 				dup2(my_shell->control[my_shell->control[i]->prioritet_start->end + 1]->pip[1], my_shell->fd_output);
 			}
-			// my_shell->control[i]->exe->cpy_fd_input = dup(my_shell->fd_input);
-			// dup2(my_shell->control[i]->exe->fd_input, my_shell->fd_input);
-			// my_shell->control[i]->exe->cpy_fd_output = dup(my_shell->fd_output);
-			// dup2(my_shell->control[i]->exe->fd_output, my_shell->fd_output);
 			pid = fork();
 			if (pid)
 			{
 				i2 = i;
-				while (i2 < j)
+				while (i2 < my_shell->control[i]->prioritet_start->end)
 				{
 					if (my_shell->control[i2]->command_type == PIPE)
 					{
@@ -140,18 +133,20 @@ int	make_exe(t_shell *my_shell, int i, int j)
 					// write(2, "aaa_3\n", 7);
 					close(my_shell->control[my_shell->control[i]->prioritet_start->end + 1]->pip[1]);
 				}
+				// write(2, "aaa_4\n", 7);
 				waitpid(pid, &error, 0);
+				// write(2, "aaa_5\n", 7);
 				my_shell->my_error = error;
 				if (i > 0 && my_shell->control[i - 1]->command_type == PIPE)
 				{
-					// write(2, "aaa_4\n", 7);
+					//  write(2, "aaa_6\n", 7);
 					dup2(my_shell->cpy_fd_input, my_shell->fd_input);
 					close(my_shell->cpy_fd_input);
 				}
 				if (my_shell->control[i]->prioritet_start->end + 1 < my_shell->count && \
 				my_shell->control[my_shell->control[i]->prioritet_start->end + 1]->command_type == PIPE)
 				{
-					// write(2, "aaa_5\n", 7);
+					// write(2, "aaa_7\n", 7);
 					dup2(my_shell->cpy_fd_output, my_shell->fd_output);
 					close(my_shell->cpy_fd_output);
 				}
@@ -174,7 +169,7 @@ int	make_exe(t_shell *my_shell, int i, int j)
 				continue ;
 			if (i > 0 && my_shell->control[i - 1]->command_type == PIPE)
 			{
-				// write(2, "make_9\n", 8);
+				// write(2, "ttt_1\n", 8);
 				if (my_shell->control[i]->command_type == EXE)
 				{
 					my_shell->control[i]->exe->fd_input = my_shell->control[i - 1]->pip[0];
@@ -186,7 +181,7 @@ int	make_exe(t_shell *my_shell, int i, int j)
 			}
 			if (i + 1 < my_shell->count && my_shell->control[i + 1]->command_type == PIPE)
 			{
-				// write(2, "make_8\n", 8);
+				// write(2, "ttt_3\n", 8);
 				if (my_shell->control[i]->command_type == EXE)
 				{
 					my_shell->control[i]->exe->fd_output = my_shell->control[i + 1]->pip[1];
