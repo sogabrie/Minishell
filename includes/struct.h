@@ -84,6 +84,8 @@ typedef struct s_shell
 	int				close_fd_count;
 	int				fd_output;
 	int				fd_input;
+	int				cpy_fd_output;
+	int				cpy_fd_input;
 	int				check_exe;
 	t_control		**control;
 	unsigned int	count;
