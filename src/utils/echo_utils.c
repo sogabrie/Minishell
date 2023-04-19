@@ -13,7 +13,7 @@ size_t	do_scop(char *str, size_t *i, char **envp)
 		*i += 2;
 		return (2);
 	}
-	while (str[j] != '\'' && str[j] != '/' && str[j] != '=')
+	while (!ft_strchr("@#%^*$}]{+=? \n\t.,-[|/>\'<;:~\\", str[j]))
 		j++;
 	*i += j;
 	ptr = ft_substr(str, 0, j);
@@ -24,6 +24,20 @@ size_t	do_scop(char *str, size_t *i, char **envp)
 	return (count);
 }
 
+int	ultra_char(char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (ft_strchr("@#%^*}]{+=? \n\t.,-[|/>\'<;:~\\", str[i]))
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 char	*creat_new_line(char *str, char **envp, size_t i, size_t count)
 {
 	char	*new_line;
@@ -32,8 +46,7 @@ char	*creat_new_line(char *str, char **envp, size_t i, size_t count)
 	{
 		if (str[i] == '$')
 		{
-			if (ft_strchr(str + i, '\'') || ft_strchr(str + i, '/') \
-				|| ft_strchr(str + i, '='))
+			if (ultra_char(str + i))
 				count += do_scop(str + i + 1, &i, envp);
 			else
 			{
@@ -84,7 +97,7 @@ char	*variable(char *str, size_t *i, char **envp, int error)
 		*i += 2;
 		return (error_s);
 	}
-	while (str[j] && str[j] != '\'' && str[j] != '/' && str[j] != '=')
+	while (!ft_strchr("@#%^$*}]{+=? \n\t.,-[|/>\'<;:~\\", str[j]))
 		j++;
 	ptr = ft_substr(str, 0, j);
 	if (ptr == NULL)
