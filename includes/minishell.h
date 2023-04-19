@@ -35,6 +35,12 @@ int				check_inside(char *str, size_t start);
 char			*variable_name(char *str);
 char			*variable_add(char *str, char *ptr);
 
+//echo_utils
+size_t			do_scop(char *str, size_t *i, char **envp);
+char			*creat_new_line(char *str, char **envp, size_t i, size_t count);
+int				check_flag(char *str, size_t *flag);
+char			*variable(char *str, size_t *i, char **envp, int error);
+
 //Here_Doc
 int				here_doc(char *end, int fd_write, char **envp, char *buffer);
 char			*creat_tmp_file(int last_number, char *tmp_file, \
