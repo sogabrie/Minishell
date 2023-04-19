@@ -20,6 +20,7 @@ t_error_type	control_pars_4(t_shell *my_shell, int *i, int *j, int *n);
 t_error_type	control_pars_5(t_shell *my_shell, int *i, int *j, int *n);
 
 //pars_quote_utils.c
+void			heer_doc_echo(char *a);
 void			cp_free(char ***list, char ***cp);
 char			*my_cat(char *list, int start, int end);
 int				size_list(char **list);

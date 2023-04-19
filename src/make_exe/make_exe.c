@@ -12,12 +12,20 @@ int	chek_and_or(t_shell *my_shell, t_mas_pid *my_pid, int *i, int j)
 		// printf("end_2 = %d\n", my_shell->my_error);
 		while (i2 < my_pid->count)
 		{
-			waitpid(my_pid->pid[i2++], &error, 0);
-			my_shell->my_error = error;
+			if (my_pid->my_pid[i2] == -1)
+			{
+				waitpid(my_pid->pid[i2], &error, 0);
+				my_shell->my_error = error;
+			}
+			else
+				my_shell->my_error = my_pid->my_pid[i2];
+			++i2;
 		}
 		free(my_pid->pid);
+		free(my_pid->my_pid);
 		my_pid->count = 0;
 		my_pid->pid = 0;
+		my_pid->my_pid = 0;
 		if (my_shell->control[(*i) - 1]->command_type == LOGIC_AND)
 		{
 			if (my_shell->my_error)
@@ -111,6 +119,7 @@ int	make_exe(t_shell *my_shell, int i, int j)
 	error = 0;
 	my_pid.count = 0;
 	my_pid.pid = 0;
+	my_pid.my_pid = 0;
 	while (i < j)
 	{
 		if (my_shell->control[i]->command_type == PRIORITET_START)
@@ -179,22 +188,26 @@ int	make_exe(t_shell *my_shell, int i, int j)
 			{
 				if (my_shell->control[i]->command_type == EXE)
 				{
-					my_shell->control[i]->exe->fd_input = my_shell->control[i - 1]->pip[0];
+					if (my_shell->control[i]->exe->flag_input)
+						my_shell->control[i]->exe->fd_input = my_shell->control[i - 1]->pip[0];
 				}
 				else if (my_shell->control[i]->command_type == MY_EXE)
 				{
-					my_shell->control[i]->my_exe->fd_input = my_shell->control[i - 1]->pip[0];
+					if (my_shell->control[i]->my_exe->flag_input)
+						my_shell->control[i]->my_exe->fd_input = my_shell->control[i - 1]->pip[0];
 				}
 			}
 			if (i + 1 < my_shell->count && my_shell->control[i + 1]->command_type == PIPE)
 			{
 				if (my_shell->control[i]->command_type == EXE)
 				{
-					my_shell->control[i]->exe->fd_output = my_shell->control[i + 1]->pip[1];
+					if (my_shell->control[i]->exe->flag_output)
+						my_shell->control[i]->exe->fd_output = my_shell->control[i + 1]->pip[1];
 				}
 				else if (my_shell->control[i]->command_type == MY_EXE)
 				{
-					my_shell->control[i]->my_exe->fd_output = my_shell->control[i + 1]->pip[1];
+					if (my_shell->control[i]->my_exe->flag_output)
+						my_shell->control[i]->my_exe->fd_output = my_shell->control[i + 1]->pip[1];
 				}
 			}
 			do_exe(my_shell, &my_pid, i);
@@ -208,11 +221,19 @@ int	make_exe(t_shell *my_shell, int i, int j)
 	i2 = 0;
 	while (i2 < my_pid.count)
 	{
-		waitpid(my_pid.pid[i2++], &error, 0);
-		my_shell->my_error = error;
+		if (my_pid.my_pid[i2] == -1)
+		{
+			waitpid(my_pid.pid[i2], &error, 0);
+			my_shell->my_error = error;
+		}
+		else
+			my_shell->my_error = my_pid.my_pid[i2];
+		++i2;
 	}
 	free(my_pid.pid);
+	free(my_pid.my_pid);
 	my_pid.count = 0;
 	my_pid.pid = 0;
+	my_pid.my_pid = 0;
 	return(my_shell->my_error);
 }

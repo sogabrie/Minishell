@@ -67,6 +67,15 @@ void	control_pars_exe_4(t_shell *my_shell)
 		= my_shell->fd_input;
 		my_shell->control[my_shell->check_exe]->exe->fd_output \
 		= my_shell->fd_output;
+		if (my_shell->fd_input != 0)
+			my_shell->control[my_shell->check_exe]->exe->flag_input = 0;
+		else
+			my_shell->control[my_shell->check_exe]->exe->flag_input = 1;
+		if (my_shell->fd_output != 1)
+			my_shell->control[my_shell->check_exe]->exe->flag_output = 0;
+		else
+			my_shell->control[my_shell->check_exe]->exe->flag_output = 1;
+
 	}
 	if (my_shell->control[my_shell->check_exe]->command_type == MY_EXE)
 	{
@@ -74,6 +83,14 @@ void	control_pars_exe_4(t_shell *my_shell)
 		= my_shell->fd_input;
 		my_shell->control[my_shell->check_exe]->my_exe->fd_output \
 		= my_shell->fd_output;
+		if (my_shell->fd_input != 0)
+			my_shell->control[my_shell->check_exe]->my_exe->flag_input = 0;
+		else
+			my_shell->control[my_shell->check_exe]->my_exe->flag_input = 1;
+		if (my_shell->fd_output != 1)
+			my_shell->control[my_shell->check_exe]->my_exe->flag_output = 0;
+		else
+			my_shell->control[my_shell->check_exe]->my_exe->flag_output = 1;
 	}
 	my_shell->control[my_shell->check_exe]->error = my_shell->my_error;
 }
@@ -84,6 +101,7 @@ void	control_pars_exe_5(t_shell *my_shell)
 	my_shell->control[my_shell->count - 1]->command_type = NO_EXE;
 	my_shell->check_exe = my_shell->count - 1 ;
 	my_shell->control[my_shell->check_exe]->error = my_shell->my_error;
+	
 }
 
 void	control_pars_exe(t_shell *my_shell, int start, int end)

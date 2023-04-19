@@ -35,6 +35,8 @@ typedef struct s_exe
 	int				cpy_fd_input;
 	int				status;
 	int				error;
+	int				flag_input;
+	int				flag_output;
 }	t_exe;
 
 typedef struct s_my_exe
@@ -47,6 +49,8 @@ typedef struct s_my_exe
 	int				cpy_fd_output;
 	int				cpy_fd_input;
 	int				staatus;
+	int				flag_input;
+	int				flag_output;
 }	t_my_exe;
 
 // typedef struct s_pipe
@@ -100,6 +104,7 @@ typedef struct s_shell
 typedef struct s_mas_pid
 {
 	pid_t			*pid;
+	int				*my_pid;
 	int				count;
 }					t_mas_pid;
 
