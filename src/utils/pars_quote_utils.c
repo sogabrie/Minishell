@@ -1,19 +1,19 @@
 #include "minishell.h"
 
-void	heer_doc_echo(char *a)
+char	*heer_doc_echo(char *a)
 {
 	int	i;
 
 	if(!a || !a[0])
-		return ;
-	if (a[0] == '\"')
+		return (a);
+	if (a[0] == '\"' || a[0] == '\'')
 	{
-		a[0] = '\'';
-		i = 0;
-		while (a[i])
-			++i;
-		a[i - 1] = '\'';
+		i = -1;
+		while (a[++i])
+			a[i] = a[i + 1];
+		a[i - 2] = 0;
 	}
+	return (a);
 }
 
 void	cp_free(char ***list, char ***cp)

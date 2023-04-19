@@ -31,7 +31,7 @@ int	chek_and_or(t_shell *my_shell, t_mas_pid *my_pid, int *i, int j)
 			if (my_shell->my_error)
 			{
 				(*i) = j;
-				my_shell->my_error = NO_ERROR;
+				// my_shell->my_error = NO_ERROR;
 				return (1);
 			}
 		}
@@ -40,7 +40,7 @@ int	chek_and_or(t_shell *my_shell, t_mas_pid *my_pid, int *i, int j)
 			if (!my_shell->my_error)
 			{
 				(*i) = j;
-				my_shell->my_error = NO_ERROR;
+				// my_shell->my_error = NO_ERROR;
 				return (1);
 			}
 		}
@@ -48,7 +48,40 @@ int	chek_and_or(t_shell *my_shell, t_mas_pid *my_pid, int *i, int j)
 	return (0);
 }
 
-int	do_exe(t_shell *my_shell, t_mas_pid	*my_pid, int i)
+int	do_my_exe(t_shell *my_shell, int i)
+{
+	if (!ft_strcmp(my_shell->control[i]->my_exe->name, "echo"))
+	{
+
+	}
+	if (!ft_strcmp(my_shell->control[i]->my_exe->name, "cd"))
+	{
+		return (ft_cd(my_shell->control[i]->my_exe->options[0], &my_shell->my_envp, NULL, NULL));
+	}
+	if (!ft_strcmp(my_shell->control[i]->my_exe->name, "pwd"))
+	{
+		return(ft_pwd());
+	}
+	if (!ft_strcmp(my_shell->control[i]->my_exe->name, "export"))
+	{
+
+	}
+	if (!ft_strcmp(my_shell->control[i]->my_exe->name, "unset"))
+	{
+
+	}
+	if (!ft_strcmp(my_shell->control[i]->my_exe->name, "env"))
+	{
+
+	}
+	if (!ft_strcmp(my_shell->control[i]->my_exe->name, "exit"))
+	{
+
+	}
+	return (0);
+}
+
+void	do_exe(t_shell *my_shell, t_mas_pid	*my_pid, int i)
 {
 	int	error;
 
@@ -86,28 +119,44 @@ int	do_exe(t_shell *my_shell, t_mas_pid	*my_pid, int i)
 			}
 			if (my_shell->control[i]->error == NO_ERROR)
 				exit(execve(my_shell->control[i]->exe->full_name, my_shell->control[i]->exe->options, my_shell->my_envp));
-			exit(my_shell->control[i - 1]->command_type);
+			exit(my_shell->control[i]->error);
 		}
 	}
 	else if (my_shell->control[i]->command_type == MY_EXE)
 	{
-		printf("MY_EXE = %s intpt = %d output = %d\n",my_shell->control[i]->my_exe->name, \
-		my_shell->control[i]->my_exe->fd_input, my_shell->control[i]->my_exe->fd_output);
-		int j = 0;
-		while (my_shell->control[i]->my_exe->options && my_shell->control[i]->my_exe->options[j])
-			printf("	Options = %s\n", my_shell->control[i]->my_exe->options[j++]);
+		my_shell->control[i]->my_exe->cpy_fd_input = dup(my_shell->fd_input);
+		dup2(my_shell->control[i]->my_exe->fd_input, my_shell->fd_input);
+		my_shell->control[i]->my_exe->cpy_fd_output = dup(my_shell->fd_output);
+		dup2(my_shell->control[i]->my_exe->fd_output, my_shell->fd_output);
+		if ((i + 1 < my_shell->count && my_shell->control[i + 1]->command_type == PIPE) || \
+		(i > 0 && my_shell->control[i - 1]->command_type == PIPE))
+		{		
+			add_pid(my_pid);
+			my_pid->pid[my_pid->count - 1] = fork();
+			if (my_pid->pid[my_pid->count - 1])
+			{
+				if (i + 1 < my_shell->count && my_shell->control[i + 1]->command_type == PIPE)
+				{
+					close(my_shell->control[i + 1]->pip[1]);
+				}
+			}
+			else
+			{
+				if (i > 0 && my_shell->control[i - 1]->command_type == PIPE)
+				{
+					close(my_shell->control[i - 1]->pip[0]);
+				}
+				if (my_shell->control[i]->error == NO_ERROR)
+					exit(do_my_exe(my_shell, i));
+				exit(my_shell->control[i]->error);
+			}
+		}
+		else
+		{
+			add_pid(my_pid);
+			my_pid->pid[my_pid->count - 1] = do_my_exe(my_shell, i);
+		}
 	}
-
-	// if (my_shell->control[i]->command_type == MY_EXE)
-	// {
-	// 	printf("my_exe go\n");
-	// 	return (0);
-	// }
-	// else
-	// {
-		
-	// }
-	return (0);
 }
 
 int	make_exe(t_shell *my_shell, int i, int j)
@@ -211,10 +260,20 @@ int	make_exe(t_shell *my_shell, int i, int j)
 				}
 			}
 			do_exe(my_shell, &my_pid, i);
-			dup2(my_shell->control[i]->exe->cpy_fd_input, my_shell->fd_input);
-			close(my_shell->control[i]->exe->cpy_fd_input);
-			dup2(my_shell->control[i]->exe->cpy_fd_output, my_shell->fd_output);
-			close(my_shell->control[i]->exe->cpy_fd_output);
+			if (my_shell->control[i]->command_type == EXE)
+			{
+				dup2(my_shell->control[i]->exe->cpy_fd_input, my_shell->fd_input);
+				close(my_shell->control[i]->exe->cpy_fd_input);
+				dup2(my_shell->control[i]->exe->cpy_fd_output, my_shell->fd_output);
+				close(my_shell->control[i]->exe->cpy_fd_output);
+			}
+			if (my_shell->control[i]->command_type == MY_EXE)
+			{
+				dup2(my_shell->control[i]->my_exe->cpy_fd_input, my_shell->fd_input);
+				close(my_shell->control[i]->my_exe->cpy_fd_input);
+				dup2(my_shell->control[i]->my_exe->cpy_fd_output, my_shell->fd_output);
+				close(my_shell->control[i]->my_exe->cpy_fd_output);
+			}
 		 }
 		 ++i;
 	}
