@@ -30,7 +30,7 @@ int				check_my_exe(char *name);
 int				check_end(char *name);
 
 //pars_env_and_access.c
-void			chreat_process(t_shell *my_shell, int i);
+int				chreat_process(t_shell *my_shell, int i);
 
 //check_parenthesis.c
 int				check_paren(t_shell	*my_shell);
@@ -77,5 +77,8 @@ t_error_type	errors_print_sintexs(t_shell	*my_shell, char *a, t_error_type err);
 
 //make_exe.c
 int				make_exe(t_shell *my_shell, int i, int j);
+
+//utils_pid.c
+void			add_pid(t_mas_pid	*my_pid);
 
 #endif

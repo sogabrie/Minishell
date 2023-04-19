@@ -54,33 +54,35 @@ char	**get_path(char **avp)
 // 	return (1);
 // }
 
-char	*check_procces(char *pro, char **path, int size, int size_p)
+char	*check_procces(t_shell *my_shell, int si, int size, int size_p)
 {
 	int		i;
 	char	*mas;
 
 	i = 0;
-	mas = pro;
-	while (path[i])
+	mas = my_shell->control[si]->exe->full_name;
+	while (my_shell->full_path[i])
 	{
 		if (!access(mas, 1))
 			return (mas);
-		if (*mas != *pro)
+		if (*mas != *(my_shell->control[si]->exe->full_name))
 			free(mas);
-		size_p = ft_strlen(pro);
-		size = ft_strlen(path[i]);
+		size_p = ft_strlen(my_shell->control[si]->exe->full_name);
+		size = ft_strlen(my_shell->full_path[i]);
 		mas = ft_calloc(size + size_p + 2, sizeof(char));
 		if (!mas)
 			malloc_error();
-		ft_strlcat(mas, path[i], size + 1);
+		ft_strlcat(mas, my_shell->full_path[i], size + 1);
 		ft_strlcat(mas, "/", size + 2);
-		ft_strlcat(mas, pro, size + size_p + 2);
+		ft_strlcat(mas, my_shell->control[si]->exe->full_name, size + size_p + 2);
 		++i;
 	}
+	if (access(mas, 1))
+		my_shell->control[si]->exe->error = 127;
 	return (mas);
 }
 
-void	chreat_process(t_shell *my_shell, int i)
+int	chreat_process(t_shell *my_shell, int i)
 {
 	char	**cp_option;
 	int		j;
@@ -98,6 +100,7 @@ void	chreat_process(t_shell *my_shell, int i)
 	cp_option[j] = 0;
 	free(my_shell->control[i]->exe->options);
 	my_shell->control[i]->exe->options = cp_option;
-	my_shell->control[i]->exe->full_name = check_procces(my_shell->control[i]->exe->full_name, my_shell->full_path, 0, 0);
+	my_shell->control[i]->exe->full_name = check_procces(my_shell, i, 0, 0);
 	two_dimensional_mas(&my_shell->full_path);
+	return (my_shell->control[i]->exe->error);
 }

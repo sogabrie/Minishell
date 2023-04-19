@@ -34,6 +34,7 @@ typedef struct s_exe
 	int				cpy_fd_output;
 	int				cpy_fd_input;
 	int				status;
+	int				error;
 }	t_exe;
 
 typedef struct s_my_exe
@@ -95,5 +96,11 @@ typedef struct s_shell
 	unsigned int	count;
 	t_error_type	my_error;
 }					t_shell;
+
+typedef struct s_mas_pid
+{
+	pid_t			*pid;
+	int				count;
+}					t_mas_pid;
 
 #endif

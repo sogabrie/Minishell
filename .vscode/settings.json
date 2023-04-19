@@ -1,5 +1,7 @@
 {
 	"files.associations": {
-		"struct.h": "c"
+		"struct.h": "c",
+		"chrono": "c",
+		"unordered_map": "c"
 	}
 }
