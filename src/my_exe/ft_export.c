@@ -80,13 +80,11 @@ char	**replace_add_variable(char **envp, char *str)
 	return (new_envp);
 }
 
-int	ft_export(char **str, char ***envp)
+int	ft_export(char **str, char ***envp, int i)
 {
-	int		i;
 	char	*name;
 	int		error_code;
 
-	i = -1;
 	error_code = 1;
 	name = NULL;
 	if (str == NULL || str[0] == NULL || str[0][0] == '#')
@@ -94,7 +92,10 @@ int	ft_export(char **str, char ***envp)
 	while (str[++i])
 	{
 		if (valid_variable(str[i]))
+		{
+			error_code = 1;
 			continue ;
+		}
 		name = variable_name(str[i]);
 		if (search_envp_in(*envp, name, ft_strlen(name)))
 			*envp = replace_variable(*envp, name, str[i], 0);
