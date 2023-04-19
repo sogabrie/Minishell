@@ -9,6 +9,7 @@ int main(int argc, char **argv, char **envp)
 	// int i = 0;
 	// while (envp[i])
 	// 	printf("%s\n", envp[i++]);
+	printf("MMMMMMMMMMMMMMMMMMMMM\n");
 	if (argc >  1)
 		return (2);
     while(1)

@@ -15,6 +15,10 @@ void	creat_my_exe(t_shell *my_shell, char *name)
 	= my_shell->fd_output;
 	my_shell->control[my_shell->count - 1]->my_exe->fd_input \
 	= my_shell->fd_input;
+	my_shell->control[my_shell->count - 1]->my_exe->cpy_fd_output \
+	= my_shell->cpy_fd_output;
+	my_shell->control[my_shell->count - 1]->my_exe->cpy_fd_input \
+	= my_shell->cpy_fd_input;
 	my_shell->control[my_shell->count - 1]->my_exe->ptr_envp \
 	= my_shell->my_envp;
 	my_shell->control[my_shell->count - 1]->my_exe->staatus = 0;
@@ -35,9 +39,13 @@ void	creat_exe(t_shell *my_shell, char *name)
 	my_shell->control[my_shell->count - 1]->exe->fd_output \
 	= my_shell->fd_output;
 	my_shell->control[my_shell->count - 1]->exe->fd_input = my_shell->fd_input;
+	my_shell->control[my_shell->count - 1]->exe->cpy_fd_output \
+	= my_shell->cpy_fd_output;
+	my_shell->control[my_shell->count - 1]->exe->cpy_fd_input = my_shell->cpy_fd_input;
 	my_shell->control[my_shell->count - 1]->exe->ptr_envp = my_shell->my_envp;
 	my_shell->control[my_shell->count - 1]->exe->status = 0;
 	my_shell->control[my_shell->count - 1]->exe->options = 0;
+	my_shell->control[my_shell->count - 1]->exe->error = 0;
 	my_shell->check_exe = my_shell->count - 1 ;
 }
 
@@ -111,6 +119,7 @@ t_error_type	creat_redirect(t_shell *my_shell, int *i)
 	else if (!ft_strcmp(b, "<<"))
 	{
 		fd = here_doc(a, 0, my_shell->my_envp, NULL);
+		printf("fd = %d\n", fd);
 		if (fd >= 0)
 			my_shell->fd_input = fd;
 	}

@@ -10,11 +10,12 @@ parsing.h                   |       sogabrie
 struct.h                    |       sogabrie
 
 Dir errors
+errors_print_sintexs.c      |       sogabrie
 errors.c                    |       aafrikya
 
 DIR here_doc
-here_doc.c                  |       aafrikya
-del_file.c                  |       aafrikya    
+del_file.c                  |       aafrikya 
+here_doc.c                  |       aafrikya   
 redirect_input.c            |       sogabrie
 redirect_output_append.c    |       sogabrie
 redirect_output.c           |       sogabrie
@@ -22,9 +23,12 @@ redirect_output.c           |       sogabrie
 Dir main
 minshell.c                  |       sogabrie
 
+Dir	make_exe
+make_exe.c 					|		sogabrie
+
 Dir memory
-free.c                      |       aafrikya
 free_struct.c               |       sogabrie
+free.c                      |       aafrikya
 
 Dir my_exe
 ft_cd.c                     |       aafrikya
@@ -34,15 +38,13 @@ ft_exit.c                   |       aafrikya
 ft_export                   |       aafrikya
 ft_pwd                      |       aafrikya
 ft_unset                    |       aafrikya
-logic_and.c                 |       sogabrie
-logic_or.c                  |       sogabrie
-priority.c                  |       sogabrie
 widldcards.c                |       aafrikya
 
 Dir parsing
 check_metacharacters.c      |       sogabrie
 check_parenthesis.c         |       sogabrie
 control_parsing.c           |       sogabrie
+control_close_fd.c			|		sogabrie
 creat_main_struct.c         |       sogabrie
 creat_my_exe.c              |       sogabrie
 delimiter.c                 |       sogabrie
@@ -54,9 +56,11 @@ parsing.c                   |       sogabrie
 
 Dir utils
 cd_utils.c                  |       aafrikya
+echo_utils.c 				|		aafrikya
 export_utils.c              |       aafrikya
 ft_utils.c                  |       aafrikya
 pars_quote_utils.c          |       sogabrie
 pars_utils.c                |       sogabrie
 replace_envp.c              |       aafrikya
+utils_pid.c 				|		sogabrie
 widldcards_utils.c          |       aafrikya

@@ -54,6 +54,8 @@ int	here_doc(char *end, int fd_write, char **envp, char *buffer)
 		free(buffer);
 	}
 	free(buffer);
+	close(fd_write);
+	fd_write = open(file_name, O_RDONLY);
 	free(file_name);
 	last_number++;
 	return (fd_write);

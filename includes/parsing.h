@@ -30,8 +30,7 @@ int				check_my_exe(char *name);
 int				check_end(char *name);
 
 //pars_env_and_access.c
-long			check_procces(char **pro, char **path, int size, int size_p);
-char			**get_path(char **avp);
+int				chreat_process(t_shell *my_shell, int i);
 
 //check_parenthesis.c
 int				check_paren(t_shell	*my_shell);
@@ -74,6 +73,12 @@ void			free_struct(t_shell *my_shell);
 void			creat_close_fd(t_shell *my_shell, int fd);
 
 //errors_print_sintexs.c
-t_error_type errors_print_sintexs(t_shell	*my_shell, char *a, t_error_type err);
+t_error_type	errors_print_sintexs(t_shell	*my_shell, char *a, t_error_type err);
+
+//make_exe.c
+int				make_exe(t_shell *my_shell, int i, int j);
+
+//utils_pid.c
+void			add_pid(t_mas_pid	*my_pid);
 
 #endif

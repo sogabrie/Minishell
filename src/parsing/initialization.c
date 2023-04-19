@@ -14,6 +14,8 @@ void	init_shell(t_shell *my_shell)
 	my_shell->my_error = NO_ERROR;
 	my_shell->fd_output = 1;
 	my_shell->fd_input = 0;
+	my_shell->cpy_fd_output = 1;
+	my_shell->cpy_fd_input = 0;
 	my_shell->check_exe = -1;
 	my_shell->close_fd = NULL;
 	my_shell->close_fd_count = 0;

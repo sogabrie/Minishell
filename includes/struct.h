@@ -31,7 +31,10 @@ typedef struct s_exe
 	char			**ptr_envp;
 	int				fd_output;
 	int				fd_input;
+	int				cpy_fd_output;
+	int				cpy_fd_input;
 	int				status;
+	int				error;
 }	t_exe;
 
 typedef struct s_my_exe
@@ -41,6 +44,8 @@ typedef struct s_my_exe
 	char			**ptr_envp;
 	int				fd_output;
 	int				fd_input;
+	int				cpy_fd_output;
+	int				cpy_fd_input;
 	int				staatus;
 }	t_my_exe;
 
@@ -84,10 +89,18 @@ typedef struct s_shell
 	int				close_fd_count;
 	int				fd_output;
 	int				fd_input;
+	int				cpy_fd_output;
+	int				cpy_fd_input;
 	int				check_exe;
 	t_control		**control;
 	unsigned int	count;
 	t_error_type	my_error;
 }					t_shell;
+
+typedef struct s_mas_pid
+{
+	pid_t			*pid;
+	int				count;
+}					t_mas_pid;
 
 #endif
