@@ -75,8 +75,10 @@ int	do_exe(t_shell *my_shell, t_mas_pid	*my_pid, int i)
 			if (i > 0 && my_shell->control[i - 1]->command_type == PIPE)
 			{
 				close(my_shell->control[i - 1]->pip[0]);
-			}	
-			exit(execve(my_shell->control[i]->exe->full_name, my_shell->control[i]->exe->options, my_shell->my_envp));
+			}
+			if (my_shell->control[i]->error == NO_ERROR)
+				exit(execve(my_shell->control[i]->exe->full_name, my_shell->control[i]->exe->options, my_shell->my_envp));
+			exit(my_shell->control[i - 1]->command_type);
 		}
 	}
 	else if (my_shell->control[i]->command_type == MY_EXE)
