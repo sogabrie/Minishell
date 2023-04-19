@@ -32,12 +32,11 @@
 
 // int main(int argc, char *argv[], char *envp[])
 // {
-	// char **my_envp = replace_envp(envp);
-	// char **str = ft_split("a$HOME$sfasf$HOME\'fasfas", ' ');
-	// int error = ft_unset(str, &my_envp);
-	// for(int i = 0; my_envp[i]; i++)
-		// printf("%s\n", my_envp[i]);
-	// printf("error number = %d\n", error);
-	// return (0);
-    // ft_echo(str, envp, 0, -1);
+// 	// char **my_envp = replace_envp(envp);
+// 	char **str = ft_split("a$HOME$sfasf$HOME\'fasfas", ' ');
+// 	// int error = ft_unset(str, &my_envp);
+// 	// for(int i = 0; my_envp[i]; i++)
+// 		// printf("%s\n", my_envp[i]);
+// 	// printf("error number = %d\n", error);
+// 	return (0);
 // }

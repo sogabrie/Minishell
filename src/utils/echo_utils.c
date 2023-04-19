@@ -42,6 +42,8 @@ char	*creat_new_line(char *str, char **envp, size_t i, size_t count)
 {
 	char	*new_line;
 
+	if (str == NULL)
+		malloc_error();
 	while (str[++i])
 	{
 		if (str[i] == '$')
