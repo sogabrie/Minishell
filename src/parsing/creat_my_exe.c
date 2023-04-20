@@ -90,18 +90,23 @@ t_error_type	creat_redirect(t_shell *my_shell, int *i)
 	if (ft_strcmp(b, "<<"))
 	{
 		mas = wildcards(ft_strdup(a));
-		if (size_list(mas) != 1)
+		if (size_list(mas) > 1)
 		{
 			write(2, "minishell: ", 12);
-			write(2, a, sizeof(a));
-			write(2, ": неоднозначное перенаправление\n", 61);
+			write(2, a, ft_strlen(a));
+			write(2, ": shata filern\n", 16);
 			free(a);
 			two_dimensional_mas(&mas);
 			return (ENOENT);
 		}
-		free(a);
-		a = mas[0];
-		free(mas);
+		else if (size_list(mas) == 1)
+		{
+			free(a);
+			a = mas[0];
+			free(mas);
+		}
+		else
+			two_dimensional_mas(&mas);
 	}
 	if (!ft_strcmp(b, "<") && my_shell->my_error == NO_ERROR)
 	{
@@ -156,7 +161,10 @@ void	add_option(t_shell *my_shell, char *name, int *i)
 	char	*d;
 	char	*c;
 	int		j;
+	int		t;
+	char	**mas;
 
+	t = 0;
 	if (my_shell->control[my_shell->check_exe]->command_type == EXE)
 	{
 		add_option_mas(\
@@ -178,8 +186,23 @@ void	add_option(t_shell *my_shell, char *name, int *i)
 			free(d);
 			free(my_shell->control[my_shell->check_exe]->exe->options[j]);
 			my_shell->control[my_shell->check_exe]->exe->options[j] = c;
-			(*i)++;
 		}
+		mas = wildcards(ft_strdup(my_shell->control[my_shell->check_exe]->exe->options[j]));
+		if (size_list(mas) < 1)
+			two_dimensional_mas(&mas);
+		else
+		{
+			free(my_shell->control[my_shell->check_exe]->exe->options[j]);
+			my_shell->control[my_shell->check_exe]->exe->options[j] = 0;
+			while (mas[t])
+			{
+				add_option_mas(&(my_shell->control[my_shell->check_exe]->exe->options)\
+				, mas[t], -1, my_shell);
+				++t;
+			}
+			two_dimensional_mas(&mas);
+		}
+		(*i)++;
 	}
 	else
 	{
@@ -202,7 +225,22 @@ void	add_option(t_shell *my_shell, char *name, int *i)
 			free(d);
 			free(my_shell->control[my_shell->check_exe]->my_exe->options[j]);
 			my_shell->control[my_shell->check_exe]->my_exe->options[j] = c;
-			(*i)++;
 		}
+		mas = wildcards(ft_strdup(my_shell->control[my_shell->check_exe]->my_exe->options[j]));
+		if (size_list(mas) < 1)
+			two_dimensional_mas(&mas);
+		else
+		{
+			free(my_shell->control[my_shell->check_exe]->my_exe->options[j]);
+			my_shell->control[my_shell->check_exe]->my_exe->options[j] = 0;
+			while (mas[t])
+			{
+				add_option_mas(&(my_shell->control[my_shell->check_exe]->my_exe->options)\
+				, mas[t], -1, my_shell);
+				++t;
+			}
+			two_dimensional_mas(&mas);
+		}
+		(*i)++;
 	}
 }
