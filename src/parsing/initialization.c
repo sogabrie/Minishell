@@ -24,7 +24,7 @@ void	init_shell(t_shell *my_shell)
 void	init_control(t_control **control, int i)
 {
 	control[i]->exe = 0;
-	control[i]->my_exe = 0;
+	// control[i]->my_exe = 0;
 	control[i]->prioritet_start = 0;
 	control[i]->prioritet_end = 0;
 	control[i]->logic_and = 0;

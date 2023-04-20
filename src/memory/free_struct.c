@@ -13,16 +13,16 @@ void	free_struct_2(t_shell *my_shell, int *i, int *j)
 		free(my_shell->control[(*i)]->exe->options);
 		free(my_shell->control[(*i)]->exe);
 	}
-	if (my_shell->control[(*i)]->command_type == MY_EXE)
-	{
-		free(my_shell->control[(*i)]->my_exe->name);
-		(*j) = 0;
-		while (my_shell->control[(*i)]->my_exe->options && \
-		my_shell->control[(*i)]->my_exe->options[(*j)])
-			free(my_shell->control[(*i)]->my_exe->options[(*j)++]);
-		free(my_shell->control[(*i)]->my_exe->options);
-		free(my_shell->control[(*i)]->my_exe);
-	}
+	// if (my_shell->control[(*i)]->command_type == MY_EXE)
+	// {
+	// 	free(my_shell->control[(*i)]->my_exe->name);
+	// 	(*j) = 0;
+	// 	while (my_shell->control[(*i)]->my_exe->options && \
+	// 	my_shell->control[(*i)]->my_exe->options[(*j)])
+	// 		free(my_shell->control[(*i)]->my_exe->options[(*j)++]);
+	// 	free(my_shell->control[(*i)]->my_exe->options);
+	// 	free(my_shell->control[(*i)]->my_exe);
+	// }
 	if (my_shell->control[(*i)]->command_type == PRIORITET_START)
 		free(my_shell->control[(*i)]->prioritet_start);
 	if (my_shell->control[(*i)]->command_type == PRIORITET_END)

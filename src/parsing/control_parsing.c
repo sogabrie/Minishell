@@ -19,10 +19,10 @@ void	control_pars_exe_2(t_shell *my_shell, int *start, int *end, int *i)
 	//char	cp;
 
 	//cp = echo_line(my_shell->double_list[i])
-	if (control_pars_exe_2_2(my_shell, i) \
-	&& my_shell->check_exe == -1)
-		creat_my_exe(my_shell, my_shell->double_list[(*i)]);
-	else if (!ft_strcmp(my_shell->double_list[(*i)], "<") || \
+	// if (control_pars_exe_2_2(my_shell, i) \
+	// && my_shell->check_exe == -1)
+	// 	creat_my_exe(my_shell, my_shell->double_list[(*i)]);
+	if (!ft_strcmp(my_shell->double_list[(*i)], "<") || \
 	!ft_strcmp(my_shell->double_list[(*i)], "<<") || \
 	!ft_strcmp(my_shell->double_list[(*i)], ">") || \
 	!ft_strcmp(my_shell->double_list[(*i)], ">>"))
@@ -60,9 +60,9 @@ void	control_pars_exe_3(t_shell *my_shell, int *end, int *i)
 
 void	control_pars_exe_4(t_shell *my_shell)
 {
-	if (my_shell->control[my_shell->check_exe]->command_type \
-	== EXE)
-	{
+	// if (my_shell->control[my_shell->check_exe]->command_type \
+	// == EXE)
+	// {
 		my_shell->control[my_shell->check_exe]->exe->fd_input \
 		= my_shell->fd_input;
 		my_shell->control[my_shell->check_exe]->exe->fd_output \
@@ -76,22 +76,22 @@ void	control_pars_exe_4(t_shell *my_shell)
 		else
 			my_shell->control[my_shell->check_exe]->exe->flag_output = 1;
 
-	}
-	if (my_shell->control[my_shell->check_exe]->command_type == MY_EXE)
-	{
-		my_shell->control[my_shell->check_exe]->my_exe->fd_input \
-		= my_shell->fd_input;
-		my_shell->control[my_shell->check_exe]->my_exe->fd_output \
-		= my_shell->fd_output;
-		if (my_shell->fd_input != 0)
-			my_shell->control[my_shell->check_exe]->my_exe->flag_input = 0;
-		else
-			my_shell->control[my_shell->check_exe]->my_exe->flag_input = 1;
-		if (my_shell->fd_output != 1)
-			my_shell->control[my_shell->check_exe]->my_exe->flag_output = 0;
-		else
-			my_shell->control[my_shell->check_exe]->my_exe->flag_output = 1;
-	}
+	// }
+	// if (my_shell->control[my_shell->check_exe]->command_type == MY_EXE)
+	// {
+	// 	my_shell->control[my_shell->check_exe]->my_exe->fd_input \
+	// 	= my_shell->fd_input;
+	// 	my_shell->control[my_shell->check_exe]->my_exe->fd_output \
+	// 	= my_shell->fd_output;
+	// 	if (my_shell->fd_input != 0)
+	// 		my_shell->control[my_shell->check_exe]->my_exe->flag_input = 0;
+	// 	else
+	// 		my_shell->control[my_shell->check_exe]->my_exe->flag_input = 1;
+	// 	if (my_shell->fd_output != 1)
+	// 		my_shell->control[my_shell->check_exe]->my_exe->flag_output = 0;
+	// 	else
+	// 		my_shell->control[my_shell->check_exe]->my_exe->flag_output = 1;
+	// }
 	my_shell->control[my_shell->check_exe]->error = my_shell->my_error;
 }
 

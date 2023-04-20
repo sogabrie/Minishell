@@ -39,19 +39,19 @@ typedef struct s_exe
 	int				flag_output;
 }	t_exe;
 
-typedef struct s_my_exe
-{
-	char			*name;
-	char			**options;
-	char			**ptr_envp;
-	int				fd_output;
-	int				fd_input;
-	int				cpy_fd_output;
-	int				cpy_fd_input;
-	int				staatus;
-	int				flag_input;
-	int				flag_output;
-}	t_my_exe;
+// typedef struct s_my_exe
+// {
+// 	char			*name;
+// 	char			**options;
+// 	char			**ptr_envp;
+// 	int				fd_output;
+// 	int				fd_input;
+// 	int				cpy_fd_output;
+// 	int				cpy_fd_input;
+// 	int				staatus;
+// 	int				flag_input;
+// 	int				flag_output;
+// }	t_my_exe;
 
 // typedef struct s_pipe
 // {
@@ -70,7 +70,7 @@ typedef struct s_priorities
 typedef struct s_control
 {
 	t_exe			*exe;
-	t_my_exe		*my_exe;
+	// t_my_exe		*my_exe;
 	int				pip[2];
 	// t_pipe			*pipe;
 	t_priorities	*prioritet_start;
