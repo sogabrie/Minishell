@@ -56,6 +56,7 @@ t_error_type	creat_redirect(t_shell *my_shell, int *i)
 	char	*c;
 	char	*b = my_shell->double_list[*i];
 	char	*d;
+	char	**mas;
 
 	(*i)++;
 	if (!ft_strcmp(my_shell->double_list[*i], " "))
@@ -86,7 +87,22 @@ t_error_type	creat_redirect(t_shell *my_shell, int *i)
 		a = c;
 		(*i)++;
 	}
-	
+	if (ft_strcmp(b, "<<"))
+	{
+		mas = wildcards(ft_strdup(a));
+		if (size_list(mas) != 1)
+		{
+			write(2, "minishell: ", 12);
+			write(2, a, sizeof(a));
+			write(2, ": неоднозначное перенаправление\n", 61);
+			free(a);
+			two_dimensional_mas(&mas);
+			return (ENOENT);
+		}
+		free(a);
+		a = mas[0];
+		free(mas);
+	}
 	if (!ft_strcmp(b, "<") && my_shell->my_error == NO_ERROR)
 	{
 		fd = red_input(a);
