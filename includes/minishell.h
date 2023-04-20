@@ -39,6 +39,7 @@ char			*variable_add(char *str, char *ptr);
 size_t			do_scop(char *str, size_t *i, char **envp);
 char			*creat_new_line(char *str, char **envp, size_t i, size_t count);
 int				check_flag(char *str, size_t *flag);
+char			*echo_line(char *line, char **envp, char *new_line, int error);
 char			*variable(char *str, size_t *i, char **envp, int error);
 
 //Here_Doc
