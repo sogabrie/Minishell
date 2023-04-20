@@ -18,7 +18,8 @@ void	exe_error(char *dir, int number, char *my_exe)
 
 	ft_putstr_fd("minishell:", 2);
 	ft_putstr_fd(my_exe, 2);
-	if (number == 98 && !ft_strcmp(" export: ", my_exe))
+	if (number == 98 && (!ft_strcmp(" export: ", my_exe)
+			|| !ft_strcmp(" unset: ", my_exe)))
 	{
 		write(2, "`", 1);
 		ft_putstr_fd(dir, 2);

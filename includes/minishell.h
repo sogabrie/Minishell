@@ -52,7 +52,7 @@ int				ft_pwd(void);
 int				ft_cd(char *dir, char ***envp, char *new_dir, char *pwd);
 int				ft_env(char **envp, int f_export);
 int				ft_echo(char **args, char **envp, int error, int i);
-int				ft_export(char **str, char ***envp, int i);
+int				ft_export(char **str, char ***envp, int i, char *name);
 
 //Wildcards
 char			**wildcards(char *wild_string);

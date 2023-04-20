@@ -80,14 +80,12 @@ char	**replace_add_variable(char **envp, char *str)
 	return (new_envp);
 }
 
-int	ft_export(char **str, char ***envp, int i)
+int	ft_export(char **str, char ***envp, int i, char *name)
 {
-	char	*name;
 	int		error_code;
 
 	error_code = 1;
-	name = NULL;
-	if (str == NULL || str[0] == NULL || str[0][0] == '#')
+	if (str == NULL || str[0] == NULL)
 		return (ft_env(*envp, 1));
 	while (str[++i])
 	{

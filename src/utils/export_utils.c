@@ -7,7 +7,7 @@ int	first_char(char *str)
 		exe_error("", 98, " export: ");
 		return (1);
 	}
-	if (ft_strchr("0123456789!@%^ \'\"&*()-+={}[]|?/><~`;:.,\\", str[0]))
+	if (ft_strchr("0123456789!@%^ \'\"&*()-+=#{}[]|?/><~`;:.,\\", str[0]))
 	{
 		exe_error(str, 98, " export: ");
 		return (1);
