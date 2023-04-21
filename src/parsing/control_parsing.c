@@ -10,10 +10,10 @@ void	control_pars_exe_2(t_shell *my_shell, int *start, int *end, int *i)
 	// if (control_pars_exe_2_2(my_shell, i) \
 	// && my_shell->check_exe == -1)
 	// 	creat_my_exe(my_shell, my_shell->double_list[(*i)]);
-	if ((!ft_strcmp(my_shell->double_list[(*i)], "<") || \
+	if (!ft_strcmp(my_shell->double_list[(*i)], "<") || \
 	!ft_strcmp(my_shell->double_list[(*i)], "<<") || \
 	!ft_strcmp(my_shell->double_list[(*i)], ">") || \
-	!ft_strcmp(my_shell->double_list[(*i)], ">>")) && my_shell->my_error == NO_ERROR)
+	!ft_strcmp(my_shell->double_list[(*i)], ">>"))
 		creat_redirect(my_shell, i);
 	else if (i == start || my_shell->check_exe == -1)
 		creat_exe(my_shell, i);
@@ -61,6 +61,7 @@ void	control_pars_exe_4(t_shell *my_shell)
 		// else
 		// 	my_shell->control[my_shell->check_exe]->exe->flag_output = 1;
 	my_shell->control[my_shell->check_exe]->redirect = my_shell->redirect;
+	printf("my_shell->count_redir %d\n", my_shell->count_redir);
 	my_shell->control[my_shell->check_exe]->count_redir = my_shell->count_redir;
 	my_shell->count_redir = 0;
 	my_shell->redirect = 0;

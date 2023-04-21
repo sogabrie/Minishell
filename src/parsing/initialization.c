@@ -18,6 +18,7 @@ void	init_shell(t_shell *my_shell)
 	my_shell->cpy_fd_input = 0;
 	my_shell->check_exe = -1;
 	my_shell->redirect = 0;
+	my_shell->count_redir = 0;
 	my_shell->close_fd = NULL;
 	my_shell->close_fd_count = 0;
 	my_shell->error_status = NO_ERROR;
@@ -32,6 +33,7 @@ void	init_control(t_control **control, int i)
 	control[i]->logic_and = 0;
 	control[i]->logic_or = 0;
 	control[i]->redirect = 0;
+	control[i]->count_redir = 0;
 	control[i]->command_type = MY_NULL;
 	control[i]->error = NO_ERROR;
 }
