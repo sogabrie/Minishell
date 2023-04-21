@@ -45,6 +45,7 @@ int				creat_delimiter(t_shell	*my_shell);
 
 // inicalization.c
 void			chreat_cont(t_shell *my_shell);
+void			add_redir(t_shell *my_shell);
 
 // creat_main_struct.c
 void			creat_struct_pip(t_shell *my_shell);
@@ -55,7 +56,7 @@ void			creat_struct_prioritet_end(t_shell *my_shell);
 
 //creat_my_exe.c
 void			creat_my_exe(t_shell *my_shell, char *name);
-t_error_type	creat_redirect(t_shell *my_shell, int *i);
+void			creat_redirect(t_shell *my_shell, int *i);
 void			add_option(t_shell *my_shell, int *i);
 void			creat_exe(t_shell *my_shell, int *i);
 

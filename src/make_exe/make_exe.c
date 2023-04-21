@@ -254,6 +254,7 @@ int	make_exe(t_shell *my_shell, int i, int j)
 		 }
 		 else if (my_shell->control[i]->command_type == EXE)
 		 {
+			// if (my_shell->control[i]->exe->)
 			// write(2,"bbbbb_3\n", 9);
 			if (chek_and_or(my_shell, &my_pid, &i, i + 1))
 				continue ;
