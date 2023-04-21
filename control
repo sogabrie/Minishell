@@ -32,7 +32,7 @@ free.c                      |       aafrikya
 
 Dir my_exe
 ft_cd.c                     |       aafrikya
-ft_echo.c                   |       sogabrie
+ft_echo.c                   |       aafrikya
 ft_env.c                    |       aafrikya
 ft_exit.c                   |       aafrikya
 ft_export                   |       aafrikya
