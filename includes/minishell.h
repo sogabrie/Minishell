@@ -10,6 +10,7 @@
 # include <fcntl.h>
 # include <dirent.h>
 # include <sys/stat.h>
+# include <limits.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
