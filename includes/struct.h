@@ -31,6 +31,8 @@ typedef struct s_exe
 	char			**ptr_envp;
 	int				fd_output;
 	int				fd_input;
+	char			*fd_name;
+	char			*fd_name;
 	int				cpy_fd_output;
 	int				cpy_fd_input;
 	int				status;

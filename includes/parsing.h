@@ -56,8 +56,8 @@ void			creat_struct_prioritet_end(t_shell *my_shell);
 //creat_my_exe.c
 void			creat_my_exe(t_shell *my_shell, char *name);
 t_error_type	creat_redirect(t_shell *my_shell, int *i);
-void			add_option(t_shell *my_shell, char *name, int *i);
-void			creat_exe(t_shell *my_shell, char *name);
+void			add_option(t_shell *my_shell, int *i);
+void			creat_exe(t_shell *my_shell, int *i);
 
 //here_doc
 int				red_input(char *filename);

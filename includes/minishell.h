@@ -10,6 +10,7 @@
 # include <fcntl.h>
 # include <dirent.h>
 # include <sys/stat.h>
+# include <limits.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -39,7 +40,12 @@ char			*variable_add(char *str, char *ptr);
 size_t			do_scop(char *str, size_t *i, char **envp);
 char			*creat_new_line(char *str, char **envp, size_t i, size_t count);
 int				check_flag(char *str, size_t *flag);
+char			*echo_line(char *line, char **envp, char *new_line, int error);
 char			*variable(char *str, size_t *i, char **envp, int error);
+
+//unset_utils
+int				valid_unset(char *arg, int *error_code, char **envp, size_t i);
+int				check_exists(char **envp, char *str);
 
 //Here_Doc
 int				here_doc(char *end, int fd_write, char **envp, char *buffer);
@@ -51,7 +57,8 @@ int				ft_pwd(void);
 int				ft_cd(char *dir, char ***envp, char *new_dir, char *pwd);
 int				ft_env(char **envp, int f_export);
 int				ft_echo(char **args, char **envp, int error, int i);
-int				ft_export(char **str, char ***envp, int i);
+int				ft_export(char **str, char ***envp, int i, char *name);
+int				ft_unset(char **args, char ***envp);
 
 //Wildcards
 char			**wildcards(char *wild_string);

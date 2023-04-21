@@ -8,6 +8,16 @@ typedef struct s_oper {
 	char	*str;
 }	t_oper;
 
+char	*new_line_creat(char *line)
+{
+	char	*new_line;
+
+	new_line = ft_strtrim(line, "\'");
+	if (new_line == NULL)
+		malloc_error();
+	return (new_line);
+}
+
 char	*echo_line(char *line, char **envp, char *new_line, int error)
 {
 	t_oper	jik;
@@ -16,7 +26,7 @@ char	*echo_line(char *line, char **envp, char *new_line, int error)
 	jik.j = 0;
 	jik.k = 0;
 	if (line[jik.i] == '\'')
-		return (ft_strtrim(line, "\'"));
+		return (new_line_creat(line));
 	jik.str = ft_strtrim(line, "\"");
 	new_line = creat_new_line((jik.str), envp, -1, 0);
 	while ((jik.str)[jik.i])

@@ -16,9 +16,9 @@ void	control_pars_exe_2(t_shell *my_shell, int *start, int *end, int *i)
 	!ft_strcmp(my_shell->double_list[(*i)], ">>"))
 		my_shell->my_error = creat_redirect(my_shell, i);
 	else if (i == start || my_shell->check_exe == -1)
-		creat_exe(my_shell, my_shell->double_list[(*i)]);
+		creat_exe(my_shell, i);
 	else if (ft_strcmp(my_shell->double_list[(*i)], " "))
-		add_option(my_shell, my_shell->double_list[(*i)], i);
+		add_option(my_shell, i);
 	++(*i);
 }
 

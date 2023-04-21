@@ -61,3 +61,15 @@ int	size_list(char **list)
 		++i;
 	return (i);
 }
+
+int	size_trepl_list(char ***list)
+{
+	int	i;
+
+	i = 0;
+	if (!list)
+		return (0);
+	while (list[i])
+		++i;
+	return (i);
+}

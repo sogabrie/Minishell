@@ -32,7 +32,7 @@ free.c                      |       aafrikya
 
 Dir my_exe
 ft_cd.c                     |       aafrikya
-ft_echo.c                   |       aafrikya
+ft_echo.c                   |       sogabrie
 ft_env.c                    |       aafrikya
 ft_exit.c                   |       aafrikya
 ft_export                   |       aafrikya
@@ -62,5 +62,6 @@ ft_utils.c                  |       aafrikya
 pars_quote_utils.c          |       sogabrie
 pars_utils.c                |       sogabrie
 replace_envp.c              |       aafrikya
+unset_utils.c               |       aafrikya
 utils_pid.c 				|		sogabrie
 widldcards_utils.c          |       aafrikya

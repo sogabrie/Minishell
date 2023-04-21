@@ -78,7 +78,7 @@ int	do_my_exe(t_shell *my_shell, int i)
 	}
 	if (!ft_strcmp(my_shell->control[i]->exe->full_name, "export"))
 	{
-		return(ft_export(my_shell->control[i]->exe->options, &my_shell->my_envp, -1));
+		return(ft_export(my_shell->control[i]->exe->options, &my_shell->my_envp, -1, NULL));
 	}
 	if (!ft_strcmp(my_shell->control[i]->exe->full_name, "unset"))
 	{
