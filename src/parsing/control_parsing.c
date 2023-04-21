@@ -4,16 +4,10 @@
 
 void	control_pars_exe_2(t_shell *my_shell, int *start, int *end, int *i)
 {
-	//char	cp;
-
-	//cp = echo_line(my_shell->double_list[i])
-	// if (control_pars_exe_2_2(my_shell, i) \
-	// && my_shell->check_exe == -1)
-	// 	creat_my_exe(my_shell, my_shell->double_list[(*i)]);
-	if (!ft_strcmp(my_shell->double_list[(*i)], "<") || \
+	if ((!ft_strcmp(my_shell->double_list[(*i)], "<") || \
 	!ft_strcmp(my_shell->double_list[(*i)], "<<") || \
 	!ft_strcmp(my_shell->double_list[(*i)], ">") || \
-	!ft_strcmp(my_shell->double_list[(*i)], ">>"))
+	!ft_strcmp(my_shell->double_list[(*i)], ">>")))
 		creat_redirect(my_shell, i);
 	else if (i == start || my_shell->check_exe == -1)
 		creat_exe(my_shell, i);
@@ -48,20 +42,8 @@ void	control_pars_exe_3(t_shell *my_shell, int *end, int *i)
 
 void	control_pars_exe_4(t_shell *my_shell)
 {
-		// my_shell->control[my_shell->check_exe]->exe->fd_input \
-		// = my_shell->fd_input;
-		// my_shell->control[my_shell->check_exe]->exe->fd_output \
-		// = my_shell->fd_output;
-		// if (my_shell->fd_input != 0)
-		// 	my_shell->control[my_shell->check_exe]->exe->flag_input = 0;
-		// else
-		// 	my_shell->control[my_shell->check_exe]->exe->flag_input = 1;
-		// if (my_shell->fd_output != 1)
-		// 	my_shell->control[my_shell->check_exe]->exe->flag_output = 0;
-		// else
-		// 	my_shell->control[my_shell->check_exe]->exe->flag_output = 1;
 	my_shell->control[my_shell->check_exe]->redirect = my_shell->redirect;
-	printf("my_shell->count_redir %d\n", my_shell->count_redir);
+	// printf("my_shell->count_redir %d\n", my_shell->count_redir);
 	my_shell->control[my_shell->check_exe]->count_redir = my_shell->count_redir;
 	my_shell->count_redir = 0;
 	my_shell->redirect = 0;
@@ -84,7 +66,7 @@ void	control_pars_exe_5(t_shell *my_shell)
 void	control_pars_exe(t_shell *my_shell, int start, int end)
 {
 	int		i;
- 
+
 	control_pars_exe_1(my_shell, &start, &end, &i);
 	while (i < end && my_shell->double_list[i] && \
 	ft_strcmp(my_shell->double_list[i], ")"))

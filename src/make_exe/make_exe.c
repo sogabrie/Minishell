@@ -97,7 +97,9 @@ int	do_my_exe(t_shell *my_shell, int i)
 
 void	do_exe(t_shell *my_shell, t_mas_pid	*my_pid, int i)
 {
-	int	error;
+	int		error;
+	char	*new_name;
+	int		j;
 
 	// write(2,"ttttt_1\n", 9);
 	my_shell->control[i]->exe->cpy_fd_input = dup(my_shell->fd_input);
@@ -106,7 +108,20 @@ void	do_exe(t_shell *my_shell, t_mas_pid	*my_pid, int i)
 	dup2(my_shell->control[i]->exe->fd_output, my_shell->fd_output);
 	// write(2,"ttttt_2\n", 9);
 
-	my_shell->control[i]->exe->full_name = echo_line(my_shell->control[i]->exe->full_name, my_shell->my_envp, NULL, my_shell->my_error);
+	new_name = parse_line(my_shell->control[i]->exe->full_name, my_shell->my_envp, my_shell->my_error);
+	free(my_shell->control[i]->exe->full_name);
+	my_shell->control[i]->exe->full_name = new_name;
+	j = 0;
+	if (ft_strcmp(my_shell->control[i]->exe->full_name, "echo"))
+	{
+		while (my_shell->control[i]->exe->options && my_shell->control[i]->exe->options[j])
+		{
+			new_name = parse_line(my_shell->control[i]->exe->options[j], my_shell->my_envp, my_shell->my_error);
+			free(my_shell->control[i]->exe->options[j]);
+			my_shell->control[i]->exe->options[j] = new_name;
+			++j;
+		}
+	}
 	if (!control_type_exe(my_shell, i))
 	{
 		// write(2,"ttttt_3\n", 9);
@@ -193,10 +208,10 @@ int	make_exe(t_shell *my_shell, int i, int j)
 	my_pid.count = 0;
 	my_pid.pid = 0;
 	my_pid.my_pid = 0;
-	write(2,"bbbbb_1\n", 9);
+	// write(2,"bbbbb_1\n", 9);
 	while (i < j)
 	{
-		write(2,"bbbbb_2\n", 9);
+		// write(2,"bbbbb_2\n", 9);
 		if (my_shell->control[i]->command_type == PRIORITET_START)
 		{
 			if (chek_and_or(my_shell, &my_pid, &i, my_shell->control[i]->prioritet_start->end + 1))
@@ -258,13 +273,13 @@ int	make_exe(t_shell *my_shell, int i, int j)
 		 else if (my_shell->control[i]->command_type == EXE)
 		 {
 			re_co = 0;
-			write(2,"xxxxx_1\n", 9);
-			printf("my_shell->control[i]->count_redir = %d\n", my_shell->control[i]->count_redir);
-			while (re_co < my_shell->control[i]->count_redir)
+			// write(2,"xxxxx_1\n", 9);
+			// printf("my_shell->control[i]->count_redir = %d\n", my_shell->control[i]->count_redir);
+			while (re_co < my_shell->control[i]->count_redir && my_shell->control[i]->exe->error == NO_ERROR)
 			{
-				write(2,"xxxxx_2\n", 9);
-				a = echo_line(my_shell->control[i]->redirect[re_co]->filename, my_shell->my_envp, NULL, my_shell->my_error);
-				if (my_shell->control[i]->redirect[re_co]->type == INPUT)
+				// write(2,"xxxxx_2\n", 9);
+				a = parse_line(my_shell->control[i]->redirect[re_co]->filename, my_shell->my_envp, my_shell->my_error);
+				if (my_shell->control[i]->redirect[re_co]->type == INPUT && my_shell->control[i]->redirect[re_co]->error == NO_ERROR)
 				{
 					fd = red_input(a);
 					if (fd >= 0)
@@ -272,7 +287,7 @@ int	make_exe(t_shell *my_shell, int i, int j)
 					else
 						my_shell->control[i]->exe->error = 127;
 				}
-				else if (my_shell->control[i]->redirect[re_co]->type == OUTPT)
+				else if (my_shell->control[i]->redirect[re_co]->type == OUTPT && my_shell->control[i]->redirect[re_co]->error == NO_ERROR)
 				{
 					fd = red_out(a);
 					if (fd >= 0)
@@ -280,7 +295,7 @@ int	make_exe(t_shell *my_shell, int i, int j)
 					else
 						my_shell->control[i]->exe->error = 127;
 				}
-				else if (my_shell->control[i]->redirect[re_co]->type == HERE_DOC)
+				else if (my_shell->control[i]->redirect[re_co]->type == HERE_DOC && my_shell->control[i]->redirect[re_co]->error == NO_ERROR)
 				{
 					fd = red_input(a);
 					if (fd >= 0)
@@ -288,7 +303,7 @@ int	make_exe(t_shell *my_shell, int i, int j)
 					else
 						my_shell->control[i]->exe->error = 127;
 				}
-				else if (my_shell->control[i]->redirect[re_co]->type == OUTPUT_APP)
+				else if (my_shell->control[i]->redirect[re_co]->type == OUTPUT_APP && my_shell->control[i]->redirect[re_co]->error == NO_ERROR)
 				{
 					fd = red_out(a);
 					if (fd >= 0)
@@ -296,15 +311,19 @@ int	make_exe(t_shell *my_shell, int i, int j)
 					else
 						my_shell->control[i]->exe->error = 127;
 				}
-				write(2,"xxxxx_3\n", 9);
+				else if (my_shell->control[i]->redirect[re_co]->error != NO_ERROR)
+				{
+					my_shell->control[i]->exe->error = 127;
+				}
+				// write(2,"xxxxx_3\n", 9);
 				free(a);
 				creat_close_fd(my_shell, fd);
 				++re_co;
 			}
-			write(2,"bbbbb_3\n", 9);
+			// write(2,"bbbbb_3\n", 9);
 			if (chek_and_or(my_shell, &my_pid, &i, i + 1))
 				continue ;
-			write(2,"ccccc_1\n", 9);
+			// write(2,"ccccc_1\n", 9);
 			if (i > 0 && my_shell->control[i - 1]->command_type == PIPE)
 			{
 				// if (my_shell->control[i]->command_type == EXE)
@@ -318,7 +337,7 @@ int	make_exe(t_shell *my_shell, int i, int j)
 				// 		my_shell->control[i]->my_exe->fd_input = my_shell->control[i - 1]->pip[0];
 				// }
 			}
-			write(2,"ccccc_2\n", 9);
+			// write(2,"ccccc_2\n", 9);
 			if (i + 1 < my_shell->count && my_shell->control[i + 1]->command_type == PIPE)
 			{
 				// if (my_shell->control[i]->command_type == EXE)
@@ -332,25 +351,29 @@ int	make_exe(t_shell *my_shell, int i, int j)
 				// 		my_shell->control[i]->my_exe->fd_output = my_shell->control[i + 1]->pip[1];
 				// }
 			}
-			write(2,"ccccc_3\n", 9);
-			do_exe(my_shell, &my_pid, i);
-			// if (my_shell->control[i]->command_type == EXE)
-			// {
-				dup2(my_shell->control[i]->exe->cpy_fd_input, my_shell->fd_input);
-				close(my_shell->control[i]->exe->cpy_fd_input);
-				dup2(my_shell->control[i]->exe->cpy_fd_output, my_shell->fd_output);
-				close(my_shell->control[i]->exe->cpy_fd_output);
-			// }
-			// if (my_shell->control[i]->command_type == MY_EXE)
-			// {
-			// 	dup2(my_shell->control[i]->my_exe->cpy_fd_input, my_shell->fd_input);
-			// 	close(my_shell->control[i]->my_exe->cpy_fd_input);
-			// 	dup2(my_shell->control[i]->my_exe->cpy_fd_output, my_shell->fd_output);
-			// 	close(my_shell->control[i]->my_exe->cpy_fd_output);
-			// }
-			write(2,"ccccc_4\n", 9);
+			// write(2,"ccccc_3\n", 9);
+			if (my_shell->control[i]->exe->error == NO_ERROR)
+			{
+				// write(2,"ccccc_4\n", 9);
+				do_exe(my_shell, &my_pid, i);
+				// if (my_shell->control[i]->command_type == EXE)
+				// {
+					dup2(my_shell->control[i]->exe->cpy_fd_input, my_shell->fd_input);
+					close(my_shell->control[i]->exe->cpy_fd_input);
+					dup2(my_shell->control[i]->exe->cpy_fd_output, my_shell->fd_output);
+					close(my_shell->control[i]->exe->cpy_fd_output);
+				// }
+				// if (my_shell->control[i]->command_type == MY_EXE)
+				// {
+				// 	dup2(my_shell->control[i]->my_exe->cpy_fd_input, my_shell->fd_input);
+				// 	close(my_shell->control[i]->my_exe->cpy_fd_input);
+				// 	dup2(my_shell->control[i]->my_exe->cpy_fd_output, my_shell->fd_output);
+				// 	close(my_shell->control[i]->my_exe->cpy_fd_output);
+				// }
+			}
+			// write(2,"ccccc_4\n", 9);
 		 }
-		 write(2,"bbbbb_4\n", 9);
+		//  write(2,"bbbbb_4\n", 9);
 		 ++i;
 	}
 	i2 = 0;

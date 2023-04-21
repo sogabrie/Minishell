@@ -27,7 +27,6 @@ void	init_shell(t_shell *my_shell)
 void	init_control(t_control **control, int i)
 {
 	control[i]->exe = 0;
-	// control[i]->my_exe = 0;
 	control[i]->prioritet_start = 0;
 	control[i]->prioritet_end = 0;
 	control[i]->logic_and = 0;
@@ -54,7 +53,7 @@ void	add_redir(t_shell *my_shell)
 	int		i;
 	t_redir	**a;
 
-	if (my_shell->redirect)
+	if (!my_shell->redirect)
 	{
 		creat_redir(my_shell);
 		return ;
