@@ -99,6 +99,7 @@ typedef struct s_shell
 	t_control		**control;
 	unsigned int	count;
 	t_error_type	my_error;
+	t_error_type	error_status;
 }					t_shell;
 
 typedef struct s_mas_pid

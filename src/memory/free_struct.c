@@ -62,19 +62,25 @@ void	free_struct(t_shell *my_shell)
 	int	j;
 
 	i = 0;
+	// write(2,"fffff_1\n", 9);
 	while (i < my_shell->count)
 		free_struct_2(my_shell, &i, &j);
+	// write(2,"fffff_3\n", 9);
 	i = 0;
 	while (my_shell->double_list && my_shell->double_list[i])
 	{
+		// write(2,"fffff_4\n", 9);
 		free(my_shell->double_list[i]);
 		++i;
 	}
+	// write(2,"fffff_6\n", 9);
 	i = 0;
 	while (my_shell->full_path && my_shell->full_path[i])
 	{
 		free(my_shell->full_path[i]);
 		++i;
 	}
+	// write(2,"fffff_8\n", 9);
 	free_struct_3(my_shell);
+	// write(2,"ffff_10\n", 9);
 }

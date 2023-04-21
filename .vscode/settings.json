@@ -1,6 +1,7 @@
 {
 	"files.associations": {
 		"algorithm": "c",
-		"typeinfo": "c"
+		"typeinfo": "c",
+		"sstream": "c"
 	}
 }

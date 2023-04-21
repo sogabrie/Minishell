@@ -1,18 +1,6 @@
 #include "struct.h"
 #include "minishell.h"
 
-int	control_pars_exe_2_2(t_shell *my_shell, int *i)
-{
-	if ((!ft_strcmp(my_shell->double_list[(*i)], "echo") || \
-	!ft_strcmp(my_shell->double_list[(*i)], "cd") || \
-	!ft_strcmp(my_shell->double_list[(*i)], "pwd") || \
-	!ft_strcmp(my_shell->double_list[(*i)], "export") || \
-	!ft_strcmp(my_shell->double_list[(*i)], "unset") || \
-	!ft_strcmp(my_shell->double_list[(*i)], "env") || \
-	!ft_strcmp(my_shell->double_list[(*i)], "exit")))
-		return (1);
-	return (0);
-}
 
 void	control_pars_exe_2(t_shell *my_shell, int *start, int *end, int *i)
 {

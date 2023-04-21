@@ -33,7 +33,7 @@ void	creat_exe(t_shell *my_shell, char *name)
 	my_shell->control[my_shell->count - 1]->exe = malloc(sizeof(t_exe));
 	if (!my_shell->control[my_shell->count - 1]->exe)
 		malloc_error();
-	my_shell->control[my_shell->count - 1]->exe->full_name = name;
+	my_shell->control[my_shell->count - 1]->exe->full_name = ft_strdup(name);
 	if (!my_shell->control[my_shell->count - 1]->exe->full_name)
 		malloc_error();
 	my_shell->control[my_shell->count - 1]->exe->fd_output \

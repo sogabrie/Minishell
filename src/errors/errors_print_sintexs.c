@@ -7,6 +7,6 @@ char *a, t_error_type err)
 	write (2, "minishell: syntax error near unexpected token `", 48);
 	write (2, a, ft_strlen(a));
 	write (2, "\'\n", 3);
-	my_shell->my_error = SYNT_ERROR;
+	my_shell->error_status = SYNT_ERROR;
 	return (err);
 }
