@@ -35,6 +35,9 @@ int	ft_unset(char **args, char ***envp)
 
 	error_code = 0;
 	i = -1;
+	if (args == NULL || args[0] == NULL
+		|| envp == NULL || envp[0] == NULL)
+		return (error_code);
 	while (args[++i])
 	{
 		if (args[i][0] == '#')

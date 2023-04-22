@@ -117,7 +117,7 @@ int	ft_cd(char *dir, char ***envp, char *new_dir, char *pwd)
 	char	buf[256];
 
 	adding_dir(&old_pwd, &home, &pwd, envp);
-	if (ft_strlen(dir) == 0)
+	if (dir == NULL || ft_strlen(dir) == 0)
 	{
 		if (check_home(home, new_dir, old_pwd, pwd))
 			return (1);

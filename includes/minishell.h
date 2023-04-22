@@ -59,7 +59,7 @@ int				ft_env(char **envp, int f_export);
 int				ft_echo(char **args, char **envp, int error, int i);
 int				ft_export(char **str, char ***envp, int i, char *name);
 int				ft_unset(char **args, char ***envp);
-int				ft_exit(char **args);
+int				ft_exit(char **args, size_t	count);
 
 //Wildcards
 char			**wildcards(char *wild_string);

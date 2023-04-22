@@ -54,6 +54,8 @@ char	**wildcards(char *wild_string)
 
 	directory = opendir(".");
 	found_objects = NULL;
+	if (wild_string == NULL)
+		return (NULL);
 	while (1)
 	{
 		entry = readdir(directory);

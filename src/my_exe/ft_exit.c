@@ -41,12 +41,15 @@ int	char_args(char *str)
 	return (0);
 }
 
-int	ft_exit(char **args)
+int	ft_exit(char **args, size_t	count)
 {
-	size_t			count;
 	unsigned char	exit_code;
 
-	count = 0;
+	if (args == NULL || args[0] == NULL)
+	{
+		ft_putendl_fd("exit", 1);
+		exit(0);
+	}
 	if (overflow_or_not(args[0]) || char_args(args[0]))
 	{
 		ft_putendl_fd("exit", 1);
