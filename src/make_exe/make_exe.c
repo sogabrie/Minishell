@@ -66,7 +66,7 @@ int	do_my_exe(t_shell *my_shell, int i)
 {
 	if (!ft_strcmp(my_shell->control[i]->exe->full_name, "echo"))
 	{
-		return(ft_echo(my_shell->control[i]->exe->options, my_shell->my_envp, my_shell->error_status, -1));
+		return(ft_echo(my_shell->control[i]->exe->options, my_shell->my_envp, my_shell->error_status));
 	}
 	if (!ft_strcmp(my_shell->control[i]->exe->full_name, "cd"))
 	{
@@ -101,7 +101,12 @@ void	do_exe(t_shell *my_shell, t_mas_pid	*my_pid, int i)
 {
 	int		error;
 	char	*new_name;
+	char	**new_dubl;
+	char	**cp_dubl;
 	int		j;
+	int		j2;
+	int		j3;
+	int		mas_count;
 
 	// write(2,"ttttt_1\n", 9);
 	my_shell->control[i]->exe->cpy_fd_input = dup(my_shell->fd_input);
@@ -117,10 +122,11 @@ void	do_exe(t_shell *my_shell, t_mas_pid	*my_pid, int i)
 		free(my_shell->control[i]->exe->full_name);
 		my_shell->control[i]->exe->full_name = new_name;
 	}
-	j = 0;
+	
 	// printf("my_shell->control[i]->exe->full_name = %s\n", my_shell->control[i]->exe->full_name);
 	if (ft_strcmp(my_shell->control[i]->exe->full_name, "echo"))
 	{
+		j = 0;
 		// write(1, "exexex_1\n",10);
 		while (my_shell->control[i]->exe->options && my_shell->control[i]->exe->options[j])
 		{
@@ -129,6 +135,32 @@ void	do_exe(t_shell *my_shell, t_mas_pid	*my_pid, int i)
 			{
 				free(my_shell->control[i]->exe->options[j]);
 				my_shell->control[i]->exe->options[j] = new_name;
+			}
+			++j;
+		}
+		j = 0;
+		while (my_shell->control[i]->exe->options && my_shell->control[i]->exe->options[j])
+		{
+			j2 = -1;
+			j3 = 0;
+			cp_dubl =  wildcards(ft_strdup(my_shell->control[i]->exe->options[j]));
+			if (cp_dubl)
+			{
+				mas_count = size_list(my_shell->control[i]->exe->options) + size_list(cp_dubl);
+				new_dubl = malloc(mas_count * sizeof(char *));
+				while (++j2 < j)
+					new_dubl[j2] = my_shell->control[i]->exe->options[j2];
+				j3 = 0;
+				while (cp_dubl[j3])
+					new_dubl[j2++] = cp_dubl[j3++];
+				free(my_shell->control[i]->exe->options[j]);
+				j3 = j;
+				j = j2 - 1;
+				while (j2 < mas_count - 1)
+					new_dubl[j2++] = my_shell->control[i]->exe->options[++j3];
+				new_dubl[j2] = 0;
+				free(my_shell->control[i]->exe->options);
+				my_shell->control[i]->exe->options = new_dubl;
 			}
 			++j;
 		}
