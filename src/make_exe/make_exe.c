@@ -109,7 +109,7 @@ void	do_exe(t_shell *my_shell, t_mas_pid	*my_pid, int i)
 	// write(2,"ttttt_2\n", 9);
 
 	// printf("my_shell->control[i]->exe->full_name = %s\n", my_shell->control[i]->exe->full_name);
-	new_name = parse_line(my_shell->control[i]->exe->full_name, my_shell->my_envp, my_shell->my_error);
+	new_name = parse_line(my_shell->control[i]->exe->full_name, my_shell->my_envp, my_shell->my_error, 0);
 	free(my_shell->control[i]->exe->full_name);
 	my_shell->control[i]->exe->full_name = new_name;
 	j = 0;
@@ -119,7 +119,7 @@ void	do_exe(t_shell *my_shell, t_mas_pid	*my_pid, int i)
 		// write(1, "exexex_1\n",10);
 		while (my_shell->control[i]->exe->options && my_shell->control[i]->exe->options[j])
 		{
-			new_name = parse_line(my_shell->control[i]->exe->options[j], my_shell->my_envp, my_shell->my_error);
+			new_name = parse_line(my_shell->control[i]->exe->options[j], my_shell->my_envp, my_shell->my_error, 0);
 			free(my_shell->control[i]->exe->options[j]);
 			my_shell->control[i]->exe->options[j] = new_name;
 			++j;
@@ -276,7 +276,7 @@ int	make_exe(t_shell *my_shell, int i, int j)
 			re_co = 0;
 			while (re_co < my_shell->control[i]->count_redir && my_shell->control[i]->exe->error == NO_ERROR)
 			{
-				a = parse_line(my_shell->control[i]->redirect[re_co]->filename, my_shell->my_envp, my_shell->my_error);
+				a = parse_line(my_shell->control[i]->redirect[re_co]->filename, my_shell->my_envp, my_shell->my_error, 0);
 				if (!a)
 					a = ft_strdup(my_shell->control[i]->redirect[re_co]->filename);
 				if (my_shell->control[i]->redirect[re_co]->type == INPUT && my_shell->control[i]->redirect[re_co]->error == NO_ERROR)
