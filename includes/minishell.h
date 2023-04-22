@@ -45,7 +45,6 @@ char			*variable(char *str, size_t *i, char **envp, int error);
 char			*scop_one(char *args, char end, size_t *i);
 char			*parse_scop(char *args, size_t *i);
 char			*parse_line(char *args, char **envp, int error, size_t i);
-char			*parse_line(char *args, char **envp, int error, size_t i);
 char			*parse_wild(char *line);
 
 //unset_utils
