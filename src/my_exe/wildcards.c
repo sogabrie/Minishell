@@ -66,7 +66,10 @@ char	**wildcards(char *wild_string)
 	}
 	closedir(directory);
 	if (found_objects == NULL)
+	{
+		free(wild_string);
 		return (NULL);
+	}
 	free(wild_string);
 	return (found_objects);
 }

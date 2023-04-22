@@ -42,6 +42,11 @@ char			*creat_new_line(char *str, char **envp, size_t i, size_t count);
 int				check_flag(char *str, size_t *flag);
 char			*echo_line(char *line, char **envp, char *new_line, int error);
 char			*variable(char *str, size_t *i, char **envp, int error);
+char			*scop_one(char *args, char end, size_t *i);
+char			*parse_scop(char *args, size_t *i);
+char			*parse_line(char *args, char **envp, int error, size_t i);
+char			*parse_line(char *args, char **envp, int error, size_t i);
+char			*parse_wild(char *line);
 
 //unset_utils
 int				valid_unset(char *arg, int *error_code, char **envp, size_t i);
@@ -56,7 +61,7 @@ char			*creat_tmp_file(int last_number, char *tmp_file, \
 int				ft_pwd(void);
 int				ft_cd(char *dir, char ***envp, char *new_dir, char *pwd);
 int				ft_env(char **envp, int f_export);
-int				ft_echo(char **args, char **envp, int error, int i);
+int				ft_echo(char **args, char **envp, int error);
 int				ft_export(char **str, char ***envp, int i, char *name);
 int				ft_unset(char **args, char ***envp);
 int				ft_exit(char **args, size_t	count);

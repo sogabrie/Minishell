@@ -46,117 +46,21 @@ char	*echo_line(char *line, char **envp, char *new_line, int error)
 	return (new_line);
 }
 
-char	*scop_one(char *args, char end, size_t *i)
-{
-	char	*str;
-	size_t	count;
-	size_t	start;
-
-	start = 0;
-	count = 1;
-	(*i)++;
-	while (args[count] && args[count] != end)
-	{
-		(*i)++;
-		count++;
-	}
-	str = malloc(sizeof(char) * (count + 1));
-	if (str == NULL)
-		malloc_error();
-	while (start < count)
-	{
-		str[start] = args[start];
-		start++;
-	}
-	str[start] = '\0';
-	return (str);
-}
-
-char	*parse_scop(char *args, size_t *i)
-{
-	char	*str;
-	size_t	count;
-	size_t	start;
-
-	count = 0;
-	start = 0;
-	if (args[0] && args[0] == '\'')
-		return (scop_one(args, '\'', i));
-	if (args[0] && args[0] == '\"')
-		return (scop_one(args, '\"', i));
-	while (args[(*i)] && args[(*i)] != '\'' && args[(*i)] != '\"')
-	{
-		(*i)++;
-		count++;
-	}
-	str = malloc(sizeof(char) * (count + 1));
-	if (str == NULL)
-		malloc_error();
-	while (args[start] && args[start] != '\'' && args[start] != '\"')
-	{
-		str[start] = args[start];
-		start++;
-	}
-	str[start] = '\0';
-	return (str);
-}
-
-char	*parse_line(char *args, char **envp, int error, size_t i)
-{
-	char	*pars;
-	char	*line;
-	char	*final_str;
-	char	**line_wild;
-
-	final_str = NULL;
-	while (args[i])
-	{
-		pars = parse_scop(args + i, &i);
-		line = echo_line(pars, envp, NULL, error);
-		if (line[0] != 0)
-			final_str = ft_strjoin_exlusive(final_str, line);
-		free(pars);
-		free(line);
-	}
-	return (final_str);
-}
-
-// char	*parse_wild(char *line)
-// {
-// 	char	**wild_str;
-// 	size_t	j;
-// 	char	*new_line;
-
-// 	j = 0;
-// 	new_line = NULL;
-// 	printf("arars\n");
-// 	wild_str = wildcards(line);
-// 	if (wild_str == NULL)
-// 		return (line);
-// 	while (wild_str[j])
-// 		new_line = ft_strjoin_exlusive(new_line, wild_str[j++]);
-// 	printf("new_line = %s\n", new_line);
-// 	return (new_line);
-// }
-
-int	ft_echo(char **args, char **envp, int error, int i)
+void	execute_echo(char **args, char **envp, int error, size_t *flag_n)
 {
 	char	*line;
-	size_t	flag_n;
+	int		i;
 
-	flag_n = 0;
-	if (args == NULL || args[0] == NULL || args[0][0] == 0)
-	{
-		write(1, "\n", 1);
-		return (0);
-	}
+	i = -1;
 	while (args[++i])
 	{
+		if (ft_strlen(args[i]) == 0)
+			printf(" ");
 		line = parse_line(args[i], envp, error, 0);
-		// line = parse_wild(line);
+		line = parse_wild(line);
 		if (line == NULL)
 			continue ;
-		if (i == 0 && line[0] == '-' && check_flag(line + 1, &flag_n))
+		if (i == 0 && line[0] == '-' && check_flag(line + 1, flag_n))
 		{
 			free(line);
 			continue ;
@@ -166,14 +70,21 @@ int	ft_echo(char **args, char **envp, int error, int i)
 			printf(" ");
 		free(line);
 	}
+}
+
+int	ft_echo(char **args, char **envp, int error)
+{
+	char	*line;
+	size_t	flag_n;
+
+	flag_n = 0;
+	if (args == NULL || args[0] == NULL)
+	{
+		write(1, "\n", 1);
+		return (0);
+	}
+	execute_echo(args, envp, error, &flag_n);
 	if (flag_n == 0)
 		printf("\n");
 	return (0);
 }
-
-// int main(int argc, char *argv[], char *envp[])
-// {
-// 	char *str[3] = {"", "asfasf", NULL};
-// 	ft_echo(str, envp, 0, -1);
-// 	// system("leaks minishell");
-// }
