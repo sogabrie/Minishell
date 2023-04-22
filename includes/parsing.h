@@ -87,4 +87,5 @@ int				check_meta_char(char *name);
 
 char			*echo_line(char *line, char **envp, char *new_line, int error);
 char			*parse_line(char *args, char **envp, int error, size_t i);
+int				ft_exit(char **args);
 #endif

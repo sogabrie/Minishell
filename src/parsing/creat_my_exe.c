@@ -71,12 +71,11 @@ void	creat_redirect(t_shell *my_shell, int *i)
 	add_redir(my_shell);
 	if (!ft_strcmp(b, "<<"))
 	{
-		a = here_doc(a, 0, my_shell->my_envp, NULL);
-		if (!m)
+		my_shell->redirect[my_shell->count_redir - 1]->here_doc = here_doc(a, 0, my_shell->my_envp, NULL);
+		if (!my_shell->redirect[my_shell->count_redir - 1]->here_doc)
 			my_shell->redirect[my_shell->count_redir - 1]->error = ENOENT;
 		else
 			my_shell->redirect[my_shell->count_redir - 1]->error = NO_ERROR;
-		my_shell->redirect[my_shell->count_redir - 1]->filename = ft_strdup(a);
 		my_shell->redirect[my_shell->count_redir - 1]->type = HERE_DOC;
 	}
 	else if (!ft_strcmp(b, "<"))

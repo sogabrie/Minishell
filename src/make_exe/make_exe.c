@@ -82,7 +82,7 @@ int	do_my_exe(t_shell *my_shell, int i)
 	}
 	if (!ft_strcmp(my_shell->control[i]->exe->full_name, "unset"))
 	{
-
+		ft_unset(my_shell->control[i]->exe->options, &my_shell->my_envp);
 	}
 	if (!ft_strcmp(my_shell->control[i]->exe->full_name, "env"))
 	{
@@ -90,7 +90,9 @@ int	do_my_exe(t_shell *my_shell, int i)
 	}
 	if (!ft_strcmp(my_shell->control[i]->exe->full_name, "exit"))
 	{
-
+		write (1, "exiiit_3\n", 10);
+		ft_exit(my_shell->control[i]->exe->options);
+		write (1, "exiiit_4\n", 10);
 	}
 	return (0);
 }
@@ -110,8 +112,11 @@ void	do_exe(t_shell *my_shell, t_mas_pid	*my_pid, int i)
 
 	// printf("my_shell->control[i]->exe->full_name = %s\n", my_shell->control[i]->exe->full_name);
 	new_name = parse_line(my_shell->control[i]->exe->full_name, my_shell->my_envp, my_shell->my_error, 0);
-	free(my_shell->control[i]->exe->full_name);
-	my_shell->control[i]->exe->full_name = new_name;
+	if (new_name)
+	{
+		free(my_shell->control[i]->exe->full_name);
+		my_shell->control[i]->exe->full_name = new_name;
+	}
 	j = 0;
 	// printf("my_shell->control[i]->exe->full_name = %s\n", my_shell->control[i]->exe->full_name);
 	if (ft_strcmp(my_shell->control[i]->exe->full_name, "echo"))
@@ -120,8 +125,11 @@ void	do_exe(t_shell *my_shell, t_mas_pid	*my_pid, int i)
 		while (my_shell->control[i]->exe->options && my_shell->control[i]->exe->options[j])
 		{
 			new_name = parse_line(my_shell->control[i]->exe->options[j], my_shell->my_envp, my_shell->my_error, 0);
-			free(my_shell->control[i]->exe->options[j]);
-			my_shell->control[i]->exe->options[j] = new_name;
+			if (new_name)
+			{
+				free(my_shell->control[i]->exe->options[j]);
+				my_shell->control[i]->exe->options[j] = new_name;
+			}
 			++j;
 		}
 	}
@@ -193,7 +201,9 @@ void	do_exe(t_shell *my_shell, t_mas_pid	*my_pid, int i)
 		else
 		{
 			add_pid(my_pid);
+			write (1, "exiiit_1\n", 10);
 			my_pid->my_pid[my_pid->count - 1] = do_my_exe(my_shell, i);
+			write (1, "exiiit_2\n", 10);
 		}
 		// write(2,"tttt_10\n", 9);
 	}
@@ -276,9 +286,13 @@ int	make_exe(t_shell *my_shell, int i, int j)
 			re_co = 0;
 			while (re_co < my_shell->control[i]->count_redir && my_shell->control[i]->exe->error == NO_ERROR)
 			{
-				a = parse_line(my_shell->control[i]->redirect[re_co]->filename, my_shell->my_envp, my_shell->my_error, 0);
-				if (!a)
-					a = ft_strdup(my_shell->control[i]->redirect[re_co]->filename);
+				a = 0;
+				if (my_shell->control[i]->redirect[re_co]->type != HERE_DOC)
+				{
+					a = parse_line(my_shell->control[i]->redirect[re_co]->filename, my_shell->my_envp, my_shell->my_error, 0);
+					if (!a)
+						a = ft_strdup(my_shell->control[i]->redirect[re_co]->filename);
+				}
 				if (my_shell->control[i]->redirect[re_co]->type == INPUT && my_shell->control[i]->redirect[re_co]->error == NO_ERROR)
 				{
 					fd = red_input(a);
@@ -303,7 +317,7 @@ int	make_exe(t_shell *my_shell, int i, int j)
 				}
 				else if (my_shell->control[i]->redirect[re_co]->type == HERE_DOC && my_shell->control[i]->redirect[re_co]->error == NO_ERROR)
 				{
-					fd = red_input(a);
+					fd = my_shell->control[i]->redirect[re_co]->here_doc;
 					if (fd >= 0)
 					{
 						my_shell->control[i]->exe->flag_input = 0;

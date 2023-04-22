@@ -3,32 +3,25 @@
 
 void	free_struct_2(t_shell *my_shell, int *i, int *j)
 {
-	// write(1, "free_struct_1\n", 15);
+	int	i2;
+
+	i2 = 0;
 	if (my_shell->control[(*i)]->command_type == EXE)
 	{
-		// write(1, "free_struct_2\n", 12);
+		while (i2 < my_shell->control[(*i)]->count_redir)
+		{
+			free(my_shell->control[(*i)]->redirect[i2]->filename);
+			free(my_shell->control[(*i)]->redirect[i2++]);
+		}
+		free(my_shell->control[(*i)]->redirect);
 		free(my_shell->control[(*i)]->exe->full_name);
 		(*j) = 0;
-		// write(1, "free_struct_3\n", 15);
 		while (my_shell->control[(*i)]->exe->options && \
 		my_shell->control[(*i)]->exe->options[(*j)])
 			free(my_shell->control[(*i)]->exe->options[(*j)++]);
-		// write(1, "free_struct_4\n", 15);
 		free(my_shell->control[(*i)]->exe->options);
 		free(my_shell->control[(*i)]->exe);
-		// write(1, "free_struct_5\n", 15);
 	}
-	// write(1, "free_struct_6\n", 15);
-	// if (my_shell->control[(*i)]->command_type == MY_EXE)
-	// {
-	// 	free(my_shell->control[(*i)]->my_exe->name);
-	// 	(*j) = 0;
-	// 	while (my_shell->control[(*i)]->my_exe->options && \
-	// 	my_shell->control[(*i)]->my_exe->options[(*j)])
-	// 		free(my_shell->control[(*i)]->my_exe->options[(*j)++]);
-	// 	free(my_shell->control[(*i)]->my_exe->options);
-	// 	free(my_shell->control[(*i)]->my_exe);
-	// }
 	if (my_shell->control[(*i)]->command_type == PRIORITET_START)
 		free(my_shell->control[(*i)]->prioritet_start);
 	if (my_shell->control[(*i)]->command_type == PRIORITET_END)
