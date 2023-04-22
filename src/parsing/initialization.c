@@ -45,6 +45,7 @@ void	creat_redir(t_shell *my_shell)
 	my_shell->redirect[0] = malloc (sizeof(t_redir));
 	if (!my_shell->redirect[0])
 		malloc_error();
+	my_shell->redirect[my_shell->count_redir]->filename = 0;
 	++my_shell->count_redir;
 }
 
@@ -53,12 +54,12 @@ void	add_redir(t_shell *my_shell)
 	int		i;
 	t_redir	**a;
 
-	if (!my_shell->redirect)
+	if (!my_shell->count_redir)
 	{
 		creat_redir(my_shell);
 		return ;
 	}
-	a = malloc ((my_shell->count + 1) * sizeof(t_redir *));
+	a = malloc ((my_shell->count_redir + 1) * sizeof(t_redir *));
 	if (!a)
 		malloc_error();
 	i = -1;
@@ -69,6 +70,7 @@ void	add_redir(t_shell *my_shell)
 		malloc_error();
 	free(my_shell->redirect);
 	my_shell->redirect = a;
+	my_shell->redirect[my_shell->count_redir]->filename = 0;
 	++my_shell->count_redir;
 }
 

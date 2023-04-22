@@ -47,8 +47,9 @@ char	*check_procces(t_shell *my_shell, int si, int size, int size_p)
 	mas = my_shell->control[si]->exe->full_name;
 	while (my_shell->full_path[i])
 	{
-		if (!access(mas, 1))
-			return (mas);
+		if (!access(mas, F_OK))
+			if (!access(mas, X_OK))
+				return (mas);
 		if (*mas != *(my_shell->control[si]->exe->full_name))
 			free(mas);
 		size_p = ft_strlen(my_shell->control[si]->exe->full_name);
@@ -61,8 +62,14 @@ char	*check_procces(t_shell *my_shell, int si, int size, int size_p)
 		ft_strlcat(mas, my_shell->control[si]->exe->full_name, size + size_p + 2);
 		++i;
 	}
-	if (access(mas, 1))
+	if (!access(mas, F_OK))
+	{
+		if (!access(mas, X_OK))
+			my_shell->control[si]->exe->error = 127;
+	}
+	else
 		my_shell->control[si]->exe->error = 127;
+
 	return (mas);
 }
 

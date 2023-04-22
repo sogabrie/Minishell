@@ -34,6 +34,8 @@ void	creat_exe(t_shell *my_shell, int *i)
 	my_shell->control[my_shell->count - 1]->exe->status = 0;
 	my_shell->control[my_shell->count - 1]->exe->options = 0;
 	my_shell->control[my_shell->count - 1]->exe->error = 0;
+	my_shell->control[my_shell->count - 1]->exe->flag_input = -1;
+	my_shell->control[my_shell->count - 1]->exe->flag_output = -1;
 	my_shell->check_exe = my_shell->count - 1 ;
 }
 
@@ -74,25 +76,25 @@ void	creat_redirect(t_shell *my_shell, int *i)
 			my_shell->redirect[my_shell->count_redir - 1]->error = ENOENT;
 		else
 			my_shell->redirect[my_shell->count_redir - 1]->error = NO_ERROR;
-		my_shell->redirect[my_shell->count_redir - 1]->filename = m;
+		my_shell->redirect[my_shell->count_redir - 1]->filename = ft_strdup(a);
 		my_shell->redirect[my_shell->count_redir - 1]->type = HERE_DOC;
 	}
 	else if (!ft_strcmp(b, "<"))
 	{
 		my_shell->redirect[my_shell->count_redir - 1]->error = NO_ERROR;
-		my_shell->redirect[my_shell->count_redir - 1]->filename = a;
+		my_shell->redirect[my_shell->count_redir - 1]->filename = ft_strdup(a);
 		my_shell->redirect[my_shell->count_redir - 1]->type = INPUT;
 	}
 	else if (!ft_strcmp(b, ">"))
 	{
 		my_shell->redirect[my_shell->count_redir - 1]->error = NO_ERROR;
-		my_shell->redirect[my_shell->count_redir - 1]->filename = a;
+		my_shell->redirect[my_shell->count_redir - 1]->filename = ft_strdup(a);
 		my_shell->redirect[my_shell->count_redir - 1]->type = OUTPT;
 	}
 	else if (!ft_strcmp(b, ">>"))
 	{
 		my_shell->redirect[my_shell->count_redir - 1]->error = NO_ERROR;
-		my_shell->redirect[my_shell->count_redir - 1]->filename = a;
+		my_shell->redirect[my_shell->count_redir - 1]->filename = ft_strdup(a);
 		my_shell->redirect[my_shell->count_redir - 1]->type = OUTPUT_APP;
 	}
 	free(a);
