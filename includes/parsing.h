@@ -20,6 +20,7 @@ t_error_type	control_pars_4(t_shell *my_shell, int *i, int *j, int *n);
 t_error_type	control_pars_5(t_shell *my_shell, int *i, int *j, int *n);
 
 //pars_quote_utils.c
+char			*heer_doc_echo(char *a);
 void			cp_free(char ***list, char ***cp);
 char			*my_cat(char *list, int start, int end);
 int				size_list(char **list);
@@ -44,6 +45,7 @@ int				creat_delimiter(t_shell	*my_shell);
 
 // inicalization.c
 void			chreat_cont(t_shell *my_shell);
+void			add_redir(t_shell *my_shell);
 
 // creat_main_struct.c
 void			creat_struct_pip(t_shell *my_shell);
@@ -54,9 +56,9 @@ void			creat_struct_prioritet_end(t_shell *my_shell);
 
 //creat_my_exe.c
 void			creat_my_exe(t_shell *my_shell, char *name);
-t_error_type	creat_redirect(t_shell *my_shell, int *i);
-void			add_option(t_shell *my_shell, char *name);
-void			creat_exe(t_shell *my_shell, char *name);
+void			creat_redirect(t_shell *my_shell, int *i);
+void			add_option(t_shell *my_shell, int *i);
+void			creat_exe(t_shell *my_shell, int *i);
 
 //here_doc
 int				red_input(char *filename);
@@ -80,5 +82,9 @@ int				make_exe(t_shell *my_shell, int i, int j);
 
 //utils_pid.c
 void			add_pid(t_mas_pid	*my_pid);
+int				check_meta_char(char *name);
 
+
+char			*echo_line(char *line, char **envp, char *new_line, int error);
+char			*parse_line(char *args, char **envp, int error);
 #endif

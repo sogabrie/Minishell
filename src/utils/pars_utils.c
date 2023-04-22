@@ -1,5 +1,21 @@
 #include "minishell.h"
 
+int	check_meta_char(char *name)
+{
+	if (name && \
+	ft_strcmp(name, "<<") && \
+	ft_strcmp(name, "<") && \
+	ft_strcmp(name, ">>") && \
+	ft_strcmp(name, ">") && \
+	ft_strcmp(name, "&&") && \
+	ft_strcmp(name, "||") && \
+	ft_strcmp(name, "|") && \
+	ft_strcmp(name, " ") && \
+	ft_strcmp(name, ")"))
+		return (1);
+	return (0);
+}
+
 int	check_my_exe(char *name)
 {
 	if (!ft_strcmp(name, "echo") \

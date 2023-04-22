@@ -32,7 +32,7 @@ int	red_out_append(char *filename)
 
 	if (red_out_append_check(filename))
 		return (-1);
-	file = open(filename, O_CREAT | O_WRONLY | O_APPEND, 00755);
+	file = open(filename, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (file < 0)
 	{
 		write (2, "Too many open files in system\n", 30);

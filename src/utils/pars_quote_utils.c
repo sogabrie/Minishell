@@ -1,5 +1,21 @@
 #include "minishell.h"
 
+char	*heer_doc_echo(char *a)
+{
+	int	i;
+
+	if(!a || !a[0])
+		return (a);
+	if (a[0] == '\"' || a[0] == '\'')
+	{
+		i = -1;
+		while (a[++i])
+			a[i] = a[i + 1];
+		a[i - 2] = 0;
+	}
+	return (a);
+}
+
 void	cp_free(char ***list, char ***cp)
 {
 	int	i;
@@ -35,6 +51,18 @@ char	*my_cat(char *list, int start, int end)
 }
 
 int	size_list(char **list)
+{
+	int	i;
+
+	i = 0;
+	if (!list)
+		return (0);
+	while (list[i])
+		++i;
+	return (i);
+}
+
+int	size_trepl_list(char ***list)
 {
 	int	i;
 

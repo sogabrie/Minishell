@@ -9,11 +9,16 @@
 void	main_parsing(t_shell	*my_shell)
 {
 	my_shell->double_list = 0;
+	// write(2,"aaaaa_1\n", 9);
 	if (!control_pars(my_shell, 0, 0, 0) && !check_paren(my_shell))
 	{
+		// write(2,"aaaaa_2\n", 9);
 		creat_delimiter(my_shell);
+		// write(2,"aaaaa_3\n", 9);
 		control_parsing(my_shell);
+		// write(2,"aaaaa_4\n", 9);
 		make_exe(my_shell, 0, my_shell->count);
+		// write(2,"aaaaa_5\n", 9);
 		// int i = 0;
 		// while (i < my_shell->count)
 		// {
@@ -68,5 +73,6 @@ void	main_parsing(t_shell	*my_shell)
 	// }
 	// i = 0;
 	free_struct(my_shell);
+	// write(2,"aaaaa_6\n", 9);
 	// system("leaks minishell");
 }

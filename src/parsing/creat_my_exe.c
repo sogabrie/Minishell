@@ -1,39 +1,27 @@
 #include "struct.h"
 #include "minishell.h"
 
-void	creat_my_exe(t_shell *my_shell, char *name)
+void	creat_exe(t_shell *my_shell, int *i)
 {
-	chreat_cont(my_shell);
-	my_shell->control[my_shell->count - 1]->command_type = MY_EXE;
-	my_shell->control[my_shell->count - 1]->my_exe = malloc(sizeof(t_my_exe));
-	if (!my_shell->control[my_shell->count - 1]->my_exe)
-		malloc_error();
-	my_shell->control[my_shell->count - 1]->my_exe->name = ft_strdup(name);
-	if (!my_shell->control[my_shell->count - 1]->my_exe->name)
-		malloc_error();
-	my_shell->control[my_shell->count - 1]->my_exe->fd_output \
-	= my_shell->fd_output;
-	my_shell->control[my_shell->count - 1]->my_exe->fd_input \
-	= my_shell->fd_input;
-	my_shell->control[my_shell->count - 1]->my_exe->cpy_fd_output \
-	= my_shell->cpy_fd_output;
-	my_shell->control[my_shell->count - 1]->my_exe->cpy_fd_input \
-	= my_shell->cpy_fd_input;
-	my_shell->control[my_shell->count - 1]->my_exe->ptr_envp \
-	= my_shell->my_envp;
-	my_shell->control[my_shell->count - 1]->my_exe->staatus = 0;
-	my_shell->control[my_shell->count - 1]->my_exe->options = 0;
-	my_shell->check_exe = my_shell->count - 1 ;
-}
-
-void	creat_exe(t_shell *my_shell, char *name)
-{
+	char	*a;
+	int		j;
 	chreat_cont(my_shell);
 	my_shell->control[my_shell->count - 1]->command_type = EXE;
 	my_shell->control[my_shell->count - 1]->exe = malloc(sizeof(t_exe));
 	if (!my_shell->control[my_shell->count - 1]->exe)
 		malloc_error();
-	my_shell->control[my_shell->count - 1]->exe->full_name = ft_strdup(name);
+	my_shell->control[my_shell->count - 1]->exe->full_name = ft_strdup(my_shell->double_list[(*i)]);
+	if (!my_shell->control[my_shell->count - 1]->exe->full_name)
+		malloc_error();
+	while (check_meta_char(my_shell->double_list[(*i) + 1]))
+	{
+		++(*i);
+		a =  ft_strjoin( my_shell->control[my_shell->count - 1]->exe->full_name, my_shell->double_list[(*i)]);
+		if (!a)
+			malloc_error();
+		free(my_shell->control[my_shell->count - 1]->exe->full_name);
+		my_shell->control[my_shell->count - 1]->exe->full_name = a;
+	}
 	if (!my_shell->control[my_shell->count - 1]->exe->full_name)
 		malloc_error();
 	my_shell->control[my_shell->count - 1]->exe->fd_output \
@@ -46,97 +34,73 @@ void	creat_exe(t_shell *my_shell, char *name)
 	my_shell->control[my_shell->count - 1]->exe->status = 0;
 	my_shell->control[my_shell->count - 1]->exe->options = 0;
 	my_shell->control[my_shell->count - 1]->exe->error = 0;
+	my_shell->control[my_shell->count - 1]->exe->flag_input = -1;
+	my_shell->control[my_shell->count - 1]->exe->flag_output = -1;
 	my_shell->check_exe = my_shell->count - 1 ;
 }
 
-t_error_type	creat_redirect(t_shell *my_shell, int *i)
+void	creat_redirect(t_shell *my_shell, int *i)
 {
 	int		fd = 0;
 	char	*a;
 	char	*c;
 	char	*b = my_shell->double_list[*i];
+	char	*d;
+	char	*m;
 
-	if (!ft_strcmp(my_shell->double_list[*i], "<<"))
-	{
+	(*i)++;
+	if (!ft_strcmp(my_shell->double_list[*i], " "))
 		(*i)++;
-		if (!ft_strcmp(my_shell->double_list[*i], " "))
-			(*i)++;
-		a = ft_strdup(my_shell->double_list[*i]);
-		(*i)++;
-		while (my_shell->double_list[*i] && \
-		ft_strcmp(my_shell->double_list[*i], "<<") && \
-		ft_strcmp(my_shell->double_list[*i], "<") && \
-		ft_strcmp(my_shell->double_list[*i], ">>") && \
-		ft_strcmp(my_shell->double_list[*i], ">") && \
-		ft_strcmp(my_shell->double_list[*i], "&&") && \
-		ft_strcmp(my_shell->double_list[*i], "||") && \
-		ft_strcmp(my_shell->double_list[*i], "|") && \
-		ft_strcmp(my_shell->double_list[*i], " ") && \
-		ft_strcmp(my_shell->double_list[*i], ")"))
-		{
-			c = ft_strjoin(a, my_shell->double_list[*i]);
-			free(a);
-			a = c;
-			(*i)++;
-		}
-	}
+	if (!ft_strcmp(b, "<<"))
+		a = ft_strdup(heer_doc_echo(my_shell->double_list[*i]));
 	else
-	{
-		(*i)++;
-		if (!ft_strcmp(my_shell->double_list[*i], " "))
-			(*i)++;
 		a = ft_strdup(my_shell->double_list[*i]);
+	(*i)++;
+	while (check_meta_char(my_shell->double_list[(*i)]))
+	{
+		if (!ft_strcmp(b, "<<"))
+			d = ft_strdup(heer_doc_echo(my_shell->double_list[*i]));
+		else
+			d = ft_strdup(my_shell->double_list[*i]);
+		c = ft_strjoin(a, d);
+		free(d);
+		free(a);
+		a = c;
 		(*i)++;
-		while (my_shell->double_list[*i] && \
-		ft_strcmp(my_shell->double_list[*i], "<<") && \
-		ft_strcmp(my_shell->double_list[*i], "<") && \
-		ft_strcmp(my_shell->double_list[*i], ">>") && \
-		ft_strcmp(my_shell->double_list[*i], ">") && \
-		ft_strcmp(my_shell->double_list[*i], "&&") && \
-		ft_strcmp(my_shell->double_list[*i], "||") && \
-		ft_strcmp(my_shell->double_list[*i], "|") && \
-		ft_strcmp(my_shell->double_list[*i], " ") && \
-		ft_strcmp(my_shell->double_list[*i], ")"))
-		{
-			c = ft_strjoin(a, my_shell->double_list[*i]);
-			free(a);
-			a = c;
-			(*i)++;
-		}
 	}
-	if (!ft_strcmp(b, "<") && my_shell->my_error == NO_ERROR)
+	add_redir(my_shell);
+	if (!ft_strcmp(b, "<<"))
 	{
-		fd = red_input(a);
-		if (fd >= 0)
-			my_shell->fd_input = fd;
+		a = here_doc(a, 0, my_shell->my_envp, NULL);
+		if (!m)
+			my_shell->redirect[my_shell->count_redir - 1]->error = ENOENT;
+		else
+			my_shell->redirect[my_shell->count_redir - 1]->error = NO_ERROR;
+		my_shell->redirect[my_shell->count_redir - 1]->filename = ft_strdup(a);
+		my_shell->redirect[my_shell->count_redir - 1]->type = HERE_DOC;
 	}
-	else if (!ft_strcmp(b, ">") && my_shell->my_error == NO_ERROR)
+	else if (!ft_strcmp(b, "<"))
 	{
-		fd = red_out(a);
-		if (fd >= 0)
-			my_shell->fd_output = fd;
+		my_shell->redirect[my_shell->count_redir - 1]->error = NO_ERROR;
+		my_shell->redirect[my_shell->count_redir - 1]->filename = ft_strdup(a);
+		my_shell->redirect[my_shell->count_redir - 1]->type = INPUT;
 	}
-	else if (!ft_strcmp(b, "<<"))
+	else if (!ft_strcmp(b, ">"))
 	{
-		fd = here_doc(a, 0, my_shell->my_envp, NULL);
-		printf("fd = %d\n", fd);
-		if (fd >= 0)
-			my_shell->fd_input = fd;
+		my_shell->redirect[my_shell->count_redir - 1]->error = NO_ERROR;
+		my_shell->redirect[my_shell->count_redir - 1]->filename = ft_strdup(a);
+		my_shell->redirect[my_shell->count_redir - 1]->type = OUTPT;
 	}
-	else if (!ft_strcmp(b, ">>") && my_shell->my_error == NO_ERROR)
+	else if (!ft_strcmp(b, ">>"))
 	{
-		fd = red_out_append(a);
-		if (fd >= 0)
-			my_shell->fd_output = fd;
+		my_shell->redirect[my_shell->count_redir - 1]->error = NO_ERROR;
+		my_shell->redirect[my_shell->count_redir - 1]->filename = ft_strdup(a);
+		my_shell->redirect[my_shell->count_redir - 1]->type = OUTPUT_APP;
 	}
 	free(a);
-	if (fd <= 0)
-		return (ENOENT);
-	creat_close_fd(my_shell, fd);
-	return (0);
 }
 
-void	add_option_mas(char ***options, char *name, int i)
+int	add_option_mas(char ***options, char *name, int i)
 {
 	char	**a;
 	int		count;
@@ -151,18 +115,24 @@ void	add_option_mas(char ***options, char *name, int i)
 	a[++i] = 0;
 	free(*options);
 	*options = a;
+	return (i);
 }
 
-void	add_option(t_shell *my_shell, char *name)
+void	add_option(t_shell *my_shell, int *i)
 {
-	if (my_shell->control[my_shell->check_exe]->command_type == EXE)
+	char	*b;
+	int		j;
+	int		count;
+
+	count = add_option_mas(&my_shell->control[my_shell->check_exe]->exe->options, my_shell->double_list[(*i)], -1) - 1;
+	while (check_meta_char(my_shell->double_list[(*i) + 1]))
 	{
-		add_option_mas(\
-		&(my_shell->control[my_shell->check_exe]->exe->options), name, -1);
+		++(*i);
+		b = ft_strjoin(my_shell->control[my_shell->check_exe]->exe->options[count], my_shell->double_list[(*i)]);
+		if (!b)
+			malloc_error();
+		free(my_shell->control[my_shell->check_exe]->exe->options[count]);
+		my_shell->control[my_shell->check_exe]->exe->options[count] = b;
 	}
-	else
-	{
-		add_option_mas(\
-		&(my_shell->control[my_shell->check_exe]->my_exe->options), name, -1);
-	}
+	(*i)++;
 }

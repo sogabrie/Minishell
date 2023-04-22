@@ -24,6 +24,21 @@ typedef enum s_error_type
 	SYNT_ERROR = 258
 }	t_error_type;
 
+typedef enum s_redir_type
+{
+	INPUT,
+	OUTPT,
+	OUTPUT_APP,
+	HERE_DOC	
+}					t_redir_type;
+
+typedef struct s_redir
+{
+	char			*filename;
+	t_redir_type	type;
+	t_error_type	error;
+}					t_redir;
+
 typedef struct s_exe
 {
 	char			*full_name;
@@ -35,19 +50,23 @@ typedef struct s_exe
 	int				cpy_fd_input;
 	int				status;
 	int				error;
+	int				flag_input;
+	int				flag_output;
 }	t_exe;
 
-typedef struct s_my_exe
-{
-	char			*name;
-	char			**options;
-	char			**ptr_envp;
-	int				fd_output;
-	int				fd_input;
-	int				cpy_fd_output;
-	int				cpy_fd_input;
-	int				staatus;
-}	t_my_exe;
+// typedef struct s_my_exe
+// {
+// 	char			*name;
+// 	char			**options;
+// 	char			**ptr_envp;
+// 	int				fd_output;
+// 	int				fd_input;
+// 	int				cpy_fd_output;
+// 	int				cpy_fd_input;
+// 	int				staatus;
+// 	int				flag_input;
+// 	int				flag_output;
+// }	t_my_exe;
 
 // typedef struct s_pipe
 // {
@@ -66,13 +85,15 @@ typedef struct s_priorities
 typedef struct s_control
 {
 	t_exe			*exe;
-	t_my_exe		*my_exe;
+	// t_my_exe		*my_exe;
 	int				pip[2];
 	// t_pipe			*pipe;
 	t_priorities	*prioritet_start;
 	t_priorities	*prioritet_end;
 	int				logic_and;
 	int				logic_or;
+	int				count_redir;
+	t_redir			**redirect;
 	t_command_type	command_type;
 	t_error_type	error;
 }					t_control;
@@ -92,14 +113,18 @@ typedef struct s_shell
 	int				cpy_fd_output;
 	int				cpy_fd_input;
 	int				check_exe;
+	int				count_redir;
+	t_redir			**redirect;
 	t_control		**control;
 	unsigned int	count;
 	t_error_type	my_error;
+	t_error_type	error_status;
 }					t_shell;
 
 typedef struct s_mas_pid
 {
 	pid_t			*pid;
+	int				*my_pid;
 	int				count;
 }					t_mas_pid;
 

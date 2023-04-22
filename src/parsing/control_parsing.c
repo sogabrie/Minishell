@@ -1,36 +1,18 @@
 #include "struct.h"
 #include "minishell.h"
 
-int	control_pars_exe_2_2(t_shell *my_shell, int *i)
-{
-	if ((!ft_strcmp(my_shell->double_list[(*i)], "echo") || \
-	!ft_strcmp(my_shell->double_list[(*i)], "cd") || \
-	!ft_strcmp(my_shell->double_list[(*i)], "pwd") || \
-	!ft_strcmp(my_shell->double_list[(*i)], "export") || \
-	!ft_strcmp(my_shell->double_list[(*i)], "unset") || \
-	!ft_strcmp(my_shell->double_list[(*i)], "env") || \
-	!ft_strcmp(my_shell->double_list[(*i)], "exit")))
-		return (1);
-	return (0);
-}
 
 void	control_pars_exe_2(t_shell *my_shell, int *start, int *end, int *i)
 {
-	//char	cp;
-
-	//cp = echo_line(my_shell->double_list[i])
-	if (control_pars_exe_2_2(my_shell, i) \
-	&& my_shell->check_exe == -1)
-		creat_my_exe(my_shell, my_shell->double_list[(*i)]);
-	else if (!ft_strcmp(my_shell->double_list[(*i)], "<") || \
+	if ((!ft_strcmp(my_shell->double_list[(*i)], "<") || \
 	!ft_strcmp(my_shell->double_list[(*i)], "<<") || \
 	!ft_strcmp(my_shell->double_list[(*i)], ">") || \
-	!ft_strcmp(my_shell->double_list[(*i)], ">>"))
-		my_shell->my_error = creat_redirect(my_shell, i);
+	!ft_strcmp(my_shell->double_list[(*i)], ">>")))
+		creat_redirect(my_shell, i);
 	else if (i == start || my_shell->check_exe == -1)
-		creat_exe(my_shell, my_shell->double_list[(*i)]);
+		creat_exe(my_shell, i);
 	else if (ft_strcmp(my_shell->double_list[(*i)], " "))
-		add_option(my_shell, my_shell->double_list[(*i)]);
+		add_option(my_shell, i);
 	++(*i);
 }
 
@@ -60,21 +42,11 @@ void	control_pars_exe_3(t_shell *my_shell, int *end, int *i)
 
 void	control_pars_exe_4(t_shell *my_shell)
 {
-	if (my_shell->control[my_shell->check_exe]->command_type \
-	== EXE)
-	{
-		my_shell->control[my_shell->check_exe]->exe->fd_input \
-		= my_shell->fd_input;
-		my_shell->control[my_shell->check_exe]->exe->fd_output \
-		= my_shell->fd_output;
-	}
-	if (my_shell->control[my_shell->check_exe]->command_type == MY_EXE)
-	{
-		my_shell->control[my_shell->check_exe]->my_exe->fd_input \
-		= my_shell->fd_input;
-		my_shell->control[my_shell->check_exe]->my_exe->fd_output \
-		= my_shell->fd_output;
-	}
+	my_shell->control[my_shell->check_exe]->redirect = my_shell->redirect;
+	// printf("my_shell->count_redir %d\n", my_shell->count_redir);
+	my_shell->control[my_shell->check_exe]->count_redir = my_shell->count_redir;
+	my_shell->count_redir = 0;
+	my_shell->redirect = 0;
 	my_shell->control[my_shell->check_exe]->error = my_shell->my_error;
 }
 
@@ -83,13 +55,18 @@ void	control_pars_exe_5(t_shell *my_shell)
 	chreat_cont(my_shell);
 	my_shell->control[my_shell->count - 1]->command_type = NO_EXE;
 	my_shell->check_exe = my_shell->count - 1 ;
+	my_shell->control[my_shell->check_exe]->redirect = my_shell->redirect;
+	my_shell->control[my_shell->check_exe]->count_redir = my_shell->count_redir;
+	my_shell->count_redir = 0;
+	my_shell->redirect = 0;
 	my_shell->control[my_shell->check_exe]->error = my_shell->my_error;
+	
 }
 
 void	control_pars_exe(t_shell *my_shell, int start, int end)
 {
 	int		i;
- 
+
 	control_pars_exe_1(my_shell, &start, &end, &i);
 	while (i < end && my_shell->double_list[i] && \
 	ft_strcmp(my_shell->double_list[i], ")"))
