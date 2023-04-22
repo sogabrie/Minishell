@@ -121,6 +121,24 @@ char	*parse_line(char *args, char **envp, int error, size_t i)
 	return (final_str);
 }
 
+// char	*parse_wild(char *line)
+// {
+// 	char	**wild_str;
+// 	size_t	j;
+// 	char	*new_line;
+
+// 	j = 0;
+// 	new_line = NULL;
+// 	printf("arars\n");
+// 	wild_str = wildcards(line);
+// 	if (wild_str == NULL)
+// 		return (line);
+// 	while (wild_str[j])
+// 		new_line = ft_strjoin_exlusive(new_line, wild_str[j++]);
+// 	printf("new_line = %s\n", new_line);
+// 	return (new_line);
+// }
+
 int	ft_echo(char **args, char **envp, int error, int i)
 {
 	char	*line;
@@ -135,6 +153,7 @@ int	ft_echo(char **args, char **envp, int error, int i)
 	while (args[++i])
 	{
 		line = parse_line(args[i], envp, error, 0);
+		// line = parse_wild(line);
 		if (line == NULL)
 			continue ;
 		if (i == 0 && line[0] == '-' && check_flag(line + 1, &flag_n))
@@ -154,7 +173,7 @@ int	ft_echo(char **args, char **envp, int error, int i)
 
 // int main(int argc, char *argv[], char *envp[])
 // {
-// 	char *str[3] = {"-nnnnnnn", "\"\'\'asfasfaf\'asfasf\'$\"HOME\"\'$USER\'\'ASDASF\'123124124124\"\"\'\"", NULL};
+// 	char *str[3] = {"", "asfasf", NULL};
 // 	ft_echo(str, envp, 0, -1);
 // 	// system("leaks minishell");
 // }

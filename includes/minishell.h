@@ -48,7 +48,7 @@ int				valid_unset(char *arg, int *error_code, char **envp, size_t i);
 int				check_exists(char **envp, char *str);
 
 //Here_Doc
-char			*here_doc(char *end, int fd_write, char **envp, char *buffer);
+int				here_doc(char *end, int fd_write, char **envp, char *buffer);
 char			*creat_tmp_file(int last_number, char *tmp_file, \
 									char *shlvl, char *number_file);
 
@@ -59,6 +59,7 @@ int				ft_env(char **envp, int f_export);
 int				ft_echo(char **args, char **envp, int error, int i);
 int				ft_export(char **str, char ***envp, int i, char *name);
 int				ft_unset(char **args, char ***envp);
+int				ft_exit(char **args);
 
 //Wildcards
 char			**wildcards(char *wild_string);
@@ -75,7 +76,7 @@ char			**creat_more_objects(char **found_objects, char *name);
 
 //Errors
 void			malloc_error(void);
-char			*error_here_doc(char *file_name);
+int				error_here_doc(void);
 void			exe_error(char *dir, int number, char *my_exe);
 
 //Free

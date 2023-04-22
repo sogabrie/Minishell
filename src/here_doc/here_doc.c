@@ -30,16 +30,18 @@ char	*creat_tmp_file(int last_number, char *tmp_file, \
 	return (name_file);
 }
 
-char	*here_doc(char *end, int fd_write, char **envp, char *buffer)
+int	here_doc(char *end, int fd_write, char **envp, char *buffer)
 {
 	static int	last_number;
 	char		*file_name;
 
+	if (fd_write == 1)
+		return (last_number);
 	file_name = creat_tmp_file(last_number, "src/here_doc/tmp_file", \
 						search_envp_in(envp, "SHLVL", 5), NULL);
 	fd_write = open(file_name, O_CREAT | O_WRONLY | O_TRUNC, 0755);
 	if (fd_write < 0)
-		return (error_here_doc(file_name));
+		return (error_here_doc());
 	while (1)
 	{
 		write(0, "> ", 2);
@@ -52,6 +54,9 @@ char	*here_doc(char *end, int fd_write, char **envp, char *buffer)
 		free(buffer);
 	}
 	free(buffer);
+	close(fd_write);
+	fd_write = open(file_name, O_RDONLY);
+	free(file_name);
 	last_number++;
-	return (file_name);
+	return (fd_write);
 }
