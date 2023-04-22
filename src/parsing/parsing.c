@@ -74,5 +74,5 @@ void	main_parsing(t_shell	*my_shell)
 	// i = 0;
 	free_struct(my_shell);
 	// write(2,"aaaaa_6\n", 9);
-	// system("leaks minishell");
+	system("leaks minishell");
 }

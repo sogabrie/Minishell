@@ -11,8 +11,8 @@
 # include <dirent.h>
 # include <sys/stat.h>
 # include <limits.h>
-// # include <readline/readline.h>
-// # include <readline/history.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 //Utils
 int				check_access(char *directory, int check_number);

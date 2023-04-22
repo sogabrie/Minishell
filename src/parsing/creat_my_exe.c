@@ -39,6 +39,44 @@ void	creat_exe(t_shell *my_shell, int *i)
 	my_shell->check_exe = my_shell->count - 1 ;
 }
 
+char	*chreat_wal(char *name)
+{
+	char	**a;
+	char	*c;
+	int		i;
+
+	// write(2, "wal_1\n", 7);
+	a = wildcards(ft_strdup(name));
+	if (!a)
+	{
+		// printf("name = %s\n", name);
+		// write(2, "wal_2\n", 7);
+		c = ft_strdup(name);
+		if (!c)
+			malloc_error();
+		// write(2, "wal_3\n", 7);
+		return (c);
+	}
+	// write(2, "wal_4\n", 7);
+	if (size_list(a) > 1)
+	{
+		i = -1;
+		write (2, "minishell: ", 11);
+		write (2, name, ft_strlen(name));
+		write (2, ": ambiguous redirect\n", 22);
+		while(a[++i])
+			free(a[i]);
+		free(a);
+		return (0);
+	}
+	// write(2, "wal_5\n", 7);
+	c = a[0];
+	// write(2, "wal_6\n", 7);
+	free(a);
+	// write(2, "wal_7\n", 7);
+	return (c);
+}
+
 void	creat_redirect(t_shell *my_shell, int *i)
 {
 	int		fd = 0;
@@ -80,20 +118,31 @@ void	creat_redirect(t_shell *my_shell, int *i)
 	}
 	else if (!ft_strcmp(b, "<"))
 	{
-		my_shell->redirect[my_shell->count_redir - 1]->error = NO_ERROR;
-		my_shell->redirect[my_shell->count_redir - 1]->filename = ft_strdup(a);
+		my_shell->redirect[my_shell->count_redir - 1]->filename = chreat_wal(a);
+		// write(2, "wal_8\n", 7);
+		if (my_shell->redirect[my_shell->count_redir - 1]->filename)
+			my_shell->redirect[my_shell->count_redir - 1]->error = NO_ERROR;
+		else
+			my_shell->redirect[my_shell->count_redir - 1]->error = 1;
+		// write(2, "wal_9\n", 7);
 		my_shell->redirect[my_shell->count_redir - 1]->type = INPUT;
 	}
 	else if (!ft_strcmp(b, ">"))
 	{
-		my_shell->redirect[my_shell->count_redir - 1]->error = NO_ERROR;
-		my_shell->redirect[my_shell->count_redir - 1]->filename = ft_strdup(a);
+		my_shell->redirect[my_shell->count_redir - 1]->filename = chreat_wal(a);
+		if (my_shell->redirect[my_shell->count_redir - 1]->filename)
+			my_shell->redirect[my_shell->count_redir - 1]->error = NO_ERROR;
+		else
+			my_shell->redirect[my_shell->count_redir - 1]->error = 1;
 		my_shell->redirect[my_shell->count_redir - 1]->type = OUTPT;
 	}
 	else if (!ft_strcmp(b, ">>"))
 	{
-		my_shell->redirect[my_shell->count_redir - 1]->error = NO_ERROR;
-		my_shell->redirect[my_shell->count_redir - 1]->filename = ft_strdup(a);
+		my_shell->redirect[my_shell->count_redir - 1]->filename = chreat_wal(a);
+		if (my_shell->redirect[my_shell->count_redir - 1]->filename)
+			my_shell->redirect[my_shell->count_redir - 1]->error = NO_ERROR;
+		else
+			my_shell->redirect[my_shell->count_redir - 1]->error = 1;
 		my_shell->redirect[my_shell->count_redir - 1]->type = OUTPUT_APP;
 	}
 	free(a);
