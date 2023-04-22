@@ -84,8 +84,5 @@ int				make_exe(t_shell *my_shell, int i, int j);
 void			add_pid(t_mas_pid	*my_pid);
 int				check_meta_char(char *name);
 
-
-char			*echo_line(char *line, char **envp, char *new_line, int error);
 char			*parse_line(char *args, char **envp, int error, size_t i);
-int				ft_exit(char **args);
 #endif

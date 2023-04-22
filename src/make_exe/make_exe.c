@@ -91,7 +91,7 @@ int	do_my_exe(t_shell *my_shell, int i)
 	if (!ft_strcmp(my_shell->control[i]->exe->full_name, "exit"))
 	{
 		write (1, "exiiit_3\n", 10);
-		ft_exit(my_shell->control[i]->exe->options);
+		ft_exit(my_shell->control[i]->exe->options, 0);
 		write (1, "exiiit_4\n", 10);
 	}
 	return (0);

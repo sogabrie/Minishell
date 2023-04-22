@@ -1,5 +1,6 @@
 #include "minishell.h"
-
+# include <readline/readline.h>
+# include <readline/history.h>
 void	sigint_handler(int sig_num)
 {
 	write(1, "\n", 1);
