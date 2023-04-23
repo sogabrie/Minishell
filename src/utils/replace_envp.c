@@ -69,7 +69,8 @@ char	**fill_envp(char **envp, char **new_envp, size_t j, size_t i)
 				&& ft_strncmp("OLDPWD", envp[j], 6))
 			{
 				new_envp[i] = ft_strdup(envp[j]);
-				// ft_putendl_fd(new_envp[i], 1);
+				ft_putstr_fd("new_envp[i] = ", 1);
+				ft_putendl_fd(new_envp[i], 1);
 				if (new_envp[i++] == NULL)
 					malloc_error();
 			}
@@ -97,35 +98,29 @@ char	**replace_envp(char **envp)
 	while (envp[count])
 		count++;
 	new_envp = malloc(sizeof(char *) * (count + 2));
+	printf("count = %zu\n", count + 2);
 	if (new_envp == NULL)
 		malloc_error();
 	new_envp = fill_envp(envp, new_envp, -1, 0);
 	return (new_envp);
 }
 
-// int main(int argc, char *argv[], char *envp[])
-// {
-// 	// for(int i = 0; envp[i]; i++)
-// 		// if(!ft_strncmp(envp[i], "OLDPWD" )
-// 	char **my_envp = replace_envp(envp);
-// 	char **oldpwd = ft_split("SHLVL", ' ');
-// 	// ft_export(oldpwd, &my_envp, -1, NULL);
-// 	// my_envp = replace_envp(my_envp);
-// 	// ft_export(oldpwd, &my_envp, -1, NULL);
-// 	// oldpwd = ft_split("OLDPWD=/ASF", ' ');
-// 	// ft_export(oldpwd, &my_envp, -1, NULL);
-// 	// my_envp = replace_envp(my_envp);
-// 	// char **unset = ft_split("SHLVL", ' ');
-// 	// ft_unset(oldpwd, &my_envp);
-// 	// my_envp = replace_envp(my_envp);
-// 	for(int i = 0; my_envp[i]; i++)
-// 		printf("%s\n", my_envp[i]);
-// }
-
-// extern char **environ;
-
-// int main()
-// {
-// 	for(int i = 0; environ[i]; i++)
-// 		printf("%s\n", environ[i]);
-// }
+int main(int argc, char *argv[], char *envp[])
+{
+	// for(int i = 0; envp[i]; i++)
+		// if(!ft_strncmp(envp[i], "OLDPWD" )
+	char **my_envp = replace_envp(envp);
+	char **oldpwd = ft_split("SHLVL", ' ');
+	// ft_export(oldpwd, &my_envp, -1, NULL);
+	// my_envp = replace_envp(my_envp);
+	// ft_export(oldpwd, &my_envp, -1, NULL);
+	// oldpwd = ft_split("OLDPWD=/ASF", ' ');
+	// ft_export(oldpwd, &my_envp, -1, NULL);
+	// my_envp = replace_envp(my_envp);
+	// char **unset = ft_split("SHLVL", ' ');
+	// ft_unset(oldpwd, &my_envp);
+	// my_envp = replace_envp(my_envp);
+	// ft_env(my_envp, 1);
+	for(int i = 0; my_envp[i]; i++)
+		printf("%s\n", my_envp[i]);
+}
