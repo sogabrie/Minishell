@@ -16,7 +16,7 @@
 
 //Utils
 int				check_access(char *directory, int check_number);
-char			*update_shlvl(char *envp, int lvl, int flag_z);
+char			*update_shlvl(char *envp, int lvl, int flag_z, int *flag_shlvl);
 char			**replace_envp(char **envp);
 int				lvl_check(char *envp, int *flag_z);
 char			*search_envp_in(char **envp, char *obj, int count);
