@@ -147,6 +147,7 @@ void	do_exe(t_shell *my_shell, t_mas_pid	*my_pid, int i)
 	{
 		j = 0;
 		// write(1, "exexex_1\n",10);
+		// printf("my_shell->control[i]->exe->options ==== %p\n", my_shell->control[i]->exe->options);
 		while (my_shell->control[i]->exe->options && my_shell->control[i]->exe->options[j])
 		{
 			new_name = parse_line(my_shell->control[i]->exe->options[j], my_shell->my_envp, my_shell->my_error, 0);
@@ -392,8 +393,7 @@ int	make_exe(t_shell *my_shell, int i, int j)
 					my_shell->control[i]->exe->error = my_shell->control[i]->redirect[re_co]->error;
 				}
 				free(a);
-				// signal(SIGINT, sigint_pars_exe);
-				// signal(SIGQUIT, SIG_DFL);
+				// write(2, "exe_pp_1\n",10);
 				creat_close_fd(my_shell, fd);
 				++re_co;
 			}
@@ -409,9 +409,12 @@ int	make_exe(t_shell *my_shell, int i, int j)
 					if (my_shell->control[i]->exe->flag_output)
 						my_shell->control[i]->exe->fd_output = my_shell->control[i + 1]->pip[1];
 			}
+			// write(2, "exe_pp_2\n",10);
 			if (my_shell->control[i]->exe->error == NO_ERROR)
 			{
+				// write(2, "exe_pp_3\n",10);
 				do_exe(my_shell, &my_pid, i);
+				// write(2, "exe_pp_4\n",10);
 				dup2(my_shell->control[i]->exe->cpy_fd_input, my_shell->fd_input);
 				close(my_shell->control[i]->exe->cpy_fd_input);
 				dup2(my_shell->control[i]->exe->cpy_fd_output, my_shell->fd_output);
@@ -423,22 +426,30 @@ int	make_exe(t_shell *my_shell, int i, int j)
 		 ++i;
 	}
 	i2 = 0;
+	// write(2, "exe_pp_5\n",10);
 	while (i2 < my_pid.count)
 	{
+		// write(2, "exe_pp_6\n",10);
 		if (my_pid.my_pid[i2] == -1)
 		{
+			// write(2, "exe_pp_7\n",10);
 			waitpid(my_pid.pid[i2], &error, 0);
 			my_shell->error_status = error;
 		}
 		else
 			my_shell->error_status = my_pid.my_pid[i2];
+		// write(2, "exe_pp_8\n",10);
 		// printf("my_shell->error_status = %d\n", my_shell->error_status);
 		++i2;
 	}
+	// write(2, "exe_tt_1\n",10);
 	free(my_pid.pid);
+	// write(2, "exe_tt_2\n",10);
 	free(my_pid.my_pid);
+	// write(2, "exe_tt_3\n",10);
 	my_pid.count = 0;
 	my_pid.pid = 0;
 	my_pid.my_pid = 0;
+	// write(2, "exe_tt_4\n",10);
 	return(my_shell->error_status);
 }
