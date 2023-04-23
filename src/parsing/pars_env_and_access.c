@@ -49,7 +49,11 @@ char	*check_procces(t_shell *my_shell, int si, int size, int size_p)
 	{
 		if (!access(mas, F_OK))
 			if (!access(mas, X_OK))
+			{
+				if (*mas != *(my_shell->control[si]->exe->full_name))
+					free(my_shell->control[si]->exe->full_name);
 				return (mas);
+			}
 		if (*mas != *(my_shell->control[si]->exe->full_name))
 			free(mas);
 		size_p = ft_strlen(my_shell->control[si]->exe->full_name);
@@ -85,7 +89,7 @@ int	chreat_process(t_shell *my_shell, int i)
 	cp_option = malloc(sizeof(char *) * (size_list(my_shell->control[i]->exe->options) + 2));
 	if (!cp_option)
 		malloc_error();
-	cp_option[j++] = my_shell->control[i]->exe->full_name;
+	cp_option[j++] = ft_strdup(my_shell->control[i]->exe->full_name);
 	while (my_shell->control[i]->exe->options && my_shell->control[i]->exe->options[j2])
 		cp_option[j++] = my_shell->control[i]->exe->options[j2++];
 	cp_option[j] = 0;
