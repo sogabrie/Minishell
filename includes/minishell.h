@@ -21,6 +21,8 @@ char			**replace_envp(char **envp);
 int				lvl_check(char *envp, int *flag_z);
 char			*search_envp_in(char **envp, char *obj, int count);
 char			**fill_envp(char **envp, char **new_envp, size_t j, size_t i);
+void			new_fill_envp(int flag_shlvl, char **new_envp, \
+							char **envp, size_t i);
 
 //cd_utils
 int				check_dir(char *dir);
