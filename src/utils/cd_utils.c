@@ -34,7 +34,7 @@ char	*valid_dir(char *dir, char *home)
 	if (dir[0] == '~')
 	{
 		new_dir = ft_strjoin(home, dir + 1);
-		if (new_dir == NULL)
+		if (new_dir == NULL && home != NULL)
 			malloc_error();
 		return (new_dir);
 	}
