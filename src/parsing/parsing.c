@@ -30,7 +30,7 @@ void	main_parsing(t_shell	*my_shell)
 		signal(SIGQUIT, sigquit_pars_exe);
 		make_exe(my_shell, 0, my_shell->count);
 		// write(2,"aaaaa_5\n", 9);
-		// int i = 0;
+		int i = 0;
 		// while (i < my_shell->count)
 		// {
 		// 	if (my_shell->control[i]->command_type == EXE)
@@ -40,14 +40,6 @@ void	main_parsing(t_shell	*my_shell)
 		// 		int j = 0;
 		// 		while (my_shell->control[i]->exe->options && my_shell->control[i]->exe->options[j])
 		// 			printf("	Options = %s\n", my_shell->control[i]->exe->options[j++]);
-		// 	}
-		// 	if (my_shell->control[i]->command_type == MY_EXE)
-		// 	{
-		// 		printf("MY_EXE = %s intpt = %d output = %d\n",my_shell->control[i]->my_exe->name, \
-		// 		my_shell->control[i]->my_exe->fd_input, my_shell->control[i]->my_exe->fd_output);
-		// 		int j = 0;
-		// 		while (my_shell->control[i]->my_exe->options && my_shell->control[i]->my_exe->options[j])
-		// 			printf("	Options = %s\n", my_shell->control[i]->my_exe->options[j++]);
 		// 	}
 		// 	if (my_shell->control[i]->command_type == PRIORITET_START)
 		// 	{
