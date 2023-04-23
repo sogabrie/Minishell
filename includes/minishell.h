@@ -16,11 +16,11 @@
 
 //Utils
 int				check_access(char *directory, int check_number);
-char			*update_shlvl(char *envp, int lvl, int flag_z);
+char			*update_shlvl(char *envp, int lvl, int flag_z, int *flag_shlvl);
 char			**replace_envp(char **envp);
 int				lvl_check(char *envp, int *flag_z);
 char			*search_envp_in(char **envp, char *obj, int count);
-char			**fill_envp(char **envp, char **new_envp);
+char			**fill_envp(char **envp, char **new_envp, size_t j, size_t i);
 
 //cd_utils
 int				check_dir(char *dir);
