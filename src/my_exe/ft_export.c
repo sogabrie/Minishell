@@ -30,7 +30,9 @@ char	**replace_variable(char **envp, char *name, char *str, size_t i)
 {
 	char	*tmp;
 
-	while (envp[i])
+	if (!ft_strchr(str, '='))
+		return (envp);
+	while (envp[++i])
 	{
 		if (!ft_strncmp(name, envp[i], ft_strlen(name)))
 		{
@@ -49,7 +51,6 @@ char	**replace_variable(char **envp, char *name, char *str, size_t i)
 				malloc_error();
 			break ;
 		}
-		i++;
 	}
 	return (envp);
 }
@@ -96,7 +97,7 @@ int	ft_export(char **str, char ***envp, int i, char *name)
 		}
 		name = variable_name(str[i]);
 		if (search_envp_in(*envp, name, ft_strlen(name)))
-			*envp = replace_variable(*envp, name, str[i], 0);
+			*envp = replace_variable(*envp, name, str[i], -1);
 		else
 			*envp = replace_add_variable(*envp, str[i]);
 		free(name);
