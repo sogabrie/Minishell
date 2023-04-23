@@ -105,22 +105,22 @@ char	**replace_envp(char **envp)
 	return (new_envp);
 }
 
-int main(int argc, char *argv[], char *envp[])
-{
-	// for(int i = 0; envp[i]; i++)
-		// if(!ft_strncmp(envp[i], "OLDPWD" )
-	char **my_envp = replace_envp(envp);
-	char **oldpwd = ft_split("SHLVL", ' ');
-	// ft_export(oldpwd, &my_envp, -1, NULL);
-	// my_envp = replace_envp(my_envp);
-	// ft_export(oldpwd, &my_envp, -1, NULL);
-	// oldpwd = ft_split("OLDPWD=/ASF", ' ');
-	// ft_export(oldpwd, &my_envp, -1, NULL);
-	// my_envp = replace_envp(my_envp);
-	// char **unset = ft_split("SHLVL", ' ');
-	// ft_unset(oldpwd, &my_envp);
-	// my_envp = replace_envp(my_envp);
-	// ft_env(my_envp, 1);
-	for(int i = 0; my_envp[i]; i++)
-		printf("%s\n", my_envp[i]);
-}
+// int main(int argc, char *argv[], char *envp[])
+// {
+// 	// for(int i = 0; envp[i]; i++)
+// 		// if(!ft_strncmp(envp[i], "OLDPWD" )
+// 	char **my_envp = replace_envp(envp);
+// 	char **oldpwd = ft_split("SHLVL", ' ');
+// 	// ft_export(oldpwd, &my_envp, -1, NULL);
+// 	// my_envp = replace_envp(my_envp);
+// 	// ft_export(oldpwd, &my_envp, -1, NULL);
+// 	// oldpwd = ft_split("OLDPWD=/ASF", ' ');
+// 	// ft_export(oldpwd, &my_envp, -1, NULL);
+// 	// my_envp = replace_envp(my_envp);
+// 	// char **unset = ft_split("SHLVL", ' ');
+// 	// ft_unset(oldpwd, &my_envp);
+// 	// my_envp = replace_envp(my_envp);
+// 	// ft_env(my_envp, 1);
+// 	for(int i = 0; my_envp[i]; i++)
+// 		printf("%s\n", my_envp[i]);
+// }

@@ -1,10 +1,19 @@
 #include "minishell.h"
 #include "struct.h"
 
-// void	control_exec(t_shell	*my_shell)
-// {
-	
-// }
+void	sigint_pars_exe(int sig)
+{
+	signal(SIGINT, SIG_IGN);
+	write(1, "\n", 1);
+	// signal(SIGINT, SIG_IGN);
+	(void)sig;
+}
+
+void	sigquit_pars_exe(int sig)
+{
+	write(1, "Quit: 3\n", 9);
+	(void)sig;
+}
 
 void	main_parsing(t_shell	*my_shell)
 {
@@ -17,6 +26,8 @@ void	main_parsing(t_shell	*my_shell)
 		// write(2,"aaaaa_3\n", 9);
 		control_parsing(my_shell);
 		// write(2,"aaaaa_4\n", 9);
+		signal(SIGINT, sigint_pars_exe);
+		signal(SIGQUIT, sigquit_pars_exe);
 		make_exe(my_shell, 0, my_shell->count);
 		// write(2,"aaaaa_5\n", 9);
 		// int i = 0;

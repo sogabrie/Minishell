@@ -1,15 +1,16 @@
 #include "minishell.h"
+#include <signal.h>
 
-void	sigint_handler(int sig_num)
+void	sigint_pars(int sig)
 {
 	write(1, "\n", 1);
 	rl_on_new_line();
     rl_replace_line("", 1);
     rl_redisplay();
-	(void)sig_num;
+	(void)sig;
 }
 
-// void	signal_handler(int action)
+// void	signal_pars(int action)
 // {
 // 	if (action == 0)
 // 	{
@@ -45,11 +46,21 @@ int main(int argc, char **argv, char **envp)
 	{
 		// signal_handler(1);
 		rl_catch_signals = 0;
-		signal(SIGINT, sigint_handler);
+		// sigemptyset(0);
+		signal(SIGINT, sigint_pars);
 		signal(SIGQUIT, SIG_IGN);
     	my_shell.line = readline("minishell-1.0$ ");
 		if (!my_shell.line)
-			return (0);
+		{
+			
+			// write(1, "exit", 5);
+			// rl_on_new_line();
+			// rl_replace_line("exit", 1);
+			write(1, "exit\n", 6);
+   			// rl_redisplay();
+			// write(1, "exit", 5);
+			exit(my_shell.error_status);
+		}
 		if (my_shell.line && ft_strlen(my_shell.line))
 		{
 			add_history(my_shell.line);

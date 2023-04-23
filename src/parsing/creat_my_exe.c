@@ -1,6 +1,20 @@
 #include "struct.h"
 #include "minishell.h"
 
+void	sigint_pars_doc(int sig)
+{
+	signal(SIGINT, SIG_IGN);
+	write(1, "\n", 1);
+	// signal(SIGINT, SIG_IGN);
+	(void)sig;
+}
+
+void	sigquit_pars_doc(int sig)
+{
+	write(1, "Quit: 3\n", 9);
+	(void)sig;
+}
+
 void	creat_exe(t_shell *my_shell, int *i)
 {
 	char	*a;
@@ -109,7 +123,19 @@ void	creat_redirect(t_shell *my_shell, int *i)
 	add_redir(my_shell);
 	if (!ft_strcmp(b, "<<"))
 	{
-		my_shell->redirect[my_shell->count_redir - 1]->here_doc = here_doc(a, 0, my_shell->my_envp, NULL);
+		// signal(SIGINT, sigint_pars_doc);
+		// signal(SIGQUIT, sigquit_pars_doc);
+		// pid_t pits = fork();
+		// if (!pits)
+		// {
+		// 	int q = here_doc(a, 0, my_shell->my_envp, 0);
+		// 	printf("q = %d\n", q);
+		// 	exit(q);
+		// }
+		// int f = 0;
+		// waitpid(pits, &f, 0);
+		// printf("f = %d\n", f);
+		my_shell->redirect[my_shell->count_redir - 1]->here_doc = here_doc(a, 0, my_shell->my_envp, 0);
 		if (!my_shell->redirect[my_shell->count_redir - 1]->here_doc)
 			my_shell->redirect[my_shell->count_redir - 1]->error = ENOENT;
 		else

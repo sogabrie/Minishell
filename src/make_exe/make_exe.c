@@ -1,6 +1,25 @@
 #include "minishell.h"
 #include "struct.h"
 
+// void	sigint_pars_exe(int sig)
+// {
+// 	write(1, "\n", 2);
+// 		// write(1, "\n", 1);
+// 	// rl_on_new_line();
+//     // rl_replace_line("", 1);
+//     // rl_redisplay();
+// 	(void)sig;
+// }
+
+// void	sigquit_pars_exe(int sig)
+// {
+// 	write(1, "\n", 1);
+// 	rl_on_new_line();
+//     rl_replace_line("", 1);
+//     rl_redisplay();
+// 	(void)sig;
+// }
+
 int	control_type_exe(t_shell *my_shell, int i)
 {
 	if ((!ft_strcmp(my_shell->control[i]->exe->full_name, "echo") || \
@@ -253,6 +272,7 @@ int	make_exe(t_shell *my_shell, int i, int j)
 	my_pid.count = 0;
 	my_pid.pid = 0;
 	my_pid.my_pid = 0;
+
 	while (i < j)
 	{
 		if (my_shell->control[i]->command_type == PRIORITET_START)
@@ -372,6 +392,8 @@ int	make_exe(t_shell *my_shell, int i, int j)
 					my_shell->control[i]->exe->error = my_shell->control[i]->redirect[re_co]->error;
 				}
 				free(a);
+				// signal(SIGINT, sigint_pars_exe);
+				// signal(SIGQUIT, SIG_DFL);
 				creat_close_fd(my_shell, fd);
 				++re_co;
 			}
