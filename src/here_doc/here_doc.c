@@ -45,7 +45,7 @@ int	here_doc(char *end, int fd_write, char **envp, char *buffer)
 	while (1)
 	{
 		write(0, "> ", 2);
-		buffer = readline(NULL);
+		buffer = get_next_line(0);
 		if (buffer == NULL || !ft_strcmp_flag(buffer, end, 1))
 			break ;
 		ft_putstr_fd(buffer, fd_write);
