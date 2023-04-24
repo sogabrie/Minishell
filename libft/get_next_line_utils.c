@@ -1,4 +1,5 @@
 #include "libft.h"
+#include "minishell.h"
 
 int	s_len(char *ptr)
 {
@@ -40,7 +41,7 @@ char	*get_and_clean(char *ptr)
 		++i;
 	lin = malloc((i + 2) * sizeof(char));
 	if (!lin)
-		return (0);
+		malloc_error();
 	i = 0;
 	while (ptr[i] && ptr[i] != '\n')
 	{
@@ -72,7 +73,7 @@ char	*get_and_clean_ptr(char *ptr)
 	}
 	ptr2 = malloc((s_len(ptr) - i + 1) * sizeof(char));
 	if (!ptr2)
-		return (0);
+		malloc_error();
 	++i;
 	j = 0;
 	while (ptr[i])

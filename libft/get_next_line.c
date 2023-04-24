@@ -1,4 +1,5 @@
 #include "libft.h"
+#include "minishell.h"
 
 char	*s_cat(char *ptr, char *buffer)
 {
@@ -10,14 +11,14 @@ char	*s_cat(char *ptr, char *buffer)
 	{
 		ptr = malloc (1 * sizeof(char));
 		if (!ptr)
-			return (0);
+			malloc_error();
 		ptr[0] = 0;
 	}
 	if (!buffer)
 		return (0);
 	cp = malloc((s_len(ptr) + s_len(buffer) + 1) * sizeof(char));
 	if (!cp)
-		return (0);
+		malloc_error();
 	i = -1;
 	j = 0;
 	while (ptr[++i])
@@ -36,7 +37,7 @@ char	*get_first_line(char *ptr, int fd)
 
 	buffer = malloc ((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
-		return (0);
+		malloc_error();
 	i = 1;
 	while (!char_n(ptr) && i)
 	{

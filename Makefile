@@ -40,12 +40,11 @@ OBJS = ${subst ${SRC}, ${OBJ}, ${SRCS:.c=.o}}
 LIB_DIR = ${foreach dir, ${LIBS}, ${wildcard ${dir}/*.h}}
 
 # Main Part
-all : ${NAME} 
+all : check_readline ${NAME} 
 bonus : all
 
 ${NAME} : ${LIB_DIR} Makefile ${OBJS} ${SRCS} ${LIBFT_ALL} ${READLINE_CHECK}
 	@${MAKE} WAIT_COMPILE_MSG
-	@${MAKE} check_readline
 	@${MAKE} COM_TOUCHES
 	@${MAKE} -C ${LIBFT_DIR} all
 	@gcc ${FLAGS} ${LIBS_INCLUDE} ${LIBS_PATH} ${OBJS} -o ${NAME}
@@ -75,7 +74,7 @@ re : fclean
 # Readline Part
 check_readline : Makefile ${READLINE}
 	${if ${wildcard ${READLINE}}, \
-		@${MAKE} READLINE_READY, \
+		@echo > /dev/null, \
 		@${MAKE} create_readline \
 	}
 
@@ -99,8 +98,6 @@ YELLOW = \033[33m
 BLUE   = \033[34m
 
 # Helper messages
-READLINE_READY :
-	@${ECHO} "${GREEN}Readline is Ready!${RESET}"
 START_CREATE_READLINE :
 	@${ECHO} "${BLUE}Start Building the Readline Library!!${RESET}"
 CONFIGURE_MSG :
