@@ -54,11 +54,12 @@ int				valid_unset(char *arg, int *error_code, char **envp, size_t i);
 int				check_exists(char **envp, char *str);
 
 //Here_Doc
-int				here_doc(char *end, int fd_write, char **envp, char *buffer);
-char			*creat_tmp_file(int last_number, char *tmp_file, \
-									char *shlvl, char *number_file);
+char			*here_doc(char *end, int *count, char *path_t);
+char			*creat_name(int count, char *path_t, size_t	i, char *name);
 char			*path_tmp(void);
-int 			count_tmp_files(char *path_t);
+int				del_tmp_files(int index, char *path_h, \
+									char *suc_path, char *del_path);
+int				count_tmp_files(char *path_t);
 
 //My_exe
 int				ft_pwd(void);
@@ -84,7 +85,7 @@ char			**creat_more_objects(char **found_objects, char *name);
 
 //Errors
 void			malloc_error(void);
-int				error_here_doc(void);
+char			*error_here_doc(char *name);
 void			exe_error(char *dir, int number, char *my_exe);
 
 //Free

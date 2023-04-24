@@ -6,10 +6,16 @@ void	malloc_error(void)
 	exit(1);
 }
 
-int	error_here_doc(void)
+char	*error_here_doc(char *name)
 {
+	char	*error;
+
+	error = ft_strdup("error");
+	if (error == NULL)
+		malloc_error();
+	free(name);
 	write(2, "-minishell: syntax error: unexpected end of file\n", 49);
-	return (2);
+	return (error);
 }
 
 void	exe_error(char *dir, int number, char *my_exe)
