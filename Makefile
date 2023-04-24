@@ -49,6 +49,7 @@ ${NAME} : ${LIB_DIR} Makefile ${OBJS} ${SRCS} ${LIBFT_ALL} ${READLINE_CHECK}
 	@${MAKE} COM_TOUCHES
 	@${MAKE} -C ${LIBFT_DIR} all
 	@gcc ${FLAGS} ${LIBS_INCLUDE} ${LIBS_PATH} ${OBJS} -o ${NAME}
+	@cd src/here_doc && mkdir -p tmp
 	@${MAKE} DONE_MSG
 
 ${OBJ}/%.o : ${SRC}/%.c ${LIB_DIR}
@@ -65,6 +66,7 @@ fclean : clean
 	@${MAKE} DELETE_PROGRAM_MSG
 	@${MAKE} -C ${LIBFT_DIR} fclean
 	@${DEL_READLINE_LIB}
+	@cd src/here_doc && ${RM} tmp
 	@${RM} ${NAME}
 
 re : fclean 

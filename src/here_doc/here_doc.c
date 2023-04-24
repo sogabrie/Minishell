@@ -45,7 +45,7 @@ int	here_doc(char *end, int fd_write, char **envp, char *buffer)
 	while (1)
 	{
 		write(0, "> ", 2);
-		buffer = readline(NULL);
+		buffer = get_next_line(0);
 		if (buffer == NULL || !ft_strcmp_flag(buffer, end, 1))
 			break ;
 		ft_putstr_fd(buffer, fd_write);
@@ -59,30 +59,20 @@ int	here_doc(char *end, int fd_write, char **envp, char *buffer)
 	return (fd_write);
 }
 
-// int	count_tmp_file(void)
+// int	del_tmp_files(int index, char *path_h)
 // {
-// 	int		count;
-// 	DIR		*dir;
-// 	char	**files;
+// 	DIR				*directory;
+// 	struct dirent	*entry;
+// 	int				left;
 
-// 	count = 0;
-// 	dir = opendir("/tmp/Minishell_tmp");
-// 	if (dir == NULL)
-// 	{
-// 		printf("ERROR DIR\n");
-// 		exit(1);
-// 	}
-// 	files = wildcards(ft_strdup("tmp_file*"));
-// 	printf("%s\n", files);
-// 	if (files == NULL)
-// 		return (count);
-// 	while (files[count])
-// 		count++;
-// 	return (count);
+
+
 // }
 
 // int main(int argc, char *argv[], char *envp[])
 // {
-// 	int count = count_tmp_file();
-// 	printf("%d\n", count);
+// 	char *path_t = path_tmp();
+// 	printf("path_t = %s\n", path_t);
+// 	int count = count_tmp_files(path_t);
+// 	printf("count = %d\n", count);
 // }

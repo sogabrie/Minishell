@@ -57,6 +57,8 @@ int				check_exists(char **envp, char *str);
 int				here_doc(char *end, int fd_write, char **envp, char *buffer);
 char			*creat_tmp_file(int last_number, char *tmp_file, \
 									char *shlvl, char *number_file);
+char			*path_tmp(void);
+int 			count_tmp_files(char *path_t);
 
 //My_exe
 int				ft_pwd(void);
