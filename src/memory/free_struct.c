@@ -65,6 +65,8 @@ void	free_struct_3(t_shell *my_shell)
 	my_shell->close_fd_count = 0;
 	my_shell->count = 0;
 	my_shell->my_error = NO_ERROR;
+	my_shell->count_redir = 0;
+	my_shell->redirect = 0;
 }
 
 void	free_struct(t_shell *my_shell)
@@ -73,6 +75,8 @@ void	free_struct(t_shell *my_shell)
 	int	j;
 
 	i = 0;
+	del_tmp_files(my_shell->start_here_doc, my_shell->full_name_here_doc, NULL, NULL);
+	my_shell->start_here_doc_plus = my_shell->start_here_doc;
 	// write(2,"fffff_1\n", 9);
 	while (i < my_shell->count)
 		free_struct_2(my_shell, &i, &j);

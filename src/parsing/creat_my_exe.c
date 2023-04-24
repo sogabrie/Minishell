@@ -14,7 +14,6 @@ void	sigint_pars_doc(int sig)
 
 void	sigquit_pars_doc(int sig)
 {
-	write(1, "Quit: 3\n", 9);
 	(void)sig;
 }
 
@@ -152,11 +151,15 @@ int	creat_redirect(t_shell *my_shell, int *i)
 		read(pip[0], t, 99);
 		close(pip[0]);
 		signal(SIGINT, SIG_IGN);
-		signal(SIGQUIT, SIG_DFL);
+		signal(SIGQUIT, SIG_IGN);
 		if (!t || !t[0])
+		{
+			free(t);
+			free(a);
 			return (1);
+		}
 		my_shell->redirect[my_shell->count_redir - 1]->filename = t;
-		printf("my_shell->redirect[my_shell->count_redir - 1]->filename = %s\n", my_shell->redirect[my_shell->count_redir - 1]->filename);
+		// printf("my_shell->redirect[my_shell->count_redir - 1]->filename = %s\n", my_shell->redirect[my_shell->count_redir - 1]->filename);
 		if (!ft_strcmp(my_shell->redirect[my_shell->count_redir - 1]->filename, "error"))
 			my_shell->redirect[my_shell->count_redir - 1]->error = ENOENT;
 		else

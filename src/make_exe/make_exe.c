@@ -175,6 +175,7 @@ void	do_exe(t_shell *my_shell, t_mas_pid	*my_pid, int i)
 					new_dubl[j2++] = my_shell->control[i]->exe->options[++j3];
 				new_dubl[j2] = 0;
 				free(my_shell->control[i]->exe->options);
+				free(cp_dubl);
 				my_shell->control[i]->exe->options = new_dubl;
 			}
 			++j;
@@ -191,6 +192,7 @@ void	do_exe(t_shell *my_shell, t_mas_pid	*my_pid, int i)
 			write (2, my_shell->control[i]->exe->options[0], ft_strlen(my_shell->control[i]->exe->options[0]));
 			write (2, ": command not found\n", 21);
 			my_shell->error_status = 127;
+			return ;
 		}
 		// printf("my_shell->control[i]->exe->full_nam2 = %s\n", my_shell->control[i]->exe->full_name);
 		// write(2,"ttttt_5\n", 9);
@@ -374,10 +376,10 @@ int	make_exe(t_shell *my_shell, int i, int j)
 				// signal(SIGINT, sigint_pars_exe);
 				// signal(SIGQUIT, sigquit_pars_exe);
 				a = 0;
-				printf("my_shell->control[i]->count_redir = %d\n", my_shell->control[i]->count_redir);
+				// printf("my_shell->control[i]->count_redir = %d\n", my_shell->control[i]->count_redir);
 				if (my_shell->control[i]->redirect[re_co]->error == NO_ERROR)
 				{
-					printf("my_shell->control[i]->redirect[re_co]->filename = %s\n", my_shell->control[i]->redirect[re_co]->filename);
+					// printf("my_shell->control[i]->redirect[re_co]->filename = %s\n", my_shell->control[i]->redirect[re_co]->filename);
 					a = parse_line(my_shell->control[i]->redirect[re_co]->filename, my_shell->my_envp, my_shell->my_error, 0);
 					if (!a)
 						a = ft_strdup(my_shell->control[i]->redirect[re_co]->filename);
@@ -408,7 +410,7 @@ int	make_exe(t_shell *my_shell, int i, int j)
 				{
 					// write(1,"ttttttttt_2\n", 13);
 					fd = red_input(a);
-					printf("a = %s\n", a);
+					// printf("a = %s\n", a);
 					if (fd >= 0)
 					{
 						// write(1,"ttttttttt_3\n", 13);

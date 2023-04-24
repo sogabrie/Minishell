@@ -73,7 +73,7 @@ char	*check_procces(t_shell *my_shell, int si, int size, int size_p)
 	}
 	else
 		my_shell->control[si]->exe->error = 127;
-
+	free(my_shell->control[si]->exe->full_name);
 	return (mas);
 }
 
@@ -96,6 +96,7 @@ int	chreat_process(t_shell *my_shell, int i)
 	free(my_shell->control[i]->exe->options);
 	my_shell->control[i]->exe->options = cp_option;
 	my_shell->control[i]->exe->full_name = check_procces(my_shell, i, 0, 0);
+	// printf("my_shell->control[i]->exe->full_name = %s\n", my_shell->control[i]->exe->full_name);
 	two_dimensional_mas(&my_shell->full_path);
 	return (my_shell->control[i]->exe->error);
 }
