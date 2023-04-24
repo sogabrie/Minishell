@@ -1,12 +1,12 @@
 #include "minishell.h"
 
-char	*here_doc(char *end, int *count, char *path_t)
+char	*here_doc(char *end, int count, char *path_t)
 {
 	char	*file_name;
 	char	*buffer;
 	int		fd_write;
 
-	file_name = creat_name(*count, path_t, 0, "tmp_file");
+	file_name = creat_name(count, path_t, 0, "tmp_file");
 	fd_write = open(file_name, O_CREAT | O_WRONLY | O_TRUNC, 0755);
 	if (fd_write <= 0)
 		return (error_here_doc(file_name));
@@ -21,6 +21,5 @@ char	*here_doc(char *end, int *count, char *path_t)
 	}
 	free(buffer);
 	close(fd_write);
-	(*count)++;
 	return (file_name);
 }
