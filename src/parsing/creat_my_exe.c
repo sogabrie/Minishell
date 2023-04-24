@@ -148,15 +148,16 @@ int	creat_redirect(t_shell *my_shell, int *i)
 		waitpid(pits, NULL, 0);
 		++my_shell->start_here_doc_plus;
 		close(pip[1]);
-		char *t = ft_calloc(1, 20);
-		read(pip[0], t, 19);
+		char *t = ft_calloc(1, 100);
+		read(pip[0], t, 99);
 		close(pip[0]);
 		signal(SIGINT, SIG_IGN);
 		signal(SIGQUIT, SIG_DFL);
-		if (!t)
+		if (!t || !t[0])
 			return (1);
 		my_shell->redirect[my_shell->count_redir - 1]->filename = t;
-		if (!ft_strcmp(my_shell->redirect[my_shell->count_redir - 1]->here_doc, "error"))
+		printf("my_shell->redirect[my_shell->count_redir - 1]->filename = %s\n", my_shell->redirect[my_shell->count_redir - 1]->filename);
+		if (!ft_strcmp(my_shell->redirect[my_shell->count_redir - 1]->filename, "error"))
 			my_shell->redirect[my_shell->count_redir - 1]->error = ENOENT;
 		else
 			my_shell->redirect[my_shell->count_redir - 1]->error = NO_ERROR;

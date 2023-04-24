@@ -374,8 +374,10 @@ int	make_exe(t_shell *my_shell, int i, int j)
 				// signal(SIGINT, sigint_pars_exe);
 				// signal(SIGQUIT, sigquit_pars_exe);
 				a = 0;
+				printf("my_shell->control[i]->count_redir = %d\n", my_shell->control[i]->count_redir);
 				if (my_shell->control[i]->redirect[re_co]->error == NO_ERROR)
 				{
+					printf("my_shell->control[i]->redirect[re_co]->filename = %s\n", my_shell->control[i]->redirect[re_co]->filename);
 					a = parse_line(my_shell->control[i]->redirect[re_co]->filename, my_shell->my_envp, my_shell->my_error, 0);
 					if (!a)
 						a = ft_strdup(my_shell->control[i]->redirect[re_co]->filename);
@@ -406,7 +408,7 @@ int	make_exe(t_shell *my_shell, int i, int j)
 				{
 					// write(1,"ttttttttt_2\n", 13);
 					fd = red_input(a);
-					// printf("fd = %d\n", fd);
+					printf("a = %s\n", a);
 					if (fd >= 0)
 					{
 						// write(1,"ttttttttt_3\n", 13);
