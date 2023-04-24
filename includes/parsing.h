@@ -56,7 +56,7 @@ void			creat_struct_prioritet_end(t_shell *my_shell);
 
 //creat_my_exe.c
 void			creat_my_exe(t_shell *my_shell, char *name);
-void			creat_redirect(t_shell *my_shell, int *i);
+int				creat_redirect(t_shell *my_shell, int *i);
 void			add_option(t_shell *my_shell, int *i);
 void			creat_exe(t_shell *my_shell, int *i);
 
@@ -66,7 +66,7 @@ int				red_out_append(char *filename);
 int				red_out(char *filename);
 
 //constrol_parsing.c
-void			control_parsing(t_shell	*my_shell);
+int				control_parsing(t_shell	*my_shell);
 
 //free_struct.c
 void			free_struct(t_shell *my_shell);

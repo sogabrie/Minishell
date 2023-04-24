@@ -2,18 +2,22 @@
 #include "minishell.h"
 
 
-void	control_pars_exe_2(t_shell *my_shell, int *start, int *end, int *i)
+int	control_pars_exe_2(t_shell *my_shell, int *start, int *end, int *i)
 {
 	if ((!ft_strcmp(my_shell->double_list[(*i)], "<") || \
 	!ft_strcmp(my_shell->double_list[(*i)], "<<") || \
 	!ft_strcmp(my_shell->double_list[(*i)], ">") || \
 	!ft_strcmp(my_shell->double_list[(*i)], ">>")))
-		creat_redirect(my_shell, i);
+	{
+		if (creat_redirect(my_shell, i))
+			return (1);
+	}
 	else if (i == start || my_shell->check_exe == -1)
 		creat_exe(my_shell, i);
 	else if (ft_strcmp(my_shell->double_list[(*i)], " "))
 		add_option(my_shell, i);
 	++(*i);
+	return (0);
 }
 
 void	control_pars_exe_1(t_shell *my_shell, int *start, int *end, int *i)
@@ -63,7 +67,7 @@ void	control_pars_exe_5(t_shell *my_shell)
 	
 }
 
-void	control_pars_exe(t_shell *my_shell, int start, int end)
+int	control_pars_exe(t_shell *my_shell, int start, int end)
 {
 	int		i;
 
@@ -71,7 +75,8 @@ void	control_pars_exe(t_shell *my_shell, int start, int end)
 	while (i < end && my_shell->double_list[i] && \
 	ft_strcmp(my_shell->double_list[i], ")"))
 	{
-		control_pars_exe_2(my_shell, &start, &end, &i);
+		if(control_pars_exe_2(my_shell, &start, &end, &i))
+			return (1);
 	}
 	control_pars_exe_3(my_shell, &end, &i);
 	if (my_shell->check_exe >= 0)
@@ -82,11 +87,13 @@ void	control_pars_exe(t_shell *my_shell, int start, int end)
 	my_shell->fd_output = 1;
 	my_shell->fd_input = 0;
 	my_shell->my_error = NO_ERROR;
+	return (0);
 }
 
-void	control_parsing_2(t_shell *my_shell, int start, int end, int i)
+int	control_parsing_2(t_shell *my_shell, int start, int end, int i)
 {
-	control_pars_exe(my_shell, start, end);
+	if (control_pars_exe(my_shell, start, end))
+		return (1);
 	if (i < my_shell->delimiter_count && \
 	(start || my_shell->double_list[end]))
 	{
@@ -97,9 +104,10 @@ void	control_parsing_2(t_shell *my_shell, int start, int end, int i)
 		else if (!ft_strcmp(my_shell->double_list[end], "&&"))
 			creat_struct_and(my_shell);
 	}
+	return (0);
 }
 
-void	control_parsing(t_shell	*my_shell)
+int	control_parsing(t_shell	*my_shell)
 {
 	int	i;
 	int	start;
@@ -119,8 +127,10 @@ void	control_parsing(t_shell	*my_shell)
 				++end;
 			++end;
 		}
-		control_parsing_2(my_shell, start, end, i);
+		if (control_parsing_2(my_shell, start, end, i))
+			return (1);
 		++i;
 		++end;
 	}
+	return (0);
 }

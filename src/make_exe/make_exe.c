@@ -1,24 +1,19 @@
 #include "minishell.h"
 #include "struct.h"
 
-// void	sigint_pars_exe(int sig)
-// {
-// 	write(1, "\n", 2);
-// 		// write(1, "\n", 1);
-// 	// rl_on_new_line();
-//     // rl_replace_line("", 1);
-//     // rl_redisplay();
-// 	(void)sig;
-// }
+void	sigint_pars_exe(int sig)
+{
+	// signal(SIGINT, SIG_IGN);
+	write(1, "\n", 1);
+	// signal(SIGINT, SIG_IGN);
+	(void)sig;
+}
 
-// void	sigquit_pars_exe(int sig)
-// {
-// 	write(1, "\n", 1);
-// 	rl_on_new_line();
-//     rl_replace_line("", 1);
-//     rl_redisplay();
-// 	(void)sig;
-// }
+void	sigquit_pars_exe(int sig)
+{
+	write(1, "Quit: 3\n", 9);
+	(void)sig;
+}
 
 int	control_type_exe(t_shell *my_shell, int i)
 {
@@ -208,6 +203,8 @@ void	do_exe(t_shell *my_shell, t_mas_pid	*my_pid, int i)
 			{
 				close(my_shell->control[i + 1]->pip[1]);
 			}
+			// signal(SIGINT, SIG_IGN);
+			// signal(SIGQUIT, SIG_IGN);
 			// waitpid(pid, &error, 0);
 			// my_shell->my_error = error;
 		}
@@ -218,6 +215,10 @@ void	do_exe(t_shell *my_shell, t_mas_pid	*my_pid, int i)
 			{
 				close(my_shell->control[i - 1]->pip[0]);
 			}
+			// signal(SIGINT, sigint_pars_exe);
+			// signal(SIGQUIT, sigquit_pars_exe);
+			signal(SIGINT, SIG_DFL);
+			signal(SIGQUIT, SIG_DFL);
 			if (my_shell->control[i]->error == NO_ERROR)
 				exit(execve(my_shell->control[i]->exe->full_name, my_shell->control[i]->exe->options, my_shell->my_envp));
 			exit(my_shell->control[i]->error);
@@ -274,14 +275,22 @@ int	make_exe(t_shell *my_shell, int i, int j)
 	my_pid.pid = 0;
 	my_pid.my_pid = 0;
 
+
 	while (i < j)
 	{
+		// signal(SIGINT, SIG_DFL);
+		// signal(SIGQUIT, SIG_DFL);
+		// signal(SIGINT, sigint_pars_exe);
+		// signal(SIGQUIT, sigquit_pars_exe);
 		if (my_shell->control[i]->command_type == PRIORITET_START)
 		{
+
 			// printf("i  === %d prioritet_start->end = %d\n", i, my_shell->control[i]->prioritet_start->end);
 			// write(2, "fffffff_1\n",11);
 			if (chek_and_or(my_shell, &my_pid, &i, my_shell->control[i]->prioritet_start->end + 1))
 				continue ;
+			// signal(SIGINT, SIG_IGN);
+			// signal(SIGQUIT, SIG_IGN);
 			// write(2, "fffffff_2\n",11);
 			if (i > 0 && my_shell->control[i - 1]->command_type == PIPE)
 			{
@@ -336,6 +345,7 @@ int	make_exe(t_shell *my_shell, int i, int j)
 				// printf("i  === %d  my_shell->control[i]->prioritet_start->end = %d\n", i, my_shell->control[i]->prioritet_start->end);
 				i = my_shell->control[i]->prioritet_start->end;
 				// printf("i  2=== %d\n", i);
+
 			}
 			else
 			{
@@ -345,15 +355,24 @@ int	make_exe(t_shell *my_shell, int i, int j)
 					close(my_shell->control[i - 1]->pip[0]);
 				}
 				// write(2, "ffffff_13\n",11);
+				signal(SIGINT, SIG_IGN);
+				signal(SIGQUIT, SIG_IGN);
 				exit(make_exe(my_shell, i + 1, my_shell->control[i]->prioritet_start->end + 1));
 				// write(2, "ffffff_14\n",11);
 			}
+			// signal(SIGINT, sigint_pars_exe);
+			// signal(SIGQUIT, sigquit_pars_exe);
 		 }
 		 else if (my_shell->control[i]->command_type == EXE)
 		 {
+			// signal(SIGINT, sigint_pars_exe);
+			// signal(SIGQUIT, sigquit_pars_exe);
+			// write(1,"ttttttttt_1\n", 13);
 			re_co = 0;
 			while (re_co < my_shell->control[i]->count_redir && my_shell->control[i]->exe->error == NO_ERROR)
 			{
+				// signal(SIGINT, sigint_pars_exe);
+				// signal(SIGQUIT, sigquit_pars_exe);
 				a = 0;
 				if (my_shell->control[i]->redirect[re_co]->type != HERE_DOC && my_shell->control[i]->redirect[re_co]->error == NO_ERROR)
 				{
@@ -385,9 +404,12 @@ int	make_exe(t_shell *my_shell, int i, int j)
 				}
 				else if (my_shell->control[i]->redirect[re_co]->type == HERE_DOC && my_shell->control[i]->redirect[re_co]->error == NO_ERROR)
 				{
+					// write(1,"ttttttttt_2\n", 13);
 					fd = my_shell->control[i]->redirect[re_co]->here_doc;
+					printf("fd = %d\n", fd);
 					if (fd >= 0)
 					{
+						// write(1,"ttttttttt_3\n", 13);
 						my_shell->control[i]->exe->flag_input = 0;
 						my_shell->control[i]->exe->fd_input = fd;
 					}
@@ -430,18 +452,26 @@ int	make_exe(t_shell *my_shell, int i, int j)
 			if (my_shell->control[i]->exe->error == NO_ERROR)
 			{
 				// write(2, "exe_pp_3\n",10);
+				// signal(SIGINT, sigint_pars_exe);
+				// signal(SIGQUIT, sigquit_pars_exe);
 				do_exe(my_shell, &my_pid, i);
 				// write(2, "exe_pp_4\n",10);
 				dup2(my_shell->control[i]->exe->cpy_fd_input, my_shell->fd_input);
 				close(my_shell->control[i]->exe->cpy_fd_input);
 				dup2(my_shell->control[i]->exe->cpy_fd_output, my_shell->fd_output);
 				close(my_shell->control[i]->exe->cpy_fd_output);
+				// signal(SIGINT, SIG_IGN);
+				// signal(SIGQUIT, SIG_IGN);
 			}
 			// write(2,"ccccc_4\n", 9);
 		 }
 		//  write(2,"bbbbb_4\n", 9);
 		 ++i;
+		// signal(SIGINT, SIG_IGN);
+		// signal(SIGQUIT, SIG_IGN);
 	}
+	// signal(SIGINT, SIG_IGN);
+	// signal(SIGQUIT, SIG_IGN);
 	i2 = 0;
 	// write(2, "exe_pp_5\n",10);
 	while (i2 < my_pid.count)
@@ -468,5 +498,7 @@ int	make_exe(t_shell *my_shell, int i, int j)
 	my_pid.pid = 0;
 	my_pid.my_pid = 0;
 	// write(2, "exe_tt_4\n",10);
+	// signal(SIGINT, SIG_IGN);
+	// signal(SIGQUIT, SIG_IGN);
 	return(my_shell->error_status);
 }

@@ -1,6 +1,8 @@
 #include "struct.h"
 #include "minishell.h"
 
+// void	here_dok_pipe
+
 void	sigint_pars_doc(int sig)
 {
 	// signal(SIGINT, SIG_IGN);
@@ -92,7 +94,7 @@ char	*chreat_wal(char *name)
 	return (c);
 }
 
-void	creat_redirect(t_shell *my_shell, int *i)
+int	creat_redirect(t_shell *my_shell, int *i)
 {
 	int		fd = 0;
 	char	*a;
@@ -124,37 +126,41 @@ void	creat_redirect(t_shell *my_shell, int *i)
 	add_redir(my_shell);
 	if (!ft_strcmp(b, "<<"))
 	{
-		signal(SIGINT, SIG_IGN);
-		signal(SIGQUIT, SIG_DFL);
-		int	pip[2];
+		// signal(SIGINT, SIG_IGN);
+		// signal(SIGQUIT, SIG_IGN);
+		int	pip[2] ;
+		pipe(pip);
 		pid_t pits = fork();
 		if (!pits)
 		{
 
 			signal(SIGINT, sigint_pars_doc);
 			signal(SIGQUIT, sigquit_pars_doc);
-			rl_clear_history();
+
 			int q = here_doc(a, 0, my_shell->my_envp, 0);
-			close(pip[0]);
 			char *h =  ft_itoa(q);
-			write(pip[1], h, ft_strlen(h));
-			printf("q = %d\n", q);
+			write(pip[1], h, ft_strlen(h) + 1);
+			close(pip[1]);
+			printf("q = %s\n", h);
 			exit(0);
 		}
-		signal(SIGINT, SIG_IGN);
-		signal(SIGQUIT, SIG_DFL);
-		close(pip[1]);
+		// signal(SIGINT, SIG_IGN);
+		// signal(SIGQUIT, SIG_DFL);
 		waitpid(pits, NULL, 0);
+		close(pip[1]);
 		char *t = ft_calloc(1, 20);
-		read(pip[1], t, 19);
+		read(pip[0], t, 19);
 		int f = ft_atoi(t);
 		free(t);
-		// waitpid(pits, &f, 0);
+		close(pip[0]);
 		printf("f = %d\n", f);
 		printf("f = %p\n", &f);
-		// printf("f = %d\n", *f);
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_DFL);
+		if (!f)
+			return (1);
 		my_shell->redirect[my_shell->count_redir - 1]->here_doc = f;
-		if (!my_shell->redirect[my_shell->count_redir - 1]->here_doc)
+		if (my_shell->redirect[my_shell->count_redir - 1]->here_doc < 0)
 			my_shell->redirect[my_shell->count_redir - 1]->error = ENOENT;
 		else
 			my_shell->redirect[my_shell->count_redir - 1]->error = NO_ERROR;
@@ -190,6 +196,7 @@ void	creat_redirect(t_shell *my_shell, int *i)
 		my_shell->redirect[my_shell->count_redir - 1]->type = OUTPUT_APP;
 	}
 	free(a);
+	return (0);
 }
 
 int	add_option_mas(char ***options, char *name, int i)
