@@ -14,7 +14,7 @@ errors_print_sintexs.c      |       sogabrie
 errors.c                    |       aafrikya
 
 DIR here_doc
-del_file.c                  |       aafrikya 
+doc_utils.c                 |       aafrikya 
 here_doc.c                  |       aafrikya   
 redirect_input.c            |       sogabrie
 redirect_output_append.c    |       sogabrie

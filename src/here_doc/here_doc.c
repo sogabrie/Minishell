@@ -59,20 +59,11 @@ int	here_doc(char *end, int fd_write, char **envp, char *buffer)
 	return (fd_write);
 }
 
-// int	del_tmp_files(int index, char *path_h)
-// {
-// 	DIR				*directory;
-// 	struct dirent	*entry;
-// 	int				left;
-
-
-
-// }
-
 // int main(int argc, char *argv[], char *envp[])
 // {
 // 	char *path_t = path_tmp();
 // 	printf("path_t = %s\n", path_t);
 // 	int count = count_tmp_files(path_t);
 // 	printf("count = %d\n", count);
+// 	printf("end count = %d\n", del_tmp_files(0, path_t, NULL, NULL));
 // }
