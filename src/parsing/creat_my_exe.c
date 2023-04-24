@@ -4,6 +4,20 @@
 
 // void	here_dok_pipe
 
+void	sigint_pars_doc_child(int sig)
+{
+	// signal(SIGINT, SIG_IGN);
+	// write(1, "\n", 1);
+	// rl_on_new_line();
+    // rl_replace_line("", 1);
+    // rl_redisplay();
+	// // write(1, "\n", 1);
+	// rl_catch_signals = 0;
+	exit(1);
+	// signal(SIGINT, SIG_IGN);
+	(void)sig;
+}
+
 void	sigint_pars_doc(int sig)
 {
 	// signal(SIGINT, SIG_IGN);
@@ -13,16 +27,16 @@ void	sigint_pars_doc(int sig)
     // rl_redisplay();
 	// // write(1, "\n", 1);
 	// rl_catch_signals = 0;
-	exit(0);
+	// exit(0);
 	// signal(SIGINT, SIG_IGN);
 	(void)sig;
 }
 
-void	sigquit_pars_doc(int sig)
-{
-	write(1, "", 1);
-	(void)sig;
-}
+// void	sigquit_pars_doc(int sig)
+// {
+// 	write(1, "", 1);
+// 	(void)sig;
+// }
 
 void	creat_exe(t_shell *my_shell, int *i)
 {
@@ -132,7 +146,7 @@ int	creat_redirect(t_shell *my_shell, int *i)
 	add_redir(my_shell);
 	if (!ft_strcmp(b, "<<"))
 	{
-		signal(SIGINT, SIG_IGN);
+		signal(SIGINT, sigint_pars_doc);
 		signal(SIGQUIT, SIG_IGN);
 		int	pip[2] ;
 		pipe(pip);
@@ -140,11 +154,11 @@ int	creat_redirect(t_shell *my_shell, int *i)
 		if (!pits)
 		{
 			// rl_catch_signals = 0;
-			signal(SIGINT, sigint_pars_doc);
-			signal(SIGQUIT, sigquit_pars_doc);
-			// signal(SIGQUIT, SIG_IGN);
+			signal(SIGINT, sigint_pars_doc_child);
+			// signal(SIGQUIT, sigquit_pars_doc);
+			signal(SIGQUIT, SIG_IGN);
 			// sigaction(SIGQUIT, NULL, NULL);
-			// rl_clear_history();
+			rl_clear_history();
 			char *h = here_doc(a, my_shell->start_here_doc_plus, my_shell->full_name_here_doc);
 			write(pip[1], h, ft_strlen(h) + 1);
 			close(pip[1]);
