@@ -137,30 +137,26 @@ int	creat_redirect(t_shell *my_shell, int *i)
 			signal(SIGINT, sigint_pars_doc);
 			signal(SIGQUIT, sigquit_pars_doc);
 
-			int q = here_doc(a, 0, my_shell->my_envp, 0);
-			char *h =  ft_itoa(q);
+			char *h = here_doc(a, my_shell->start_here_doc_plus, my_shell->full_name_here_doc);
 			write(pip[1], h, ft_strlen(h) + 1);
 			close(pip[1]);
-			printf("q = %s\n", h);
+			// printf("q = %s\n", h);
 			exit(0);
 		}
 		// signal(SIGINT, SIG_IGN);
 		// signal(SIGQUIT, SIG_DFL);
 		waitpid(pits, NULL, 0);
+		++my_shell->start_here_doc_plus;
 		close(pip[1]);
 		char *t = ft_calloc(1, 20);
 		read(pip[0], t, 19);
-		int f = ft_atoi(t);
-		free(t);
 		close(pip[0]);
-		printf("f = %d\n", f);
-		printf("f = %p\n", &f);
 		signal(SIGINT, SIG_IGN);
 		signal(SIGQUIT, SIG_DFL);
-		if (!f)
+		if (!t)
 			return (1);
-		my_shell->redirect[my_shell->count_redir - 1]->here_doc = f;
-		if (my_shell->redirect[my_shell->count_redir - 1]->here_doc < 0)
+		my_shell->redirect[my_shell->count_redir - 1]->filename = t;
+		if (!ft_strcmp(my_shell->redirect[my_shell->count_redir - 1]->here_doc, "error"))
 			my_shell->redirect[my_shell->count_redir - 1]->error = ENOENT;
 		else
 			my_shell->redirect[my_shell->count_redir - 1]->error = NO_ERROR;

@@ -120,6 +120,9 @@ typedef struct s_shell
 	unsigned int	count;
 	t_error_type	my_error;
 	t_error_type	error_status;
+	char			*full_name_here_doc;
+	int				start_here_doc;
+	int				start_here_doc_plus;
 }					t_shell;
 
 typedef struct s_mas_pid

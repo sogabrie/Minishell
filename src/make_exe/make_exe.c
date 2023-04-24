@@ -374,7 +374,7 @@ int	make_exe(t_shell *my_shell, int i, int j)
 				// signal(SIGINT, sigint_pars_exe);
 				// signal(SIGQUIT, sigquit_pars_exe);
 				a = 0;
-				if (my_shell->control[i]->redirect[re_co]->type != HERE_DOC && my_shell->control[i]->redirect[re_co]->error == NO_ERROR)
+				if (my_shell->control[i]->redirect[re_co]->error == NO_ERROR)
 				{
 					a = parse_line(my_shell->control[i]->redirect[re_co]->filename, my_shell->my_envp, my_shell->my_error, 0);
 					if (!a)
@@ -405,8 +405,8 @@ int	make_exe(t_shell *my_shell, int i, int j)
 				else if (my_shell->control[i]->redirect[re_co]->type == HERE_DOC && my_shell->control[i]->redirect[re_co]->error == NO_ERROR)
 				{
 					// write(1,"ttttttttt_2\n", 13);
-					fd = my_shell->control[i]->redirect[re_co]->here_doc;
-					printf("fd = %d\n", fd);
+					fd = red_input(a);
+					// printf("fd = %d\n", fd);
 					if (fd >= 0)
 					{
 						// write(1,"ttttttttt_3\n", 13);

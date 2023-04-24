@@ -22,6 +22,9 @@ void	init_shell(t_shell *my_shell)
 	my_shell->close_fd = NULL;
 	my_shell->close_fd_count = 0;
 	my_shell->error_status = NO_ERROR;
+	my_shell->full_name_here_doc = NULL;
+	my_shell->start_here_doc = 0;
+	my_shell->start_here_doc_plus = 0;
 }
 
 void	init_control(t_control **control, int i)

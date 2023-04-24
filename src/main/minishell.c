@@ -35,6 +35,9 @@ int main(int argc, char **argv, char **envp)
 	t_shell	my_shell;
 
 	init_shell(&my_shell);
+	my_shell.full_name_here_doc = path_tmp();
+	my_shell.start_here_doc = count_tmp_files(my_shell.full_name_here_doc);
+	my_shell.start_here_doc_plus = my_shell.full_name_here_doc;
 	my_shell.my_envp = replace_envp(envp);
 	// int i = 0;
 	// while (envp[i])
