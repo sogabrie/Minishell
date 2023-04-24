@@ -64,3 +64,31 @@ int	del_tmp_files(int index, char *path_h, char *suc_path, char *del_path)
 	closedir(directory);
 	return (count_tmp_files(path_h));
 }
+
+char	*creat_name(int count, char *path_t, size_t	i, char *name)
+{
+	char	*name_file;
+	char	*number_file;
+	size_t	j;
+
+	j = 0;
+	number_file = ft_itoa(count);
+	if (number_file == NULL)
+		malloc_error();
+	name_file = malloc(sizeof(char) * \
+		(ft_strlen(path_t) + ft_strlen(number_file) + 10));
+	if (name_file == NULL)
+		malloc_error();
+	while (path_t[i])
+		name_file[j++] = path_t[i++];
+	i = 0;
+	name_file[j++] = '/';
+	while (name[i])
+		name_file[j++] = name[i++];
+	i = 0;
+	while (number_file[i])
+		name_file[j++] = number_file[i++];
+	name_file[j] = '\0';
+	free(number_file);
+	return (name_file);
+}
