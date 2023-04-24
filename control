@@ -48,7 +48,6 @@ control_close_fd.c			|		sogabrie
 creat_main_struct.c         |       sogabrie
 creat_my_exe.c              |       sogabrie
 delimiter.c                 |       sogabrie
-
 initialization.c            |       sogabrie
 pars_env_and_access.c       |       sogabrie
 pars_quote_cont.c           |       sogabrie
