@@ -13,7 +13,7 @@ char	*here_doc(char *end, int count, char *path_t)
 	while (1)
 	{
 		write(0, "> ", 2);
-		buffer = get_next_line(0);
+		buffer = readline(0);
 		if (buffer == NULL || !ft_strcmp_flag(buffer, end, 1))
 			break ;
 		ft_putstr_fd(buffer, fd_write);

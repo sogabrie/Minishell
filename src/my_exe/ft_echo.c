@@ -27,7 +27,7 @@ char	*echo_line(char *line, char **envp, char *new_line, int error)
 	jik.k = 0;
 	jik.ptr = NULL;
 	if (line[jik.i] == '\'')
-		return (new_line_creat(line));;
+		return (new_line_creat(line));
 	jik.str = ft_strtrim(line, "\"");
 	new_line = creat_new_line((jik.str), envp, -1, 0);
 	while ((jik.str)[jik.i])
@@ -44,8 +44,7 @@ char	*echo_line(char *line, char **envp, char *new_line, int error)
 		jik.k = 0;
 	}
 	new_line[jik.j] = '\0';
-	free(jik.str);
-	return (new_line);
+	return (free_return(jik.str, new_line));
 }
 
 void	execute_echo(char **args, char **envp, int error, size_t *flag_n)
@@ -93,15 +92,3 @@ int	ft_echo(char **args, char **envp, int error)
 		printf("\n");
 	return (0);
 }
-
-// int main(int argc, char *argv[], char *envp[])
-// {
-// // 	// char **str = ft_split("\'\'\'\'\'\'\'\'\'\'$USER\'\'\'\'\'\'\'\'\'\'", ' ');
-// // 	// char **str = ft_split("\"$USER\"\"Users/$USER/file\"\"\'$USER\'\"\'$USER\'", ' ');
-// // 	// char **str = ft_split("\"\"\"\"\"\"\"\"$USER\"\"\"\"\"\"\"\"", ' ');
-// // 	// char **str = ft_split("nenie_iri", ' ');
-// 	// char **str = ft_split("$USER \'\' $USER $USER \'\' $USER \'\' $USER -n $USER", ' ');
-// 	char **str = ft_split("\"$USER=12$USER\"", ' ');
-// 	ft_echo(str, envp, 0);
-// 	// system("leaks minishell");
-// }

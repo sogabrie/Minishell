@@ -45,7 +45,8 @@ int				check_flag(char *str, size_t *flag);
 char			*echo_line(char *line, char **envp, char *new_line, int error);
 char			*variable(char *str, size_t *i, char **envp, int error);
 char			*scop_one(char *args, char end, size_t *i);
-char			*parse_scop(char *args, size_t *i);
+char			*var_in(char *variable_in, char **envp, size_t j, char *str);
+char			*parse_scop(char *args, size_t *i, size_t count, size_t start);
 char			*parse_line(char *args, char **envp, int error, size_t i);
 char			*parse_wild(char *line);
 
@@ -90,6 +91,7 @@ void			exe_error(char *dir, int number, char *my_exe);
 
 //Free
 void			two_dimensional_mas(char ***str);
+char			*free_return(char *str, char *new_line);
 int				free_tmp_stars(char **stars, char **tmp_object_name, int exit);
 int				free_object_cd(char *new_dir, char *home, \
 								char *old_pwd, char *pwd);

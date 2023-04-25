@@ -86,11 +86,11 @@ int	check_flag(char *str, size_t *flag)
 char	*variable(char *str, size_t *i, char **envp, int error)
 {
 	size_t	j;
-	char	*ptr;
 	char	*variable_in;
 	char	*error_s;
 
 	j = 0;
+	variable_in = NULL;
 	if (str[j] == '?')
 	{
 		error_s = ft_itoa(error);
@@ -101,19 +101,7 @@ char	*variable(char *str, size_t *i, char **envp, int error)
 	}
 	while (str[j] && !ft_strchr("@#%^$*}]{+=? \n\t.,-[|/>\'<;:~\\", str[j]))
 		j++;
-	ptr = ft_substr(str, 0, j);
-	if (ptr == NULL)
-		malloc_error();
 	*i += j + 1;
-	variable_in = search_envp_in(envp, ptr, ft_strlen(ptr));
-	if (variable_in == NULL)
-	{
-		free(ptr);
-		return (NULL);
-	}
-	variable_in = ft_strdup(variable_in);
-	if (variable_in == NULL)
-		malloc_error();
-	free(ptr);
+	variable_in = var_in(variable_in, envp, j, str);
 	return (variable_in);
 }

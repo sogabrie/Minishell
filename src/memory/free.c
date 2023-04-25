@@ -36,3 +36,9 @@ int	free_object_cd(char *new_dir, char *home, char *old_pwd, char *pwd)
 	free(pwd);
 	return (0);
 }
+
+char	*free_return(char *str, char *new_line)
+{
+	free(str);
+	return (new_line);
+}
