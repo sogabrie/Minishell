@@ -31,7 +31,7 @@ int	ultra_char(char *str)
 	i = 0;
 	while (str[i] != '\0')
 	{
-		if (ft_strchr("@#%^*}]{+=? \n\t.,-[|/>\'<;:~\\", str[i]))
+		if (ft_strchr("@#%^$*}]{+=? \n\t.,-[|/>\'<;:~\\", str[i]))
 			return (1);
 		i++;
 	}
@@ -59,7 +59,7 @@ char	*creat_new_line(char *str, char **envp, size_t i, size_t count)
 		}
 		count++;
 	}
-	new_line = malloc(sizeof(char) * count);
+	new_line = malloc(sizeof(char) * (count + 1));
 	if (new_line == NULL)
 		malloc_error();
 	return (new_line);
@@ -99,13 +99,21 @@ char	*variable(char *str, size_t *i, char **envp, int error)
 		*i += 2;
 		return (error_s);
 	}
-	while (!ft_strchr("@#%^$*}]{+=? \n\t.,-[|/>\'<;:~\\", str[j]))
+	while (str[j] && !ft_strchr("@#%^$*}]{+=? \n\t.,-[|/>\'<;:~\\", str[j]))
 		j++;
 	ptr = ft_substr(str, 0, j);
 	if (ptr == NULL)
 		malloc_error();
 	*i += j + 1;
 	variable_in = search_envp_in(envp, ptr, ft_strlen(ptr));
+	if (variable_in == NULL)
+	{
+		free(ptr);
+		return (NULL);
+	}
+	variable_in = ft_strdup(variable_in);
+	if (variable_in == NULL)
+		malloc_error();
 	free(ptr);
 	return (variable_in);
 }
