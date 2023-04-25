@@ -64,12 +64,14 @@ void			creat_exe(t_shell *my_shell, int *i);
 
 char			*chreat_wal_2(char *name, char ***a);
 char			*chreat_wal(char *name);
-void			creat_redirect_1_1(t_shell *my_shell, int *i, char **a, char **b);
+void			creat_redirect_1_1(t_shell *my_shell, \
+				int *i, char **a, char **b);
 void			creat_redirect_1(t_shell *my_shell, int *i, char **a, char **b);
 int				creat_redirect_2_1(t_shell *my_shell, char **a, int	*pip);
 
 int				creat_redirect_2(t_shell *my_shell, char **a);
-void			creat_redirect_3(t_shell *my_shell, char **a, enum s_redir_type type);
+void			creat_redirect_3(t_shell *my_shell, char **a, \
+				enum s_redir_type type);
 int				creat_redirect(t_shell *my_shell, int *i);
 int				add_option_mas(char ***options, char *name, int i);
 void			add_option(t_shell *my_shell, int *i);
@@ -82,9 +84,12 @@ int				red_out(char *filename);
 //constrol_parsing.c
 int				control_parsing(t_shell	*my_shell);
 
-void			control_pars_exe_1(t_shell *my_shell, int *start, int *end, int *i);
-int				control_pars_exe_2(t_shell *my_shell, int *start, int *end, int *i);
-void			control_pars_exe_3(t_shell *my_shell, int *end, int *i);
+void			control_pars_exe_1(t_shell *my_shell, \
+				int *start, int *end, int *i);
+int				control_pars_exe_2(t_shell *my_shell, \
+				int *start, int *end, int *i);
+void			control_pars_exe_3(t_shell *my_shell, \
+				int *end, int *i);
 void			control_pars_exe_4(t_shell *my_shell);
 void			control_pars_exe_5(t_shell *my_shell);
 
@@ -95,7 +100,8 @@ void			free_struct(t_shell *my_shell);
 void			creat_close_fd(t_shell *my_shell, int fd);
 
 //errors_print_sintexs.c
-t_error_type	errors_print_sintexs(t_shell	*my_shell, char *a, t_error_type err);
+t_error_type	errors_print_sintexs(t_shell *my_shell, \
+				char *a, t_error_type err);
 
 //make_exe.c
 int				make_exe(t_shell *my_shell, int i, int j);
