@@ -48,6 +48,15 @@ char	*check_procces_2(t_shell *my_shell, int i, int si, char **mas)
 	int	size_p;
 	int	size;
 
+	size_p = ft_strlen(my_shell->control[si]->exe->full_name);
+	size = ft_strlen(my_shell->full_path[i]);
+	(*mas) = ft_calloc(size + size_p + 2, sizeof(char));
+	if (!(*mas))
+		malloc_error();
+	ft_strlcat((*mas), my_shell->full_path[i], size + 1);
+	ft_strlcat((*mas), "/", size + 2);
+	ft_strlcat((*mas), my_shell->control[si]->exe->full_name, \
+	size + size_p + 2);
 	if (!access((*mas), F_OK))
 	{
 		if (!access((*mas), X_OK))
@@ -59,15 +68,6 @@ char	*check_procces_2(t_shell *my_shell, int i, int si, char **mas)
 	}
 	if (*(*mas) != *(my_shell->control[si]->exe->full_name))
 		free((*mas));
-	size_p = ft_strlen(my_shell->control[si]->exe->full_name);
-	size = ft_strlen(my_shell->full_path[i]);
-	(*mas) = ft_calloc(size + size_p + 2, sizeof(char));
-	if (!(*mas))
-		malloc_error();
-	ft_strlcat((*mas), my_shell->full_path[i], size + 1);
-	ft_strlcat((*mas), "/", size + 2);
-	ft_strlcat((*mas), my_shell->control[si]->exe->full_name, \
-	size + size_p + 2);
 	return (0);
 }
 
@@ -77,22 +77,23 @@ char	*check_procces(t_shell *my_shell, int si, int size, int size_p)
 	char	*mas;
 
 	i = 0;
-	mas = my_shell->control[si]->exe->full_name;
-	while (my_shell->full_path[i])
+	if (!ft_strrchr(my_shell->control[si]->exe->full_name, '/'))
 	{
-		if (check_procces_2(my_shell, i, si, &mas))
-			return (mas);
-		++i;
-	}
-	if (!access(mas, F_OK))
-	{
-		if (!access(mas, X_OK))
-			my_shell->control[si]->exe->error = 127;
-	}
-	else
+		while (my_shell->full_path[i])
+		{
+			if (check_procces_2(my_shell, i, si, &mas))
+				return (mas);
+			++i;
+		}
 		my_shell->control[si]->exe->error = 127;
-	free(my_shell->control[si]->exe->full_name);
-	return (mas);
+		return (my_shell->control[si]->exe->full_name);
+	}
+	if (access(my_shell->control[si]->exe->full_name, F_OK))
+		my_shell->control[si]->exe->error = 126;
+	else
+		if (access(my_shell->control[si]->exe->full_name, X_OK))
+			my_shell->control[si]->exe->error = 125;
+	return (my_shell->control[si]->exe->full_name);
 }
 
 int	chreat_process(t_shell *my_shell, int i)

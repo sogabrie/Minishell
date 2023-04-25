@@ -23,7 +23,6 @@ void	main_parsing(t_shell	*my_shell)
 		{
 			signal(SIGINT, sigint_pars_exe_1);
 			signal(SIGQUIT, sigquit_pars_exe_1);
-			write (2, "ppppp_4\n", 9);
 			make_exe(my_shell, 0, my_shell->count);
 		}
 	}

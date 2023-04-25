@@ -190,7 +190,12 @@ void	do_exe(t_shell *my_shell, t_mas_pid	*my_pid, int i)
 			// write(2,"ttttt_4\n", 9);
 			write (2, "minishell: ", 12);
 			write (2, my_shell->control[i]->exe->options[0], ft_strlen(my_shell->control[i]->exe->options[0]));
-			write (2, ": command not found\n", 21);
+			if (my_shell->control[i]->exe->error == 127)
+				write (2, ": command not found\n", 21);
+			else if(my_shell->control[i]->exe->error == 126)
+				write (2, ": No such file or directory\n", 29);
+			else
+				write (2, ": Permission denied\n", 21);
 			my_shell->error_status = 127;
 			return ;
 		}

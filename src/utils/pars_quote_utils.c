@@ -4,7 +4,7 @@ char	*heer_doc_echo(char *a)
 {
 	int	i;
 
-	if(!a || !a[0])
+	if (!a || !a[0])
 		return (a);
 	if (a[0] == '\"' || a[0] == '\'')
 	{
@@ -39,7 +39,7 @@ char	*my_cat(char *list, int start, int end)
 	i = 0;
 	resul = malloc((end - start + 1) * sizeof(char));
 	if (!resul)
-			malloc_error();
+		malloc_error();
 	while (start < end)
 	{
 		resul[i] = list[start];
