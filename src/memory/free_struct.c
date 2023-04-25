@@ -6,39 +6,32 @@ void	free_struct_2(t_shell *my_shell, int *i, int *j)
 	int	i2;
 
 	i2 = 0;
-	// write(2, "exe_AA_1\n",10);
-	if (my_shell->control[(*i)]->command_type == EXE)
+	if (my_shell->control[(*i)]->command_type == EXE || my_shell->control[(*i)]->command_type == NO_EXE)
 	{
-		// write(2, "exe_AA_2\n",10);
 		while (i2 < my_shell->control[(*i)]->count_redir)
 		{
 			free(my_shell->control[(*i)]->redirect[i2]->filename);
 			free(my_shell->control[(*i)]->redirect[i2++]);
 		}
-		// write(2, "exe_AA_3\n",10);
 		free(my_shell->control[(*i)]->redirect);
-		free(my_shell->control[(*i)]->exe->full_name);
+		if (my_shell->control[(*i)]->command_type == EXE)
+			free(my_shell->control[(*i)]->exe->full_name);
 		(*j) = 0;
-		// write(2, "exe_AA_4\n",10);
-		// printf("my_shell->control[(*i)]->exe->options = %p\n", my_shell->control[(*i)]->exe->options);
-		while (my_shell->control[(*i)]->exe->options && \
+		while (my_shell->control[(*i)]->command_type == EXE && \
+		my_shell->control[(*i)]->exe->options && \
 		my_shell->control[(*i)]->exe->options[(*j)])
 			free(my_shell->control[(*i)]->exe->options[(*j)++]);
-		// write(2, "exe_SS_1\n",10);
-		free(my_shell->control[(*i)]->exe->options);
-		// write(2, "exe_SS_1\n",10);
-		free(my_shell->control[(*i)]->exe);
-		// write(2, "exe_AA_5\n",10);
+		if (my_shell->control[(*i)]->command_type == EXE)
+		{
+			free(my_shell->control[(*i)]->exe->options);
+			free(my_shell->control[(*i)]->exe);
+		}
 	}
-	// write(2, "exe_AA_6\n",10);
 	if (my_shell->control[(*i)]->command_type == PRIORITET_START)
 		free(my_shell->control[(*i)]->prioritet_start);
-	// write(2, "exe_AA_7\n",10);
 	if (my_shell->control[(*i)]->command_type == PRIORITET_END)
 		free(my_shell->control[(*i)]->prioritet_end);
-	// write(2, "exe_AA_8\n",10);
 	free(my_shell->control[(*i)++]);
-	// write(2, "exe_AA_9\n",10);
 }
 
 void	free_struct_3(t_shell *my_shell)

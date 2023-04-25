@@ -71,9 +71,9 @@ t_error_type	check_metachar(t_shell	*my_shell)
 		!ft_strcmp(my_shell->double_list[i], ">>") || \
 		!ft_strcmp(my_shell->double_list[i], "<") || \
 		!ft_strcmp(my_shell->double_list[i], ">"))
-		if (check_metachar_cont_2(my_shell, i))
-			return (errors_print_sintexs(my_shell, \
-			my_shell->double_list[i], SYNT_ERROR));
+			if (check_metachar_cont_2 (my_shell, i))
+				return (errors_print_sintexs (my_shell, \
+				my_shell->double_list[i], SYNT_ERROR));
 		++i;
 	}
 	return (NO_ERROR);

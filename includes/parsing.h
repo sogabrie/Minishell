@@ -8,9 +8,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <string.h>
-
-
-void			init_shell(t_shell *my_shell);
+# include <signal.h>
 
 //parsing.c
 t_error_type	control_pars(t_shell *my_shell, int i, int j, int n);
@@ -29,9 +27,11 @@ char			*my_cat(char *list, int start, int end);
 int				size_list(char **list);
 
 //pars_util.c
+int				check_meta_char(char *name);
 int				check_redirect(char *name);
 int				check_my_exe(char *name);
 int				check_end(char *name);
+void			creat_struct_prioritet_end_2(t_shell *my_shell, int *i, int *j);
 
 //pars_env_and_access.c
 int				chreat_process(t_shell *my_shell, int i);
@@ -47,6 +47,8 @@ t_error_type	check_metachar(t_shell	*my_shell);
 int				creat_delimiter(t_shell	*my_shell);
 
 // inicalization.c
+void			init_shell(t_shell *my_shell);
+void			init_control(t_control **control, int i);
 void			chreat_cont(t_shell *my_shell);
 void			add_redir(t_shell *my_shell);
 
@@ -58,10 +60,19 @@ void			creat_struct_prioritet_start(t_shell *my_shell);
 void			creat_struct_prioritet_end(t_shell *my_shell);
 
 //creat_my_exe.c
-void			creat_my_exe(t_shell *my_shell, char *name);
-int				creat_redirect(t_shell *my_shell, int *i);
-void			add_option(t_shell *my_shell, int *i);
 void			creat_exe(t_shell *my_shell, int *i);
+
+char			*chreat_wal_2(char *name, char ***a);
+char			*chreat_wal(char *name);
+void			creat_redirect_1_1(t_shell *my_shell, int *i, char **a, char **b);
+void			creat_redirect_1(t_shell *my_shell, int *i, char **a, char **b);
+int				creat_redirect_2_1(t_shell *my_shell, char **a, int	*pip);
+
+int				creat_redirect_2(t_shell *my_shell, char **a);
+void			creat_redirect_3(t_shell *my_shell, char **a, enum s_redir_type type);
+int				creat_redirect(t_shell *my_shell, int *i);
+int				add_option_mas(char ***options, char *name, int i);
+void			add_option(t_shell *my_shell, int *i);
 
 //here_doc
 int				red_input(char *filename);
@@ -70,6 +81,12 @@ int				red_out(char *filename);
 
 //constrol_parsing.c
 int				control_parsing(t_shell	*my_shell);
+
+void			control_pars_exe_1(t_shell *my_shell, int *start, int *end, int *i);
+int				control_pars_exe_2(t_shell *my_shell, int *start, int *end, int *i);
+void			control_pars_exe_3(t_shell *my_shell, int *end, int *i);
+void			control_pars_exe_4(t_shell *my_shell);
+void			control_pars_exe_5(t_shell *my_shell);
 
 //free_struct.c
 void			free_struct(t_shell *my_shell);
@@ -85,6 +102,9 @@ int				make_exe(t_shell *my_shell, int i, int j);
 
 //utils_pid.c
 void			add_pid(t_mas_pid	*my_pid);
-int				check_meta_char(char *name);
+
+//parsing_utils.c
+void			creat_redir(t_shell *my_shell);
+void			creat_cont_mas(t_shell *my_shell);
 
 #endif

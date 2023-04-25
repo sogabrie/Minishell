@@ -60,7 +60,6 @@ int	chek_and_or(t_shell *my_shell, t_mas_pid *my_pid, int *i, int j)
 			if (my_shell->error_status)
 			{
 				(*i) = j;
-				// my_shell->my_error = NO_ERROR;
 				return (1);
 			}
 		}
@@ -69,7 +68,6 @@ int	chek_and_or(t_shell *my_shell, t_mas_pid *my_pid, int *i, int j)
 			if (!my_shell->error_status)
 			{
 				(*i) = j;
-				// my_shell->my_error = NO_ERROR;
 				return (1);
 			}
 		}
@@ -137,13 +135,12 @@ void	do_exe(t_shell *my_shell, t_mas_pid	*my_pid, int i)
 		free(my_shell->control[i]->exe->full_name);
 		my_shell->control[i]->exe->full_name = new_name;
 	}
-	
+	// write(2,"ttttt_3\n", 9);
 	// printf("my_shell->control[i]->exe->full_name = %s\n", my_shell->control[i]->exe->full_name);
 	if (ft_strcmp(my_shell->control[i]->exe->full_name, "echo"))
 	{
 		j = 0;
-		// write(1, "exexex_1\n",10);
-		// printf("my_shell->control[i]->exe->options ==== %p\n", my_shell->control[i]->exe->options);
+		// write(2,"ttttt_4\n", 9);
 		while (my_shell->control[i]->exe->options && my_shell->control[i]->exe->options[j])
 		{
 			new_name = parse_line(my_shell->control[i]->exe->options[j], my_shell->my_envp, my_shell->my_error, 0);
@@ -155,6 +152,7 @@ void	do_exe(t_shell *my_shell, t_mas_pid	*my_pid, int i)
 			++j;
 		}
 		j = 0;
+		// write(2,"ttttt_5\n", 9);
 		while (my_shell->control[i]->exe->options && my_shell->control[i]->exe->options[j])
 		{
 			j2 = -1;
@@ -182,9 +180,10 @@ void	do_exe(t_shell *my_shell, t_mas_pid	*my_pid, int i)
 			++j;
 		}
 	}
+	// write(2,"ttttt_4\n", 9);
 	if (!control_type_exe(my_shell, i))
 	{
-		// write(2,"ttttt_3\n", 9);
+		// write(2,"ttttt_5\n", 9);
 		// printf("my_shell->control[i]->exe->full_nam1 = %s\n", my_shell->control[i]->exe->full_name);
 		if (chreat_process(my_shell, i))
 		{
@@ -228,7 +227,7 @@ void	do_exe(t_shell *my_shell, t_mas_pid	*my_pid, int i)
 		}
 		// write(2,"ttttt_8\n", 9);
 	}
-	else //if (my_shell->control[i]->command_type == MY_EXE)
+	else
 	{
 		// write(2,"ttttt_9\n", 9);
 		if ((i + 1 < my_shell->count && my_shell->control[i + 1]->command_type == PIPE) || \
