@@ -1,5 +1,6 @@
 #include "minishell.h"
 #include "struct.h"
+#include <signal.h>
 
 void	sigint_pars_exe(int sig)
 {

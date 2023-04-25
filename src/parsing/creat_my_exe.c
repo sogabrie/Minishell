@@ -1,21 +1,6 @@
 #include "struct.h"
 #include "minishell.h"
-
-// void	here_dok_pipe
-
-void	sigint_pars_doc(int sig)
-{
-	// signal(SIGINT, SIG_IGN);
-	write(1, "\n", 1);
-	exit(0);
-	// signal(SIGINT, SIG_IGN);
-	(void)sig;
-}
-
-void	sigquit_pars_doc(int sig)
-{
-	(void)sig;
-}
+#include <signal.h>
 
 void	creat_exe(t_shell *my_shell, int *i)
 {
@@ -125,41 +110,35 @@ int	creat_redirect(t_shell *my_shell, int *i)
 	add_redir(my_shell);
 	if (!ft_strcmp(b, "<<"))
 	{
-		// signal(SIGINT, SIG_IGN);
-		// signal(SIGQUIT, SIG_IGN);
 		int	pip[2] ;
 		pipe(pip);
 		pid_t pits = fork();
 		if (!pits)
 		{
-
-			signal(SIGINT, sigint_pars_doc);
-			signal(SIGQUIT, sigquit_pars_doc);
-
+			signal(SIGINT,  SIG_DFL);
+			signal(SIGQUIT,  SIG_IGN);
+			rl_clear_history();
 			char *h = here_doc(a, my_shell->start_here_doc_plus, my_shell->full_name_here_doc);
 			write(pip[1], h, ft_strlen(h) + 1);
 			close(pip[1]);
-			// printf("q = %s\n", h);
-			exit(0);
+			exit(1);
 		}
-		// signal(SIGINT, SIG_IGN);
-		// signal(SIGQUIT, SIG_DFL);
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
 		waitpid(pits, NULL, 0);
 		++my_shell->start_here_doc_plus;
 		close(pip[1]);
 		char *t = ft_calloc(1, 100);
 		read(pip[0], t, 99);
 		close(pip[0]);
-		signal(SIGINT, SIG_IGN);
-		signal(SIGQUIT, SIG_IGN);
 		if (!t || !t[0])
 		{
+			write(1, "\n", 1);
 			free(t);
 			free(a);
 			return (1);
 		}
 		my_shell->redirect[my_shell->count_redir - 1]->filename = t;
-		// printf("my_shell->redirect[my_shell->count_redir - 1]->filename = %s\n", my_shell->redirect[my_shell->count_redir - 1]->filename);
 		if (!ft_strcmp(my_shell->redirect[my_shell->count_redir - 1]->filename, "error"))
 			my_shell->redirect[my_shell->count_redir - 1]->error = ENOENT;
 		else

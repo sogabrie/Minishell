@@ -4,6 +4,9 @@
 # include "minishell.h"
 # include "struct.h"
 # include "libft.h"
+# include <signal.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 # include <string.h>
 
 
