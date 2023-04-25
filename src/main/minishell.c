@@ -1,5 +1,6 @@
 #include "minishell.h"
 #include <signal.h>
+#include <termios.h>
 
 void	sigint_pars(int sig)
 {
@@ -14,11 +15,15 @@ int main(int argc, char **argv, char **envp)
 {
 	t_shell	my_shell;
 
+    struct termios    conf;
+
+    tcgetattr(0, &conf);
 	init_shell(&my_shell);
 	my_shell.full_name_here_doc = path_tmp();
 	my_shell.start_here_doc = count_tmp_files(my_shell.full_name_here_doc);
 	my_shell.start_here_doc_plus = my_shell.start_here_doc;
 	my_shell.my_envp = replace_envp(envp);
+	rl_catch_signals = 0;
 	// int i = 0;
 	// while (envp[i])
 	// 	printf("%s\n", envp[i++]);
@@ -27,7 +32,7 @@ int main(int argc, char **argv, char **envp)
 		return (2);
     while(1)
 	{
-		rl_catch_signals = 0;
+		tcsetattr(0, TCSANOW, &conf);
 		signal(SIGINT, sigint_pars);
 		signal(SIGQUIT, SIG_IGN);
     	my_shell.line = readline("minishell-1.0$ ");
