@@ -25,6 +25,7 @@ char	*echo_line(char *line, char **envp, char *new_line, int error)
 	jik.i = 0;
 	jik.j = 0;
 	jik.k = 0;
+	jik.ptr = NULL;
 	if (line[jik.i] == '\'')
 		return (new_line_creat(line));
 	jik.str = ft_strtrim(line, "\"");
@@ -36,22 +37,24 @@ char	*echo_line(char *line, char **envp, char *new_line, int error)
 			jik.ptr = variable((jik.str) + jik.i + 1, &(jik.i), envp, error);
 			while ((jik.ptr) && (jik.ptr)[jik.k])
 				new_line[jik.j++] = (jik.ptr)[jik.k++];
+			free(jik.ptr);
 		}
 		else
 			new_line[jik.j++] = (jik.str)[jik.i++];
 		jik.k = 0;
 	}
 	new_line[jik.j] = '\0';
-	free(jik.str);
-	return (new_line);
+	return (free_return(jik.str, new_line));
 }
 
 void	execute_echo(char **args, char **envp, int error, size_t *flag_n)
 {
 	char	*line;
 	int		i;
+	int		flag;
 
 	i = -1;
+	flag = 0;
 	while (args[++i])
 	{
 		if (ft_strlen(args[i]) == 0)
@@ -60,7 +63,7 @@ void	execute_echo(char **args, char **envp, int error, size_t *flag_n)
 		line = parse_wild(line);
 		if (line == NULL)
 			continue ;
-		if (i == 0 && line[0] == '-' && check_flag(line + 1, flag_n))
+		if (flag == 0 && line[0] == '-' && check_flag(line + 1, flag_n))
 		{
 			free(line);
 			continue ;
@@ -68,6 +71,7 @@ void	execute_echo(char **args, char **envp, int error, size_t *flag_n)
 		printf("%s", line);
 		if (args[i + 1] != NULL)
 			printf(" ");
+		flag = 1;
 		free(line);
 	}
 }

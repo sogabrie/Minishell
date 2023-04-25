@@ -65,7 +65,6 @@ fclean : clean
 	@${MAKE} DELETE_PROGRAM_MSG
 	@${MAKE} -C ${LIBFT_DIR} fclean
 	@${DEL_READLINE_LIB}
-	@cd src/here_doc && ${RM} tmp
 	@${RM} ${NAME}
 
 re : fclean 
