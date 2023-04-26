@@ -92,3 +92,15 @@ char	*creat_name(int count, char *path_t, size_t	i, char *name)
 	free(number_file);
 	return (name_file);
 }
+
+void	here_doc_1(t_shell *my_shell, size_t *k, char *new_buffer, size_t *j)
+{
+	char	*number;
+
+	number = ft_itoa(my_shell->my_error);
+	if (number == NULL)
+		malloc_error();
+	while (number[(*k)])
+	new_buffer[(*j)++] = number[(*k)++];
+	free(number);
+}

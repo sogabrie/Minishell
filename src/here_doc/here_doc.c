@@ -44,46 +44,50 @@ size_t	count_variable_doc(char *buffer, char **envp)
 	return (count);
 }
 
+size_t	do_here_doc(size_t *i, char *buffer, \
+		char *new_buffer, t_shell *my_shell)
+{
+	char	*line;
+	size_t	k;
+	size_t	j;
+
+	k = 0;
+	j = 0;
+	if (buffer[(*i)] == '$' && buffer[(*i) + 1] == '?')
+	{
+		here_doc_1(my_shell, &k, new_buffer, &j);
+		(*i) += 2;
+	}
+	else if (buffer[(*i)] == '$')
+	{
+		line = dol_lar(buffer, i, my_shell->my_envp);
+		while (line[k])
+			new_buffer[j++] = line[k++];
+		free(line);
+	}
+	else
+		new_buffer[j++] = buffer[(*i)++];
+	return (j);
+}
+
 char	*open_variable_doc(char *buffer, t_shell *my_shell)
 {
 	size_t	i;
 	size_t	j;
-	size_t	k;
 	char	*new_buffer;
-	char	*line;
-	char	*number;
 
 	i = 0;
 	j = 0;
-	k = 0;
-	new_buffer = malloc(sizeof(char) * count_variable_doc(buffer, my_shell->my_envp) + 2);
+	new_buffer = malloc(sizeof(char) * \
+		count_variable_doc(buffer, my_shell->my_envp) + 2);
+	if (new_buffer == NULL)
+		malloc_error();
 	while (buffer[i])
-	{
-		if (buffer[i] == '$' && buffer[i + 1] == '?')
-		{
-			number = ft_itoa(my_shell->my_error);
-			if (number == NULL)
-				malloc_error();
-			while (number[k])
-			new_buffer[j++] = number[k++];
-			free(number);
-			i += 2;
-		}
-		else if (buffer[i] == '$')
-		{
-			line = dol_lar(buffer, &i, my_shell->my_envp);
-			while(line[k])
-				new_buffer[j++] = line[k++];
-			free(line);
-		}
-		else
-			new_buffer[j++] = buffer[i++];
-		k = 0;
-	}
+		j = do_here_doc(&i, buffer, new_buffer, my_shell);
 	new_buffer[j++] = '\n';
 	new_buffer[j] = '\0';
 	free(buffer);
-	return new_buffer;
+	return (new_buffer);
 }
 
 char	*here_doc(char *end, int count, char *path_t, t_shell *my_shell)
