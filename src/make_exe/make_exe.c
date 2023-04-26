@@ -27,30 +27,36 @@ int	control_type_exe(t_shell *my_shell, int i)
 	return (0);
 }
 
-int	chek_and_or(t_shell *my_shell, t_mas_pid *my_pid, int *i, int j)
+void	chek_and_or_2(t_shell *my_shell, t_mas_pid *my_pid)
 {
 	int	i2;
 	int	error;
 
 	i2 = 0;
-	if ((*i) > 0 && (my_shell->control[(*i) - 1]->command_type == LOGIC_AND || my_shell->control[(*i) - 1]->command_type == LOGIC_OR))
+	while (i2 < my_pid->count)
 	{
-		while (i2 < my_pid->count)
+		if (my_pid->my_pid[i2] == -1)
 		{
-			if (my_pid->my_pid[i2] == -1)
-			{
-				waitpid(my_pid->pid[i2], &error, 0);
-				my_shell->error_status = error;
-			}
-			else
-				my_shell->error_status = my_pid->my_pid[i2];
-			++i2;
+			waitpid(my_pid->pid[i2], &error, 0);
+			my_shell->error_status = error;
 		}
-		free(my_pid->pid);
-		free(my_pid->my_pid);
-		my_pid->count = 0;
-		my_pid->pid = 0;
-		my_pid->my_pid = 0;
+		else
+			my_shell->error_status = my_pid->my_pid[i2];
+		++i2;
+	}
+	free(my_pid->pid);
+	free(my_pid->my_pid);
+	my_pid->count = 0;
+	my_pid->pid = 0;
+	my_pid->my_pid = 0;
+}
+
+int	chek_and_or(t_shell *my_shell, t_mas_pid *my_pid, int *i, int j)
+{
+	if ((*i) > 0 && (my_shell->control[(*i) - 1]->command_type == LOGIC_AND \
+	|| my_shell->control[(*i) - 1]->command_type == LOGIC_OR))
+	{
+		chek_and_or_2(my_shell, my_pid);
 		if (my_shell->control[(*i) - 1]->command_type == LOGIC_AND)
 		{
 			if (my_shell->error_status)
@@ -98,211 +104,277 @@ int	do_my_exe(t_shell *my_shell, int i)
 	return (0);
 }
 
-void	do_exe(t_shell *my_shell, t_mas_pid	*my_pid, int i)
+void	do_exe_2(t_shell *my_shell, int i)
 {
-	int		error;
 	char	*new_name;
-	char	**new_dubl;
-	char	**cp_dubl;
-	int		j;
-	int		j2;
-	int		j3;
-	int		mas_count;
 
 	my_shell->control[i]->exe->cpy_fd_input = dup(my_shell->fd_input);
 	dup2(my_shell->control[i]->exe->fd_input, my_shell->fd_input);
 	my_shell->control[i]->exe->cpy_fd_output = dup(my_shell->fd_output);
 	dup2(my_shell->control[i]->exe->fd_output, my_shell->fd_output);
-	new_name = parse_line(my_shell->control[i]->exe->full_name, my_shell->my_envp, my_shell->my_error, 0);
+	new_name = parse_line(my_shell->control[i]->exe->full_name, \
+	my_shell->my_envp, my_shell->my_error, 0);
 	if (new_name)
 	{
 		free(my_shell->control[i]->exe->full_name);
 		my_shell->control[i]->exe->full_name = new_name;
 	}
-	if (ft_strcmp(my_shell->control[i]->exe->full_name, "echo"))
+}
+
+void	do_exe_3_1(t_shell *my_shell, int i)
+{
+	char	*new_name;
+	int		j;
+
+	j = 0;
+	while (my_shell->control[i]->exe->options && \
+	my_shell->control[i]->exe->options[j])
 	{
-		j = 0;
-		while (my_shell->control[i]->exe->options && my_shell->control[i]->exe->options[j])
+		new_name = parse_line(my_shell->control[i]->exe->options[j], \
+		my_shell->my_envp, my_shell->my_error, 0);
+		if (new_name)
 		{
-			new_name = parse_line(my_shell->control[i]->exe->options[j], my_shell->my_envp, my_shell->my_error, 0);
-			if (new_name)
-			{
-				free(my_shell->control[i]->exe->options[j]);
-				my_shell->control[i]->exe->options[j] = new_name;
-			}
-			++j;
+			free(my_shell->control[i]->exe->options[j]);
+			my_shell->control[i]->exe->options[j] = new_name;
 		}
-		j = 0;
-		while (my_shell->control[i]->exe->options && my_shell->control[i]->exe->options[j])
-		{
-			j2 = -1;
-			j3 = 0;
-			cp_dubl = wildcards(ft_strdup(my_shell->control[i]->exe->options[j]));
-			if (cp_dubl)
-			{
-				mas_count = size_list(my_shell->control[i]->exe->options) + size_list(cp_dubl);
-				new_dubl = malloc(mas_count * sizeof(char *));
-				while (++j2 < j)
-					new_dubl[j2] = my_shell->control[i]->exe->options[j2];
-				j3 = 0;
-				while (cp_dubl[j3])
-					new_dubl[j2++] = cp_dubl[j3++];
-				free(my_shell->control[i]->exe->options[j]);
-				j3 = j;
-				j = j2 - 1;
-				while (j2 < mas_count - 1)
-					new_dubl[j2++] = my_shell->control[i]->exe->options[++j3];
-				new_dubl[j2] = 0;
-				free(my_shell->control[i]->exe->options);
-				free(cp_dubl);
-				my_shell->control[i]->exe->options = new_dubl;
-			}
-			++j;
-		}
+		++j;
 	}
-	if (!control_type_exe(my_shell, i))
+}
+
+void	do_exe_3_2(t_shell *my_shell, int i, int *j, char	***cp_dubl)
+{
+	char	**new_dubl;
+	int		j2;
+	int		j3;
+	int		mas_count;
+
+	j2 = -1;
+	j3 = 0;
+	mas_count = size_list(my_shell->control[i]->exe->options) \
+	+ size_list((*cp_dubl));
+	new_dubl = malloc(mas_count * sizeof(char *));
+	if (!new_dubl)
+		malloc_error();
+	while (++j2 < (*j))
+		new_dubl[j2] = my_shell->control[i]->exe->options[j2];
+	j3 = 0;
+	while ((*cp_dubl)[j3])
+		new_dubl[j2++] = (*cp_dubl)[j3++];
+	free(my_shell->control[i]->exe->options[(*j)]);
+	j3 = (*j);
+	(*j) = j2 - 1;
+	while (j2 < mas_count - 1)
+		new_dubl[j2++] = my_shell->control[i]->exe->options[++j3];
+	new_dubl[j2] = 0;
+	free(my_shell->control[i]->exe->options);
+	my_shell->control[i]->exe->options = new_dubl;
+}
+
+void	do_exe_3(t_shell *my_shell, int i)
+{
+	char	**cp_dubl;
+	int		j;
+
+	do_exe_3_1(my_shell, i);
+	j = 0;
+	while (my_shell->control[i]->exe->options && \
+	my_shell->control[i]->exe->options[j])
 	{
-		if (chreat_process(my_shell, i))
+		cp_dubl = wildcards(ft_strdup(my_shell->control[i]->exe->options[j]));
+		if (cp_dubl)
 		{
-			write (2, "minishell: ", 12);
-			write (2, my_shell->control[i]->exe->options[0], ft_strlen(my_shell->control[i]->exe->options[0]));
-			if (my_shell->control[i]->exe->error == 127)
-				write (2, ": command not found\n", 21);
-			else if (my_shell->control[i]->exe->error == 126)
-				write (2, ": No such file or directory\n", 29);
-			else
-				write (2, ": Permission denied\n", 21);
-			my_shell->error_status = 127;
-			return ;
+			do_exe_3_2(my_shell, i, &j, &cp_dubl);
+			free(cp_dubl);
 		}
-		add_pid(my_pid);
-		my_pid->pid[my_pid->count - 1] = fork();
-		if (my_pid->pid[my_pid->count - 1])
+		++j;
+	}
+}
+
+void	do_exe_4_1(t_shell *my_shell, t_mas_pid	*my_pid, int i)
+{
+	add_pid(my_pid);
+	my_pid->pid[my_pid->count - 1] = fork();
+	if (my_pid->pid[my_pid->count - 1])
+	{
+		if (i + 1 < my_shell->count && my_shell->control[i \
+		+ 1]->command_type == PIPE)
 		{
-			if (i + 1 < my_shell->count && my_shell->control[i + 1]->command_type == PIPE)
-			{
-				close(my_shell->control[i + 1]->pip[1]);
-			}
-		}
-		else
-		{
-			if (i > 0 && my_shell->control[i - 1]->command_type == PIPE)
-			{
-				close(my_shell->control[i - 1]->pip[0]);
-			}
-			signal(SIGINT, SIG_DFL);
-			signal(SIGQUIT, SIG_DFL);
-			if (my_shell->control[i]->error == NO_ERROR)
-				exit(execve(my_shell->control[i]->exe->full_name, my_shell->control[i]->exe->options, my_shell->my_envp));
-			exit(my_shell->control[i]->error);
+			close(my_shell->control[i + 1]->pip[1]);
 		}
 	}
 	else
 	{
-		if ((i + 1 < my_shell->count && my_shell->control[i + 1]->command_type == PIPE) || \
-		(i > 0 && my_shell->control[i - 1]->command_type == PIPE))
-		{		
-			add_pid(my_pid);
-			my_pid->pid[my_pid->count - 1] = fork();
-			if (my_pid->pid[my_pid->count - 1])
-			{
-				if (i + 1 < my_shell->count && my_shell->control[i + 1]->command_type == PIPE)
-				{
-					close(my_shell->control[i + 1]->pip[1]);
-				}
-			}
-			else
-			{
-				if (i > 0 && my_shell->control[i - 1]->command_type == PIPE)
-				{
-					close(my_shell->control[i - 1]->pip[0]);
-				}
-				if (my_shell->control[i]->error == NO_ERROR)
-					exit(do_my_exe(my_shell, i));
-				exit(my_shell->control[i]->error);
-			}
-		}
-		else
+		if (i > 0 && my_shell->control[i - 1]->command_type == PIPE)
 		{
-			add_pid(my_pid);
-			my_pid->my_pid[my_pid->count - 1] = do_my_exe(my_shell, i);
+			close(my_shell->control[i - 1]->pip[0]);
 		}
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
+		if (my_shell->control[i]->error == NO_ERROR)
+			exit(execve(my_shell->control[i]->exe->full_name, \
+			my_shell->control[i]->exe->options, my_shell->my_envp));
+		exit(my_shell->control[i]->error);
+	}
+}
+
+int	do_exe_4(t_shell *my_shell, t_mas_pid	*my_pid, int i)
+{
+	if (chreat_process(my_shell, i))
+	{
+		write (2, "minishell: ", 12);
+		write (2, my_shell->control[i]->exe->options[0], \
+		ft_strlen(my_shell->control[i]->exe->options[0]));
+		if (my_shell->control[i]->exe->error == 127)
+			write (2, ": command not found\n", 21);
+		else if (my_shell->control[i]->exe->error == 126)
+			write (2, ": No such file or directory\n", 29);
+		else
+			write (2, ": Permission denied\n", 21);
+		my_shell->error_status = 127;
+		return (1);
+	}
+	do_exe_4_1(my_shell, my_pid, i);
+	return (0);
+}
+
+void	do_exe_5_2(t_shell *my_shell, t_mas_pid	*my_pid, int i)
+{
+	add_pid(my_pid);
+	my_pid->pid[my_pid->count - 1] = fork();
+	if (my_pid->pid[my_pid->count - 1])
+	{
+		if (i + 1 < my_shell->count && \
+		my_shell->control[i + 1]->command_type == PIPE)
+			close(my_shell->control[i + 1]->pip[1]);
+	}
+	else
+	{
+		if (i > 0 && my_shell->control[i - 1]->command_type == PIPE)
+			close(my_shell->control[i - 1]->pip[0]);
+		if (my_shell->control[i]->error == NO_ERROR)
+			exit(do_my_exe(my_shell, i));
+		exit(my_shell->control[i]->error);
+	}
+}
+
+void	do_exe_5(t_shell *my_shell, t_mas_pid	*my_pid, int i)
+{
+	if ((i + 1 < my_shell->count && \
+	my_shell->control[i + 1]->command_type == PIPE) || \
+	(i > 0 && my_shell->control[i - 1]->command_type == PIPE))
+		do_exe_5_2(my_shell, my_pid, i);
+	else
+	{
+		add_pid(my_pid);
+		my_pid->my_pid[my_pid->count - 1] = do_my_exe(my_shell, i);
+	}
+}
+
+void	do_exe(t_shell *my_shell, t_mas_pid	*my_pid, int i)
+{
+	do_exe_2(my_shell, i);
+	if (ft_strcmp(my_shell->control[i]->exe->full_name, "echo"))
+		do_exe_3(my_shell, i);
+	if (!control_type_exe(my_shell, i))
+	{
+		if (do_exe_4(my_shell, my_pid, i))
+			return ;
+	}
+	else
+		do_exe_5(my_shell, my_pid, i);
+}
+
+void	make_exe_1_1(t_shell *my_shell, t_mas_pid	*my_pid, int *i)
+{
+	if ((*i) > 0 && my_shell->control[(*i) - 1]->command_type == PIPE)
+	{
+		my_shell->cpy_fd_input = dup(my_shell->fd_input);
+		dup2(my_shell->control[(*i) - 1]->pip[0], my_shell->fd_input);
+	}
+	if (my_shell->control[(*i)]->prioritet_start->end + 1 < my_shell->count && \
+	my_shell->control[my_shell->control[(*i)]->prioritet_start->end \
+	+ 1]->command_type == PIPE)
+	{
+		my_shell->cpy_fd_output = dup(my_shell->fd_output);
+		dup2(my_shell->control[my_shell->control[(*i)]->prioritet_start->end \
+		+ 1]->pip[1], my_shell->fd_output);
+	}
+	add_pid(my_pid);
+}
+
+void	make_exe_1_2_2(t_shell *my_shell, t_mas_pid	*my_pid, int *i)
+{
+	if (my_shell->control[(*i)]->prioritet_start->end + 1 < my_shell->count && \
+	my_shell->control[my_shell->control[(*i)]->prioritet_start->end + \
+	1]->command_type == PIPE)
+		close(my_shell->control[my_shell->control[(*i)]->prioritet_start->end \
+		+ 1]->pip[1]);
+	if ((*i) > 0 && my_shell->control[(*i) - 1]->command_type == PIPE)
+	{
+		dup2(my_shell->cpy_fd_input, my_shell->fd_input);
+		close(my_shell->cpy_fd_input);
+	}
+	if (my_shell->control[(*i)]->prioritet_start->end + 1 < my_shell->count && \
+	my_shell->control[my_shell->control[(*i)]->prioritet_start->end + \
+	1]->command_type == PIPE)
+	{
+		dup2(my_shell->cpy_fd_output, my_shell->fd_output);
+		close(my_shell->cpy_fd_output);
+	}
+}
+
+void	make_exe_1_2(t_shell *my_shell, t_mas_pid	*my_pid, int *i, int i2)
+{
+	i2 = (*i);
+	while (i2 < my_shell->control[(*i)]->prioritet_start->end)
+	{
+		if (my_shell->control[i2]->command_type == PIPE)
+		{
+			close(my_shell->control[i2]->pip[0]);
+			close(my_shell->control[i2]->pip[1]);
+		}
+		++i2;
+	}
+	make_exe_1_2_2(my_shell, my_pid, i);
+}
+
+void	make_exe_1(t_shell *my_shell, t_mas_pid	*my_pid, int *i)
+{
+	if (chek_and_or(my_shell, my_pid, i, \
+	my_shell->control[(*i)]->prioritet_start->end + 1))
+		return ;
+	make_exe_1_1(my_shell, my_pid, i);
+	my_pid->pid[my_pid->count - 1] = fork();
+	if (my_pid->pid[my_pid->count - 1])
+	{
+		make_exe_1_2(my_shell, my_pid, i, 0);
+		(*i) = my_shell->control[(*i)]->prioritet_start->end;
+	}
+	else
+	{
+		if ((*i) > 0 && my_shell->control[(*i) - 1]->command_type == PIPE)
+			close(my_shell->control[(*i) - 1]->pip[0]);
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
+		exit(make_exe(my_shell, (*i) + 1, \
+		my_shell->control[(*i)]->prioritet_start->end + 1));
 	}
 }
 
 int	make_exe(t_shell *my_shell, int i, int j)
 {
 	t_mas_pid	my_pid;
-	int			error;
-	int			i2;
 	int			re_co;
 	int			fd;
 	char		*a;
 
-	error = 0;
 	my_pid.count = 0;
 	my_pid.pid = 0;
 	my_pid.my_pid = 0;
 	while (i < j)
 	{
 		if (my_shell->control[i]->command_type == PRIORITET_START)
-		{
-			if (chek_and_or(my_shell, &my_pid, &i, my_shell->control[i]->prioritet_start->end + 1))
-				continue ;
-			if (i > 0 && my_shell->control[i - 1]->command_type == PIPE)
-			{
-				my_shell->cpy_fd_input = dup(my_shell->fd_input);
-				dup2(my_shell->control[i - 1]->pip[0], my_shell->fd_input);
-			}
-			if (my_shell->control[i]->prioritet_start->end + 1 < my_shell->count && \
-			my_shell->control[my_shell->control[i]->prioritet_start->end + 1]->command_type == PIPE)
-			{
-				my_shell->cpy_fd_output = dup(my_shell->fd_output);
-				dup2(my_shell->control[my_shell->control[i]->prioritet_start->end + 1]->pip[1], my_shell->fd_output);
-			}
-			add_pid(&my_pid);
-			my_pid.pid[my_pid.count - 1] = fork();
-			if (my_pid.pid[my_pid.count - 1])
-			{
-				i2 = i;
-				while (i2 < my_shell->control[i]->prioritet_start->end)
-				{
-					if (my_shell->control[i2]->command_type == PIPE)
-					{
-						close(my_shell->control[i2]->pip[0]);
-						close(my_shell->control[i2]->pip[1]);
-					}
-					++i2;
-				}
-				if (my_shell->control[i]->prioritet_start->end + 1 < my_shell->count && \
-				my_shell->control[my_shell->control[i]->prioritet_start->end + 1]->command_type == PIPE)
-				{
-					close(my_shell->control[my_shell->control[i]->prioritet_start->end + 1]->pip[1]);
-				}
-				if (i > 0 && my_shell->control[i - 1]->command_type == PIPE)
-				{
-					dup2(my_shell->cpy_fd_input, my_shell->fd_input);
-					close(my_shell->cpy_fd_input);
-				}
-				if (my_shell->control[i]->prioritet_start->end + 1 < my_shell->count && \
-				my_shell->control[my_shell->control[i]->prioritet_start->end + 1]->command_type == PIPE)
-				{
-					dup2(my_shell->cpy_fd_output, my_shell->fd_output);
-					close(my_shell->cpy_fd_output);
-				}
-				i = my_shell->control[i]->prioritet_start->end;
-			}
-			else
-			{
-				if (i > 0 && my_shell->control[i - 1]->command_type == PIPE)
-				{
-					close(my_shell->control[i - 1]->pip[0]);
-				}
-				signal(SIGINT, SIG_IGN);
-				signal(SIGQUIT, SIG_IGN);
-				exit(make_exe(my_shell, i + 1, my_shell->control[i]->prioritet_start->end + 1));
-			}
-		}
+			make_exe_1(my_shell, &my_pid, &i);
 		else if (my_shell->control[i]->command_type == EXE)
 		{
 			re_co = 0;
@@ -390,22 +462,6 @@ int	make_exe(t_shell *my_shell, int i, int j)
 		}
 		++i;
 	}
-	i2 = 0;
-	while (i2 < my_pid.count)
-	{
-		if (my_pid.my_pid[i2] == -1)
-		{
-			waitpid(my_pid.pid[i2], &error, 0);
-			my_shell->error_status = error;
-		}
-		else
-			my_shell->error_status = my_pid.my_pid[i2];
-		++i2;
-	}
-	free(my_pid.pid);
-	free(my_pid.my_pid);
-	my_pid.count = 0;
-	my_pid.pid = 0;
-	my_pid.my_pid = 0;
+	chek_and_or_2(my_shell, &my_pid);
 	return (my_shell->error_status);
 }

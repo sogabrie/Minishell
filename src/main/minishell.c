@@ -47,8 +47,8 @@ int	main(int argc, char **argv, char **envp)
 	my_shell.my_envp = replace_envp(envp);
 	rl_catch_signals = 0;
 	printf("MMMMMMMMMMMMMMMMMMMMM\n");
-	if (argc > 1)
-		return (2);
+	// if (argc > 1)
+	// 	return (2);
 	go_minishell(&my_shell, &conf);
 	return (0);
 }
