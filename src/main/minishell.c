@@ -6,7 +6,7 @@
 /*   By: sogabrie <sogabrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 19:42:36 by sogabrie          #+#    #+#             */
-/*   Updated: 2023/04/26 19:42:37 by sogabrie         ###   ########.fr       */
+/*   Updated: 2023/04/26 20:11:21 by sogabrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,7 @@ int	main(int argc, char **argv, char **envp)
 	my_shell.start_here_doc_plus = my_shell.start_here_doc;
 	my_shell.my_envp = replace_envp(envp);
 	rl_catch_signals = 0;
-	printf("MMMMMMMMMMMMMMMMMMMMM\n");
-	// if (argc > 1)
-	// 	return (2);
+	printf("------- MINISHELL--------\n");
 	go_minishell(&my_shell, &conf);
 	return (0);
 }
