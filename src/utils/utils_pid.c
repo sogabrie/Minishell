@@ -6,7 +6,7 @@
 /*   By: sogabrie <sogabrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 19:47:00 by sogabrie          #+#    #+#             */
-/*   Updated: 2023/04/26 19:47:03 by sogabrie         ###   ########.fr       */
+/*   Updated: 2023/04/27 00:02:43 by sogabrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	add_pid(t_mas_pid	*my_pid)
 	int		i;
 
 	i = -1;
-	pid = malloc(sizeof(pid_t) * my_pid->count);
-	int_pid = malloc(sizeof(int) * my_pid->count);
+	pid = malloc(sizeof(pid_t) * my_pid->count + 1);
+	int_pid = malloc(sizeof(int) * my_pid->count + 1);
 	if (!pid || !int_pid)
 		malloc_error();
 	while (++i < my_pid->count)

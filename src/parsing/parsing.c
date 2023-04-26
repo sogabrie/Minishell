@@ -6,7 +6,7 @@
 /*   By: sogabrie <sogabrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 19:45:00 by sogabrie          #+#    #+#             */
-/*   Updated: 2023/04/26 20:19:35 by sogabrie         ###   ########.fr       */
+/*   Updated: 2023/04/27 01:20:58 by sogabrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,8 @@ void	main_parsing(t_shell	*my_shell)
 		}
 	}
 	free_struct(my_shell);
-	// system("leaks minishell");
+	if (my_shell->global_error)
+		my_shell->error_status = my_shell->global_error;
+	my_shell->global_error = 0;
+	system("leaks minishell");
 }

@@ -6,7 +6,7 @@
 /*   By: sogabrie <sogabrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 19:44:19 by sogabrie          #+#    #+#             */
-/*   Updated: 2023/04/26 19:44:21 by sogabrie         ###   ########.fr       */
+/*   Updated: 2023/04/27 00:37:27 by sogabrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	init_shell(t_shell *my_shell)
 	my_shell->full_name_here_doc = NULL;
 	my_shell->start_here_doc = 0;
 	my_shell->start_here_doc_plus = 0;
+	my_shell->global_error = 0;
 }
 
 void	init_control(t_control **control, int i)

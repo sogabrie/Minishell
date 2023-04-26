@@ -6,7 +6,7 @@
 /*   By: sogabrie <sogabrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 19:41:39 by sogabrie          #+#    #+#             */
-/*   Updated: 2023/04/26 19:41:40 by sogabrie         ###   ########.fr       */
+/*   Updated: 2023/04/27 01:19:30 by sogabrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void			chreat_cont(t_shell *my_shell);
 void			add_redir(t_shell *my_shell);
 
 // creat_main_struct.c
-void			creat_struct_pip(t_shell *my_shell);
+int				creat_struct_pip(t_shell *my_shell);
 void			creat_struct_and(t_shell *my_shell);
 void			creat_struct_or(t_shell	*my_shell);
 void			creat_struct_prioritet_start(t_shell *my_shell);
@@ -146,6 +146,7 @@ int				chek_and_or(t_shell *my_shell, t_mas_pid \
 				*my_pid, int *i, int j);
 
 //make_exe_2.c
+void			global_error(t_shell *my_shell);
 void			make_exe_1(t_shell *my_shell, \
 t_mas_pid	*my_pid, int *i);
 
@@ -160,5 +161,7 @@ void			make_exe_2_1_out_append(t_shell *my_shell, \
 				int *i, char **a, int *fd);
 void			make_exe_2_2(t_shell *my_shell, char **a, \
 				int *i, int *re_co);
+
+int				pipe_error(void);
 
 #endif

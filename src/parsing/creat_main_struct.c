@@ -6,20 +6,22 @@
 /*   By: sogabrie <sogabrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 19:43:56 by sogabrie          #+#    #+#             */
-/*   Updated: 2023/04/26 19:43:57 by sogabrie         ###   ########.fr       */
+/*   Updated: 2023/04/27 01:18:45 by sogabrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "minishell.h"
 
-void	creat_struct_pip(t_shell	*my_shell)
+int	creat_struct_pip(t_shell	*my_shell)
 {
 	chreat_cont(my_shell);
 	my_shell->control[my_shell->count - 1]->command_type = PIPE;
-	pipe(my_shell->control[my_shell->count - 1]->pip);
+	if (pipe(my_shell->control[my_shell->count - 1]->pip))
+		return (pipe_error());
 	creat_close_fd(my_shell, my_shell->control[my_shell->count - 1]->pip[0]);
 	creat_close_fd(my_shell, my_shell->control[my_shell->count - 1]->pip[1]);
+	return (0);
 }
 
 void	creat_struct_and(t_shell	*my_shell)

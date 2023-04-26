@@ -6,13 +6,20 @@
 /*   By: sogabrie <sogabrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 19:42:59 by sogabrie          #+#    #+#             */
-/*   Updated: 2023/04/26 19:43:00 by sogabrie         ###   ########.fr       */
+/*   Updated: 2023/04/27 00:57:42 by sogabrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	make_exe_1_1(t_shell *my_shell, t_mas_pid	*my_pid, int *i)
+void	global_error(t_shell *my_shell)
+{
+	my_shell->global_error = 1;
+	write (2, "minishell: fork: Resource ", 27);
+	write (2, "temporarily unavailable\n", 25);
+}
+
+void	make_exe_1_1(t_shell *my_shell, t_mas_pid *my_pid, int *i)
 {
 	if ((*i) > 0 && my_shell->control[(*i) - 1]->command_type == PIPE)
 	{
@@ -73,6 +80,8 @@ void	make_exe_1(t_shell *my_shell, t_mas_pid	*my_pid, int *i)
 		return ;
 	make_exe_1_1(my_shell, my_pid, i);
 	my_pid->pid[my_pid->count - 1] = fork();
+	if (my_pid->pid[my_pid->count - 1] == -1)
+		global_error(my_shell);
 	if (my_pid->pid[my_pid->count - 1])
 	{
 		make_exe_1_2(my_shell, my_pid, i, 0);

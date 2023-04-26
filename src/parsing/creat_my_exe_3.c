@@ -6,7 +6,7 @@
 /*   By: sogabrie <sogabrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 19:44:05 by sogabrie          #+#    #+#             */
-/*   Updated: 2023/04/26 20:27:42 by sogabrie         ###   ########.fr       */
+/*   Updated: 2023/04/27 01:17:20 by sogabrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,11 @@ int	creat_redirect_2(t_shell *my_shell, char **a)
 	pid_t	pits;
 	char	*h ;
 
-	pipe(pip);
+	if (pipe(pip))
+		return (pipe_error());
 	pits = fork();
+	if (pits == -1)
+		global_error(my_shell);
 	if (!pits)
 	{
 		signal(SIGINT, SIG_DFL);

@@ -6,7 +6,7 @@
 /*   By: sogabrie <sogabrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 19:41:51 by sogabrie          #+#    #+#             */
-/*   Updated: 2023/04/26 19:41:52 by sogabrie         ###   ########.fr       */
+/*   Updated: 2023/04/27 00:25:20 by sogabrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ typedef struct s_shell
 	char			*full_name_here_doc;
 	int				start_here_doc;
 	int				start_here_doc_plus;
+	int				global_error;
 }					t_shell;
 
 typedef struct s_mas_pid

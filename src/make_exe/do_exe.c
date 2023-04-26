@@ -6,7 +6,7 @@
 /*   By: sogabrie <sogabrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 19:42:55 by sogabrie          #+#    #+#             */
-/*   Updated: 2023/04/26 19:42:56 by sogabrie         ###   ########.fr       */
+/*   Updated: 2023/04/27 00:54:43 by sogabrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	do_exe_4_1(t_shell *my_shell, t_mas_pid	*my_pid, int i)
 {
 	add_pid(my_pid);
 	my_pid->pid[my_pid->count - 1] = fork();
+	if (my_pid->pid[my_pid->count - 1] == -1)
+		global_error(my_shell);
 	if (my_pid->pid[my_pid->count - 1])
 	{
 		if (i + 1 < my_shell->count && my_shell->control[i \
@@ -63,6 +65,8 @@ void	do_exe_5_2(t_shell *my_shell, t_mas_pid	*my_pid, int i)
 {
 	add_pid(my_pid);
 	my_pid->pid[my_pid->count - 1] = fork();
+	if (my_pid->pid[my_pid->count - 1] == -1)
+		global_error(my_shell);
 	if (my_pid->pid[my_pid->count - 1])
 	{
 		if (i + 1 < my_shell->count && \

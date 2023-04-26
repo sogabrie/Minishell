@@ -6,7 +6,7 @@
 /*   By: sogabrie <sogabrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 19:43:47 by sogabrie          #+#    #+#             */
-/*   Updated: 2023/04/26 19:43:48 by sogabrie         ###   ########.fr       */
+/*   Updated: 2023/04/27 01:20:35 by sogabrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ int	control_parsing_2(t_shell *my_shell, int start, int end, int i)
 	(start || my_shell->double_list[end]))
 	{
 		if (!ft_strcmp(my_shell->double_list[end], "|"))
-			creat_struct_pip(my_shell);
+		{
+			if (creat_struct_pip(my_shell))
+				return (1);
+		}
 		else if (!ft_strcmp(my_shell->double_list[end], "||"))
 			creat_struct_or(my_shell);
 		else if (!ft_strcmp(my_shell->double_list[end], "&&"))

@@ -6,7 +6,7 @@
 /*   By: sogabrie <sogabrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 19:43:11 by sogabrie          #+#    #+#             */
-/*   Updated: 2023/04/26 19:43:12 by sogabrie         ###   ########.fr       */
+/*   Updated: 2023/04/27 00:38:34 by sogabrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	make_exe(t_shell *my_shell, int i, int j)
 	my_pid.count = 0;
 	my_pid.pid = 0;
 	my_pid.my_pid = 0;
-	while (i < j)
+	while (i < j && !my_shell->global_error)
 	{
 		if (my_shell->control[i]->command_type == PRIORITET_START)
 			make_exe_1(my_shell, &my_pid, &i);
