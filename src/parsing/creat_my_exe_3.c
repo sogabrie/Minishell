@@ -15,7 +15,7 @@ int	creat_redirect_2(t_shell *my_shell, char **a)
 		signal(SIGQUIT, SIG_IGN);
 		rl_clear_history();
 		h = here_doc((*a), my_shell->start_here_doc_plus, \
-		my_shell->full_name_here_doc);
+		my_shell->full_name_here_doc, my_shell->my_envp);
 		write(pip[1], h, ft_strlen(h) + 1);
 		close(pip[1]);
 		exit(1);

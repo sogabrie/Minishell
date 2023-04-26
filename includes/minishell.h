@@ -10,7 +10,7 @@
 # include <fcntl.h>
 # include <dirent.h>
 # include <sys/stat.h>
-# include <limits.h>
+# include <limits.h> 
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -55,7 +55,7 @@ int				valid_unset(char *arg, int *error_code, char **envp, size_t i);
 int				check_exists(char **envp, char *str);
 
 //Here_Doc
-char			*here_doc(char *end, int count, char *path_t);
+char			*here_doc(char *end, int count, char *path_t, char **envp);
 char			*creat_name(int count, char *path_t, size_t	i, char *name);
 char			*path_tmp(void);
 int				del_tmp_files(int index, char *path_h, \

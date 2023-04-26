@@ -68,7 +68,7 @@ fclean : clean
 	@${RM} ${NAME}
 
 re : fclean 
-	@${MAKE} ${NAME}
+	@${MAKE} all
 
 # Readline Part
 check_readline : Makefile ${READLINE}
