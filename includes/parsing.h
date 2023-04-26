@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sogabrie <sogabrie@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/26 19:41:39 by sogabrie          #+#    #+#             */
+/*   Updated: 2023/04/26 19:41:40 by sogabrie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PARSING_H
 # define PARSING_H
 
-# include "minishell.h"
 # include "struct.h"
 # include "libft.h"
 # include <signal.h>
@@ -112,5 +123,42 @@ void			add_pid(t_mas_pid	*my_pid);
 //parsing_utils.c
 void			creat_redir(t_shell *my_shell);
 void			creat_cont_mas(t_shell *my_shell);
+
+//do_exe.c
+void			do_exe(t_shell *my_shell, \
+				t_mas_pid	*my_pid, int i);
+
+//do_exe_2.c
+int				do_my_exe(t_shell *my_shell, int i);
+void			do_exe_2(t_shell *my_shell, int i);
+void			do_exe_3_1(t_shell *my_shell, int i);
+void			do_exe_3_2(t_shell *my_shell, int i, \
+				int *j, char	***cp_dubl);
+void			do_exe_3(t_shell *my_shell, int i);
+
+//chek_and_or.c
+void			sigint_pars_exe(int sig);
+void			sigquit_pars_exe(int sig);
+int				control_type_exe(t_shell *my_shell, int i);
+void			chek_and_or_2(t_shell *my_shell, t_mas_pid \
+				*my_pid);
+int				chek_and_or(t_shell *my_shell, t_mas_pid \
+				*my_pid, int *i, int j);
+
+//make_exe_2.c
+void			make_exe_1(t_shell *my_shell, \
+t_mas_pid	*my_pid, int *i);
+
+//make_exe_3.c
+void			make_exe_2_1_input(t_shell *my_shell, \
+				int *i, char **a, int *fd);
+void			make_exe_2_1_out(t_shell *my_shell, \
+				int *i, char **a, int *fd);
+void			make_exe_2_1_here_doc(t_shell \
+				*my_shell, int *i, char **a, int *fd);
+void			make_exe_2_1_out_append(t_shell *my_shell, \
+				int *i, char **a, int *fd);
+void			make_exe_2_2(t_shell *my_shell, char **a, \
+				int *i, int *re_co);
 
 #endif
