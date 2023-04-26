@@ -6,7 +6,7 @@
 /*   By: sogabrie <sogabrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 19:44:05 by sogabrie          #+#    #+#             */
-/*   Updated: 2023/04/26 19:44:06 by sogabrie         ###   ########.fr       */
+/*   Updated: 2023/04/26 20:27:42 by sogabrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	creat_redirect_2(t_shell *my_shell, char **a)
 		signal(SIGQUIT, SIG_IGN);
 		rl_clear_history();
 		h = here_doc((*a), my_shell->start_here_doc_plus, \
-		my_shell->full_name_here_doc, my_shell->my_envp);
+		my_shell->full_name_here_doc, my_shell);
 		write(pip[1], h, ft_strlen(h) + 1);
 		close(pip[1]);
 		exit(1);
