@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sogabrie <sogabrie@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/26 20:51:03 by sogabrie          #+#    #+#             */
+/*   Updated: 2023/04/26 20:52:58 by sogabrie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -55,10 +67,12 @@ int				valid_unset(char *arg, int *error_code, char **envp, size_t i);
 int				check_exists(char **envp, char *str);
 
 //Here_Doc
-char			*here_doc(char *end, int count, char *path_t, t_shell *my_shell);
+char			*here_doc(char *end, int count, \
+				char *path_t, t_shell *my_shell);
 char			*creat_name(int count, char *path_t, size_t	i, char *name);
 char			*path_tmp(void);
-void			here_doc_1(t_shell *my_shell, size_t *k, char *new_buffer, size_t *j);
+void			here_doc_1(t_shell *my_shell, \
+				size_t *k, char *new_buffer, size_t *j);
 int				del_tmp_files(int index, char *path_h, \
 									char *suc_path, char *del_path);
 int				count_tmp_files(char *path_t);
