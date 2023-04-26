@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sogabrie <sogabrie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aafrikya <aafrikya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:04:15 by sogabrie          #+#    #+#             */
-/*   Updated: 2023/04/26 20:04:16 by sogabrie         ###   ########.fr       */
+/*   Updated: 2023/04/26 22:30:54 by aafrikya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,14 @@ int	char_args(char *str)
 {
 	int	i;
 
-	i = -1;
-	while (str[++i])
+	i = 0;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))
 			return (1);
+		i++;
 	}
 	return (0);
 }
