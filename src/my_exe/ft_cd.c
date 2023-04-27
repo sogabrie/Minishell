@@ -34,8 +34,6 @@ char	**old_new_pwd(char *old_pwd, char *pwd, char **envp, char *dir)
 			new_envp[i] = ft_strjoin("OLDPWD=", pwd);
 		else
 			new_envp[i] = ft_strdup(envp[i]);
-		if (new_envp[i] == NULL)
-			malloc_error();
 	}
 	two_dimensional_mas(&envp);
 	return (new_envp);
@@ -46,6 +44,7 @@ int	check_home(char *home, char *new_dir, char *old_pwd, char *pwd)
 	if (home == NULL)
 	{
 		write(2, "minishell: cd: HOME not set\n", 28);
+		free_object_cd(new_dir, home, old_pwd, pwd);
 		return (-1);
 	}
 	if (check_dir(home))
