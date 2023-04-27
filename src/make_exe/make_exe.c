@@ -6,7 +6,7 @@
 /*   By: sogabrie <sogabrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 19:43:11 by sogabrie          #+#    #+#             */
-/*   Updated: 2023/04/27 00:38:34 by sogabrie         ###   ########.fr       */
+/*   Updated: 2023/04/27 20:38:45 by sogabrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,9 @@ int	make_exe(t_shell *my_shell, int i, int j)
 		if (my_shell->control[i]->command_type == PRIORITET_START)
 			make_exe_1(my_shell, &my_pid, &i);
 		else if (my_shell->control[i]->command_type == EXE)
+		{
 			make_exe_2(my_shell, &my_pid, &i);
+		}
 		++i;
 	}
 	chek_and_or_2(my_shell, &my_pid);

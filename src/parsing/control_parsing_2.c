@@ -6,7 +6,7 @@
 /*   By: sogabrie <sogabrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 19:43:43 by sogabrie          #+#    #+#             */
-/*   Updated: 2023/04/26 19:43:44 by sogabrie         ###   ########.fr       */
+/*   Updated: 2023/04/27 19:24:01 by sogabrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,9 @@ int	control_pars_exe_2(t_shell *my_shell, int *start, int *end, int *i)
 
 void	control_pars_exe_1(t_shell *my_shell, int *start, int *end, int *i)
 {
-	while (!ft_strcmp(my_shell->double_list[*start], " ") || \
-	!ft_strcmp(my_shell->double_list[*start], "("))
+	while (my_shell->double_list[*start] && \
+	(!ft_strcmp(my_shell->double_list[*start], " ") || \
+	!ft_strcmp(my_shell->double_list[*start], "(")))
 	{
 		if (!ft_strcmp(my_shell->double_list[*start], "("))
 			creat_struct_prioritet_start(my_shell);
