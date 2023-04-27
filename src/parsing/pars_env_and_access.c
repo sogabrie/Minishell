@@ -6,7 +6,7 @@
 /*   By: sogabrie <sogabrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 19:44:24 by sogabrie          #+#    #+#             */
-/*   Updated: 2023/04/26 19:44:25 by sogabrie         ###   ########.fr       */
+/*   Updated: 2023/04/27 15:31:10 by sogabrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,11 @@ char	*check_procces_2(t_shell *my_shell, int i, int si, char **mas)
 	{
 		if (!access((*mas), X_OK))
 		{
-			if (*(*mas) != *(my_shell->control[si]->exe->full_name))
-				free(my_shell->control[si]->exe->full_name);
+			free(my_shell->control[si]->exe->full_name);
 			return ((*mas));
 		}
 	}
-	if (*(*mas) != *(my_shell->control[si]->exe->full_name))
-		free((*mas));
+	free((*mas));
 	return (0);
 }
 
