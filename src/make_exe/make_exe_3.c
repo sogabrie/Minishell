@@ -6,7 +6,7 @@
 /*   By: sogabrie <sogabrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 19:43:04 by sogabrie          #+#    #+#             */
-/*   Updated: 2023/04/26 19:43:05 by sogabrie         ###   ########.fr       */
+/*   Updated: 2023/04/27 16:14:12 by sogabrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	make_exe_2_2(t_shell *my_shell, char **a, int *i, int *re_co)
 	if (my_shell->control[(*i)]->redirect[(*re_co)]->error == NO_ERROR)
 	{
 		(*a) = parse_line(my_shell->control[(*i)]->redirect[(*re_co)]->\
-		filename, my_shell->my_envp, my_shell->my_error, 0);
+		filename, my_shell->my_envp, my_shell->error_status, 0);
 		if (!(*a))
 			(*a) = \
 			ft_strdup(my_shell->control[(*i)]->redirect[(*re_co)]->filename);

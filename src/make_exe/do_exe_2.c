@@ -6,7 +6,7 @@
 /*   By: sogabrie <sogabrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 19:42:49 by sogabrie          #+#    #+#             */
-/*   Updated: 2023/04/26 19:42:50 by sogabrie         ###   ########.fr       */
+/*   Updated: 2023/04/27 16:14:02 by sogabrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	do_exe_2(t_shell *my_shell, int i)
 	my_shell->control[i]->exe->cpy_fd_output = dup(my_shell->fd_output);
 	dup2(my_shell->control[i]->exe->fd_output, my_shell->fd_output);
 	new_name = parse_line(my_shell->control[i]->exe->full_name, \
-	my_shell->my_envp, my_shell->my_error, 0);
+	my_shell->my_envp, my_shell->error_status, 0);
 	if (new_name)
 	{
 		free(my_shell->control[i]->exe->full_name);
@@ -66,7 +66,7 @@ void	do_exe_3_1(t_shell *my_shell, int i)
 	my_shell->control[i]->exe->options[j])
 	{
 		new_name = parse_line(my_shell->control[i]->exe->options[j], \
-		my_shell->my_envp, my_shell->my_error, 0);
+		my_shell->my_envp, my_shell->error_status, 0);
 		if (new_name)
 		{
 			free(my_shell->control[i]->exe->options[j]);
