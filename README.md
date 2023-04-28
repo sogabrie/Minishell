@@ -1,2 +1,2 @@
 # Minishell
-42 Course
+42 Course!
