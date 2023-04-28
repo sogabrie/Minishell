@@ -47,13 +47,13 @@ ${NAME} : ${LIB_DIR} Makefile ${OBJS} ${SRCS} ${LIBFT_ALL} ${READLINE_CHECK}
 	@${MAKE} WAIT_COMPILE_MSG
 	@${MAKE} COM_TOUCHES
 	@${MAKE} -C ${LIBFT_DIR} all
-	@gcc ${FLAGS} ${LIBS_INCLUDE} ${LIBS_PATH} ${OBJS} -o ${NAME}
+	@cc ${FLAGS} ${LIBS_INCLUDE} ${LIBS_PATH} ${OBJS} -o ${NAME}
 	@cd src/here_doc && mkdir -p tmp
 	@${MAKE} DONE_MSG
 
 ${OBJ}/%.o : ${SRC}/%.c ${LIB_DIR}
 	@mkdir -p ${OBJ} ${OBJ_DIR}
-	@gcc ${CFLAGS} ${LIBS_INCLUDE} -c $< -o $@
+	@cc ${CFLAGS} ${LIBS_INCLUDE} -c $< -o $@
 
 clean :
 	@${MAKE} DELETE_OBJ_MSG
