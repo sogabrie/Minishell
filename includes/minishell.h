@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sogabrie <sogabrie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aafrikya <aafrikya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:51:03 by sogabrie          #+#    #+#             */
-/*   Updated: 2023/04/26 20:52:58 by sogabrie         ###   ########.fr       */
+/*   Updated: 2023/05/09 17:27:41 by aafrikya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int				ft_env(char **envp, int f_export);
 int				ft_echo(char **args, char **envp, int error);
 int				ft_export(char **str, char ***envp, int i, char *name);
 int				ft_unset(char **args, char ***envp);
-int				ft_exit(char **args, size_t	count);
+int				ft_exit(char **args, size_t	count, int error_code);
 
 //Wildcards
 char			**wildcards(char *wild_string);

@@ -6,7 +6,7 @@
 /*   By: aafrikya <aafrikya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:04:15 by sogabrie          #+#    #+#             */
-/*   Updated: 2023/05/07 12:33:34 by aafrikya         ###   ########.fr       */
+/*   Updated: 2023/05/09 17:26:09 by aafrikya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,14 @@ int	char_args(char *str)
 	return (0);
 }
 
-int	ft_exit(char **args, size_t	count)
+int	ft_exit(char **args, size_t	count, int error_code)
 {
 	unsigned char	exit_code;
 
 	if (args == NULL || args[0] == NULL)
 	{
 		ft_putendl_fd("exit", 1);
-		exit(0);
+		exit(error_code);
 	}
 	if (overflow_or_not(args[0]) || char_args(args[0]))
 	{
