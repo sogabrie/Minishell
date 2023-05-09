@@ -27,7 +27,8 @@ char	**delete_variable(char **envp, char *str, char **new_envp, size_t j)
 	i = 0;
 	while (envp[i])
 	{
-		if (!ft_strncmp(str, envp[i], ft_strlen(str)))
+		if (!ft_strncmp(str, envp[i], ft_strlen(str))
+			&& ft_strlen(str) == ft_strlen(envp[i]))
 			i++;
 		else
 		{

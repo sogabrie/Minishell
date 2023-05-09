@@ -35,7 +35,7 @@ int	do_my_exe(t_shell *my_shell, int i)
 	if (!ft_strcmp(my_shell->control[i]->exe->full_name, "env"))
 		return (ft_env(my_shell->my_envp, 0));
 	if (!ft_strcmp(my_shell->control[i]->exe->full_name, "exit"))
-		ft_exit(my_shell->control[i]->exe->options, 0);
+		ft_exit(my_shell->control[i]->exe->options, 0, my_shell->error_status);
 	return (0);
 }
 
