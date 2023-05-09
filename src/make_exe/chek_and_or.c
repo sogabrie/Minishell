@@ -6,7 +6,7 @@
 /*   By: sogabrie <sogabrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 19:42:42 by sogabrie          #+#    #+#             */
-/*   Updated: 2023/04/27 20:31:05 by sogabrie         ###   ########.fr       */
+/*   Updated: 2023/05/09 17:27:19 by sogabrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	chek_and_or_2(t_shell *my_shell, t_mas_pid *my_pid)
 {
 	int	i2;
 	int	error;
+	int	stdin;
 
 	i2 = 0;
 	while (i2 < my_pid->count)

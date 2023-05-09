@@ -6,7 +6,7 @@
 /*   By: sogabrie <sogabrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 19:41:51 by sogabrie          #+#    #+#             */
-/*   Updated: 2023/04/27 14:59:20 by sogabrie         ###   ########.fr       */
+/*   Updated: 2023/05/09 17:12:47 by sogabrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ typedef struct s_shell
 	int				close_fd_count;
 	int				fd_output;
 	int				fd_input;
+	int				close_fd_input;
 	int				cpy_fd_output;
 	int				cpy_fd_input;
 	int				check_exe;

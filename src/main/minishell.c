@@ -6,15 +6,18 @@
 /*   By: sogabrie <sogabrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 19:42:36 by sogabrie          #+#    #+#             */
-/*   Updated: 2023/04/26 20:11:21 by sogabrie         ###   ########.fr       */
+/*   Updated: 2023/05/09 16:47:27 by sogabrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <termios.h>
 
+int	g_status = 0;
+
 void	sigint_pars(int sig)
 {
+	g_status = 1;
 	write(1, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 1);
@@ -30,6 +33,11 @@ void	go_minishell(t_shell *my_shell, struct termios *conf)
 		signal(SIGINT, sigint_pars);
 		signal(SIGQUIT, SIG_IGN);
 		my_shell->line = readline("minishell-1.0$ ");
+		if (g_status)
+		{
+			my_shell->error_status = 1;
+			g_status = 0;
+		}
 		if (!my_shell->line)
 		{
 			write(1, "exit\n", 6);
